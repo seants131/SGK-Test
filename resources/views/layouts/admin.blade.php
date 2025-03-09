@@ -345,6 +345,8 @@
       <!-- Footer END -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="{{ asset('js/jquery.min.js') }}"></script>
+      <!-- Slick JavaScript -->
+      <script src="{{ asset('js/slick.min.js') }}"></script>
       <script src="{{ asset('js/popper.min.js') }}"></script>
       <script src="{{ asset('js/bootstrap.min.js') }}"></script>
       <!-- Appear JavaScript -->
@@ -358,8 +360,6 @@
       <script src="{{ asset('js/wow.min.js') }}"></script>
       <!-- Apexcharts JavaScript -->
       <script src="{{ asset('js/apexcharts.js') }}"></script>
-      <!-- Slick JavaScript -->
-      <script src="{{ asset('js/slick.min.js') }}"></script>
       <!-- Select2 JavaScript -->
       <script src="{{ asset('js/select2.min.js') }}"></script>
       <!-- Owl Carousel JavaScript -->
@@ -398,10 +398,12 @@
       <script src="{{ asset('js/custom.js') }}"></script>
       <script src="{{ asset('js/algoliasearchLite.min.js') }}"></script>
       <script src="{{ asset('js/bodymovin.js') }}"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
       <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+      <script src="{{ asset('js/highcharts.js') }}"></script>
       <script src="{{ asset('js/highcharts-3d.js') }}"></script>
       <script src="{{ asset('js/highcharts-more.js') }}"></script>
-      <script src="{{ asset('js/highcharts.js') }}"></script>
       <script src="{{ asset('js/instantsearch.js') }}"></script>
       <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
       <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
