@@ -1,0 +1,278 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    top: 0;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    z-index: 1000;
+    top: 72px;
+}
+
+.sidebar img {
+    width: 100%;
+    height: auto;
+}
+
+.sidebar a {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.sidebar a.active {
+    background-color: #00bfff;
+    color: white;
+}
+
+.main-content {
+    flex-grow: 1;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border: 1px solid black;
+    width: 100%;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.header .left {
+    display: flex;
+    align-items: center;
+}
+
+.header .left img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.header .right {
+    display: flex;
+    align-items: center;
+}
+
+.header .right i {
+    margin: 0 10px;
+}
+
+.header .right .username {
+    margin-left: 10px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.stats .stat {
+    border: 0px solid black;
+    padding: 20px;
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+    width: 250px;
+    height: 150px;
+    font-size: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 -4px 6px rgba(0, 0, 0, 0.1),
+        -4px 0 6px rgba(0, 0, 0, 0.1), 4px 0 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.charts {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.charts .chart {
+    background-color: #00bfff;
+    padding: 150px;
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+    color: white;
+}
+
+.order-info {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.order-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-info table,
+.order-info th,
+.order-info td {
+    border: 1px solid #ccc;
+}
+
+.order-info th,
+.order-info td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* Màu sắc cho các button */
+.btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    color: white;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-warning {
+    background-color: #ff9800 !important; /* Màu cam đậm hơn */
+    color: white !important;
+    opacity: 1 !important;
+}
+
+.btn-danger {
+    background-color: #f44336 !important; /* Màu đỏ đậm hơn */
+    color: white !important;
+    opacity: 1 !important;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+ul>li {
+    margin-bottom: 10px;
+    /* Tạo khoảng cách giữa các mục trong danh sách */
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.bar-chart,
+.pie-chart {
+    width: 100%;
+    height: 200px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #999;
+}
+
+.product-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.product-slider button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.product-slider .product {
+    width: 200px;
+    height: 200px;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.product-slider .product-name {
+    margin-top: 10px;
+    font-size: 14px;
+}
+.thongtinweb {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+}
+.suattweb {
+    display: flex;
+    height: 180px;   
+}

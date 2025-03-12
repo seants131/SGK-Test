@@ -10,6 +10,8 @@
       <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+      <!-- admin CSS -->
+      <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
       <!-- Typography CSS -->
       <link rel="stylesheet" href="{{ asset('css/typography.css') }}">
       <!-- Style CSS -->
