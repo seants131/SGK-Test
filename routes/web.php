@@ -16,4 +16,5 @@ Route::get('/admin/author', [AuthorController::class, 'index'])->name('admin.aut
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('danhmucs', DanhMucController::class);
+    Route::resource('books', BookController::class)->except(['show']);
 });
