@@ -36,6 +36,7 @@
       <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
       <link rel="stylesheet" href="{{ asset('css/style-customizer.css') }}">
       <link rel="stylesheet" href="{{ asset('css/variable.css') }}">
+      @yield('styles')
 </head>
 
 <body>
@@ -70,7 +71,7 @@
                   <li><a href="{{ route('admin.index') }}"><i class="las la-home iq-arrow-left"></i>Bảng Điều Khiển</a></li>
                   <li><a href="{{ route('admin.categories') }}"><i class="ri-record-circle-line"></i>Danh Mục Sách</a></li>
                   <li><a href="{{ route('admin.author') }}"><i class="ri-record-circle-line"></i>Tác Giả</a></li>
-                  <li><a href="{{ route('admin.books') }}"><i class="ri-record-circle-line"></i>Sách</a></li>
+                  <li><a href="{{ route('admin.books.index') }}"><i class="ri-record-circle-line"></i>Sách</a></li>
                   <li><a href="sign-in.html"><i class="ri-record-circle-line"></i>Đăng Xuất</a></li>
                </ul>
                </nav>
