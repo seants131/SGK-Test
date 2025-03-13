@@ -28,7 +28,8 @@ class Sach extends Model
         'MoTa',
         'TrangThai',
         'LuotMua',
-        'HinhAnh'
+        'HinhAnh',
+        'created_at', 'updated_at'
     ];
 
     // Nếu bảng có timestamp (created_at, updated_at), thì Laravel sẽ tự động quản lý
