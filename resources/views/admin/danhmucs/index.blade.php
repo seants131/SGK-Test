@@ -85,7 +85,7 @@
                             </table>
                             <!-- Đặt phân trang bên ngoài vòng lặp -->
                                     <div class="d-flex justify-content-center">
-                                        {{ $danhmucs->links() }} 
+                                    {{ $danhmucs->links('pagination::bootstrap-4') }} 
                                     </div>
                            </div>
                         </div>
