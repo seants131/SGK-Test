@@ -4,7 +4,7 @@
       <!-- Required meta tags -->
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>WebBanSach - Đăng nhập</title>
+      <title>WebBanSach - Đăng ký</title>
       <!-- Favicon -->
       <link rel="shortcut icon" href="images/favicon.ico" />
       <!-- Bootstrap CSS -->
@@ -31,27 +31,30 @@
                     <div class="row m-0">
                       <div class="col-sm-12 sign-in-page-data">
                           <div class="sign-in-from bg-primary rounded">
-                              <h3 class="mb-0 text-center text-white">Sign in</h3>
-                              <p class="text-center text-white">Enter your email address and password to access admin panel.</p>
+                              <h3 class="mb-0 text-center text-white">Đăng ký</h3>
+                              <p class="text-center text-white">Hãy nhập email và mật khẩu</p>
                               <form class="mt-4 form-text">
                                   <div class="form-group">
-                                      <label for="exampleInputEmail1">Email address</label>
-                                      <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Enter email">
+                                      <label for="exampleInputEmail1">Your Full Name</label>
+                                      <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Your Full Name">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="exampleInputEmail2">Email address</label>
+                                      <input type="email" class="form-control mb-0" id="exampleInputEmail2" placeholder="Enter email">
                                   </div>
                                   <div class="form-group">
                                       <label for="exampleInputPassword1">Password</label>
-                                      <a href="#" class="float-right text-dark">Forgot password?</a>
                                       <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
                                   </div>
                                   <div class="d-inline-block w-100">
                                       <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
                                           <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                          <label class="custom-control-label" for="customCheck1">Remember Me</label>
+                                          <label class="custom-control-label" for="customCheck1">I accept <a href="#" class="text-light">Terms and Conditions</a></label>
                                       </div>
                                   </div>
                                   <div class="sign-info text-center">
-                                      <button type="submit" class="btn btn-white d-block w-100 mb-2">Sign in</button>
-                                      <span class="text-dark dark-color d-inline-block line-height-2">Don't have an account? <a href="sign-up.html" class="text-white">Sign up</a></span>
+                                      <button type="submit" class="btn btn-white d-block w-100 mb-2">Sign Up</button>
+                                      <span class="text-dark d-inline-block line-height-2">Already Have Account ? <a href="sign-in.html" class="text-white">Log In</a></span>
                                   </div>
                               </form>
                           </div>
@@ -108,11 +111,11 @@
       <script src="js/jquery.counterup.min.js"></script>
       <!-- Wow JavaScript -->
       <script src="js/wow.min.js"></script>
-      <!-- Apexcharts JavaScript -->
-      <script src="js/apexcharts.js"></script>
       <!-- lottie JavaScript -->
       <script src="js/lottie.js"></script>
-      <!-- Slick JavaScript --> 
+      <!-- Apexcharts JavaScript -->
+      <script src="js/apexcharts.js"></script>
+      <!-- Slick JavaScript -->
       <script src="js/slick.min.js"></script>
       <!-- Select2 JavaScript -->
       <script src="js/select2.min.js"></script>
