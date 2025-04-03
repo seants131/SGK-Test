@@ -1,4 +1,4 @@
-<!doctype html>
+   <!doctype html>
 <html lang="en">
    <head>
       <!-- Required meta tags -->
@@ -11,7 +11,7 @@
       <!-- Wrapper Start -->
       <div class="wrapper">
          {{-- header của trang --}}
-         @include('user.layout.header')
+         @include('user.layout.header', ['trang' => 'Trangchủ'])
          {{-- end header --}}
          <!-- Page Content  -->
          <div id="content-page" class="content-page">

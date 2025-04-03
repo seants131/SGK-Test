@@ -34,9 +34,10 @@ return new class extends Migration {
             $table->foreignId('nxb_id')->constrained('nhaxuatban');
             $table->foreignId('tac_gia_id')->constrained('tacgia');
             $table->integer('nam_xuat_ban');
-            $table->bigInteger('gia')->unsigned(); // Giá tiền tệ VNĐ
+            $table->bigInteger('gia')->unsigned(); // Giá tiền VNĐ
             $table->integer('so_luong')->default(0);
             $table->text('mo_ta')->nullable();
+            $table->tinyInteger('lop')->comment('Lớp học: 6, 7, 8, 9,...'); // Thêm cột lớp học
             $table->timestamps();
         });
 
@@ -54,7 +55,7 @@ return new class extends Migration {
             $table->foreignId('khach_hang_id')->constrained('khachhang');
             $table->date('ngay_dat');
             $table->enum('trang_thai', ['Cho xu ly', 'Dang giao', 'Hoan thanh', 'Huy']);
-            $table->bigInteger('tong_tien')->unsigned(); // Giá tiền tệ VNĐ
+            $table->bigInteger('tong_tien')->unsigned(); // Giá tiền VNĐ
             $table->timestamps();
         });
 
@@ -63,7 +64,7 @@ return new class extends Migration {
             $table->foreignId('don_hang_id')->constrained('donhang');
             $table->foreignId('sach_id')->constrained('sach');
             $table->integer('so_luong');
-            $table->bigInteger('gia')->unsigned(); // Giá tiền tệ VNĐ
+            $table->bigInteger('gia')->unsigned(); // Giá tiền VNĐ
             $table->timestamps();
         });
 
@@ -87,7 +88,7 @@ return new class extends Migration {
         Schema::create('khuyenmai', function (Blueprint $table) {
             $table->id();
             $table->string('ma_khuyen_mai')->unique();
-            $table->bigInteger('giam_gia')->unsigned(); // Giá tiền tệ VNĐ
+            $table->bigInteger('giam_gia')->unsigned(); // Giá tiền VNĐ
             $table->date('ngay_bat_dau');
             $table->date('ngay_ket_thuc');
             $table->timestamps();

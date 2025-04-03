@@ -16,7 +16,7 @@
       <!-- loader END -->
       <!-- Wrapper Start -->
       <div class="wrapper">
-         @include('user.layout.header')
+         @include('user.layout.header', ['trang' => 'Giỏ hàng'])
          <!-- Page Content  -->
          <div id="content-page" class="content-page">
             <div class="container-fluid checkout-content">

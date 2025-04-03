@@ -34,4 +34,8 @@ class HomeController extends Controller
     {
         return view('user.home.contact');
     }
+    public function cart()
+    {
+        return view('user.cart.thanh_toan');
+    }
 }
