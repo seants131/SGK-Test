@@ -12,11 +12,11 @@ class HomeController extends Controller
     }
     public function dangNhap()
     {
-        return view('user.home.dang_nhap');
+        return view('user.auth.dang_nhap');
     }
     public function postDangNhap()
     {
-        return view('user.home.dang_nhap');
+        return view('user.auth.dang_nhap');
     }
     public function dangXuat()
     {
@@ -24,14 +24,23 @@ class HomeController extends Controller
     }
     public function dangKy()
     {
-        return view('user.home.dang_nhap');
+        return view('user.auth.dang_ky');
     }
     public function postDangKy()
     {
-        return view('user.home.dang_nhap');
+        return view('user.home.dang_ky');
     }
     public function contact()
     {
         return view('user.home.contact');
+    }
+    public function bookDetail(){
+        return view('user.product.chi_tiet_sach');
+    }
+    public function cart(){
+        return view('user.cart.thanh_toan');
+    }
+    public function bookPDF(){
+        return view('user.home.book-pdf');
     }
 }

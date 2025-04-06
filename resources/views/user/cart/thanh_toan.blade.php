@@ -36,12 +36,12 @@
                                        <div class="row align-items-center">
                                           <div class="col-sm-2">
                                              <span class="checkout-product-img">
-                                             <a href="javascript:void();"><img class="img-fluid rounded" src="images/checkout/01.jpg" alt=""></a>
+                                             <a href="javascript:void();"><img class="img-fluid rounded" src="images/book-dec/tienganh.png" alt=""></a>
                                              </span>
                                           </div>
                                           <div class="col-sm-4">
                                              <div class="checkout-product-details">
-                                                <h5>Economix - Các Nền Kinh Tế Vận Hành</h5>
+                                                <h5>Tiếng Anh 7 - Global Success - Sách Bài học (2023)</h5>
                                                 <p class="text-success">Còn hàng</p>
                                                 <div class="price">
                                                    <h5>99.900 ₫</h5>
@@ -69,80 +69,6 @@
                                           </div>
                                        </div>
                                     </li>
-                                    <li class="checkout-product">
-                                       <div class="row align-items-center">
-                                          <div class="col-sm-2">
-                                             <span class="checkout-product-img">
-                                             <a href="javascript:void();"><img class="img-fluid rounded" src="images/checkout/02.jpg" alt=""></a>
-                                             </span>
-                                          </div>
-                                          <div class="col-sm-4">
-                                             <div class="checkout-product-details">
-                                                <h5>Người Bán Hàng Vĩ Đại Nhất Thế Giới</h5>
-                                                <p class="text-success">Còn hàng</p>
-                                                <div class="price">
-                                                   <h5>92.900 ₫</h5>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="col-sm-6">
-                                             <div class="row">
-                                                <div class="col-sm-10">
-                                                   <div class="row align-items-center mt-2">
-                                                      <div class="col-sm-7 col-md-6">
-                                                         <button type="button" class="fa fa-minus qty-btn" id="btn-minus"></button>
-                                                         <input type="text" id="quantity" value="0">
-                                                         <button type="button" class="fa fa-plus qty-btn" id="btn-plus"></button>
-                                                      </div>
-                                                      <div class="col-sm-5 col-md-6">
-                                                         <span class="product-price">92.900 ₫</span>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                   <a href="javascript:void();" class="text-dark font-size-20"><i class="ri-delete-bin-7-fill"></i></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </li>
-                                    <li class="checkout-product">
-                                       <div class="row align-items-center">
-                                          <div class="col-sm-2">
-                                             <span class="checkout-product-img">
-                                             <a href="javascript:void();"><img class="img-fluid rounded" src="images/checkout/03.jpg" alt=""></a>
-                                             </span>
-                                          </div>
-                                          <div class="col-sm-4">
-                                             <div class="checkout-product-details">
-                                                <h5>Một Đời Quản Trị </h5>
-                                                <p class="text-success">Còn hàng</p>
-                                                <div class="price">
-                                                   <h5>136.900 ₫</h5>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="col-sm-6">
-                                             <div class="row">
-                                                <div class="col-sm-10">
-                                                   <div class="row align-items-center mt-2">
-                                                      <div class="col-sm-7 col-md-6">
-                                                         <button type="button" class="fa fa-minus qty-btn" id="btn-minus"></button>
-                                                         <input type="text" id="quantity" value="0">
-                                                         <button type="button" class="fa fa-plus qty-btn" id="btn-plus"></button>
-                                                      </div>
-                                                      <div class="col-sm-5 col-md-6">
-                                                         <span class="product-price">136.900 ₫</span>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                   <a href="javascript:void();" class="text-dark font-size-20"><i class="ri-delete-bin-7-fill"></i></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </li>
                                  </ul>
                               </div>
                            </div>
@@ -159,15 +85,15 @@
                                  <p><b>Chi tiết</b></p>
                                  <div class="d-flex justify-content-between mb-1">
                                     <span>Tổng</span>
-                                    <span>339.900đ</span>
+                                    <span>99.000đ</span>
                                  </div>
                                  <div class="d-flex justify-content-between mb-1">
                                     <span>Giảm giá</span>
-                                    <span class="text-success">19.900đ</span>
+                                    <span class="text-success">19.000đ</span>
                                  </div>
                                  <div class="d-flex justify-content-between mb-1">
                                     <span>Thuế VAT</span>
-                                    <span>16.900đ</span>
+                                    <span>9.900đ</span>
                                  </div>
                                  <div class="d-flex justify-content-between">
                                     <span>Phí vận chuyển</span>
@@ -176,7 +102,7 @@
                                  <hr>
                                  <div class="d-flex justify-content-between">
                                     <span class="text-dark"><strong>Tổng</strong></span>
-                                    <span class="text-dark"><strong>327.900đ</strong></span>
+                                    <span class="text-dark"><strong>108.900 đ</strong></span>
                                  </div>
                                  <a id="place-order" href="javascript:void();" class="btn btn-primary d-block mt-3 next">Đặt hàng</a>
                               </div>
@@ -270,7 +196,7 @@
                         <div class="col-lg-4">
                            <div class="iq-card">
                               <div class="iq-card-body">
-                                 <h4 class="mb-2">Ông Trần Thuận</h4>
+                                 <h4 class="mb-2">Nguyễn Văn A</h4>
                                  <div class="shipping-address">
                                     <p class="mb-0">11 Thành Thái</p>
                                     <p>Thành phố Đà Nẵng</p>
@@ -293,7 +219,7 @@
                                  </div>
                               </div>
                               <div class="iq-card-body">
-                                 <form class="mt-3">
+                                 {{-- <form class="mt-3">
                                     <div class="d-flex align-items-center">
                                        <span>Mã giảm giá: </span>
                                        <div class="cvv-input ml-3 mr-3">
@@ -302,7 +228,7 @@
                                        <button type="submit" class="btn btn-primary">Tiếp tục</button>
                                     </div>
                                  </form>
-                                 <hr>
+                                 <hr> --}}
                                  <div class="card-lists">
                                     <div class="form-group">
                                        <div class="custom-control custom-radio">

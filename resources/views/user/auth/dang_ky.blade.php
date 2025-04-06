@@ -35,26 +35,26 @@
                               <p class="text-center text-white">Hãy nhập email và mật khẩu</p>
                               <form class="mt-4 form-text">
                                   <div class="form-group">
-                                      <label for="exampleInputEmail1">Your Full Name</label>
-                                      <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Your Full Name">
+                                      <label for="exampleInputEmail1">Họ và tên</label>
+                                      <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Họ và tên">
                                   </div>
                                   <div class="form-group">
-                                      <label for="exampleInputEmail2">Email address</label>
-                                      <input type="email" class="form-control mb-0" id="exampleInputEmail2" placeholder="Enter email">
+                                      <label for="exampleInputEmail2">Email</label>
+                                      <input type="email" class="form-control mb-0" id="exampleInputEmail2" placeholder="Email">
                                   </div>
                                   <div class="form-group">
-                                      <label for="exampleInputPassword1">Password</label>
+                                      <label for="exampleInputPassword1">Mật khẩu</label>
                                       <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
                                   </div>
-                                  <div class="d-inline-block w-100">
+                                  {{-- <div class="d-inline-block w-100">
                                       <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
                                           <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                          <label class="custom-control-label" for="customCheck1">I accept <a href="#" class="text-light">Terms and Conditions</a></label>
+                                          <label class="custom-control-label" for="customCheck1">Tôi đồng ý với <a href="#" class="text-light">các điều kiện</a></label>
                                       </div>
-                                  </div>
+                                  </div> --}}
                                   <div class="sign-info text-center">
-                                      <button type="submit" class="btn btn-white d-block w-100 mb-2">Sign Up</button>
-                                      <span class="text-dark d-inline-block line-height-2">Already Have Account ? <a href="sign-in.html" class="text-white">Log In</a></span>
+                                      <button type="submit" class="btn btn-white d-block w-100 mb-2">Đăng ký</button>
+                                      <span class="text-dark d-inline-block line-height-2">Đã có tài khoản? <a href="sign-in.html" class="text-white">Đăng nhập</a></span>
                                   </div>
                               </form>
                           </div>
@@ -66,7 +66,7 @@
         </section>
         <!-- Sign in END -->
          <!-- color-customizer -->
-       <div class="iq-colorbox color-fix">
+       {{-- <div class="iq-colorbox color-fix">
            <div class="buy-button"> <a class="color-full" href="#"><i class="fa fa-spinner fa-spin"></i></a> </div>
            <div class="clearfix color-picker">
                <h3 class="iq-font-black">Booksto Awesome Color</h3>
@@ -95,7 +95,7 @@
                </ul>
                <a target="_blank" class="btn btn-primary d-block mt-3" href="">Purchase Now</a>
            </div>
-       </div>
+       </div> --}}
        <!-- color-customizer END -->
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->

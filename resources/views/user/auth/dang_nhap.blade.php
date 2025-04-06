@@ -32,7 +32,7 @@
                       <div class="col-sm-12 sign-in-page-data">
                           <div class="sign-in-from bg-primary rounded">
                               <h3 class="mb-0 text-center text-white">Đăng nhập</h3>
-                              <p class="text-center text-white">Hãy nhâpj thông tin đăng nhập</p>
+                              <p class="text-center text-white">Hãy nhập thông tin đăng nhập</p>
                               <form class="mt-4 form-text">
                                   <div class="form-group">
                                       <label for="exampleInputEmail1">Email</label>
