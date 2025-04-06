@@ -1,7 +1,7 @@
 <!-- Sidebar  -->
 <div class="iq-sidebar">
     <div class="iq-sidebar-logo d-flex justify-content-between">
-       <a href="index.html" class="header-logo">
+       <a href="/" class="header-logo">
           <img src="images/logo.png" class="img-fluid rounded-normal" alt="">
           <div class="logo-title">
              <span class="text-primary text-uppercase">NHASACHTV</span>
@@ -74,7 +74,7 @@
              </div>
           </div>
           <div class="navbar-breadcrumb">
-             <h5 class="mb-0">Trang Chủ</h5>
+             <h5 class="mb-0">{{ $trang ?? 'Web bán sách' }}</h5>
           </div>
           <div class="iq-search-bar">
              <form action="#" class="searchbox">
