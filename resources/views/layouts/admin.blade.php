@@ -261,7 +261,7 @@
                         </li>
                         <li class="line-height pt-3">
                            <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                              <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                              <img src="{{ asset('images/user/1.jpg') }}" class="img-fluid rounded-circle mr-3" alt="user">
                               <div class="caption">
                                  <h6 class="mb-1 line-height">Ông Trần Thuận</h6>
                                  <p class="mb-0 text-primary">Tài Khoản</p>
@@ -401,14 +401,14 @@
       <script src="{{ asset('js/custom.js') }}"></script>
       <script src="{{ asset('js/algoliasearchLite.min.js') }}"></script>
       <script src="{{ asset('js/bodymovin.js') }}"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      
       <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
       <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
       <script src="{{ asset('js/highcharts.js') }}"></script>
       <script src="{{ asset('js/highcharts-3d.js') }}"></script>
       <script src="{{ asset('js/highcharts-more.js') }}"></script>
       <script src="{{ asset('js/instantsearch.js') }}"></script>
-      <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+      
       <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
       <script src="{{ asset('js/worldHigh.js') }}"></script>
       <!-- fonts -->
