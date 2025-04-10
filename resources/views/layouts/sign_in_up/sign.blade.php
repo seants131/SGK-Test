@@ -11,7 +11,7 @@
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
       <!-- admin CSS -->
-      =
+      
       <!-- Typography CSS -->
       <link rel="stylesheet" href="{{ asset('css/typography.css') }}">
       <!-- Style CSS -->
