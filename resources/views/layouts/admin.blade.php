@@ -52,7 +52,7 @@
          <div class="iq-sidebar">
             <div class="iq-sidebar-logo d-flex justify-content-between">
                <a href="admin-dashboard.html" class="header-logo">
-                  <img src="images/logo.png" class="img-fluid rounded-normal" alt="">
+                  <img src="" class="img-fluid rounded-normal" alt="">
                   <div class="logo-title">
                      <span class="text-primary text-uppercase">NhasachTV</span>
                   </div>
@@ -96,7 +96,7 @@
                      </div>
                      <div class="iq-navbar-logo d-flex justify-content-between">
                         <a href="index.html" class="header-logo">
-                           <img src="images/logo.png" class="img-fluid rounded-normal" alt="">
+                           <img src="#" class="img-fluid rounded-normal" alt="">
                            <div class="logo-title">
                               <span class="text-primary text-uppercase">NhasachTV</span>
                            </div>
@@ -140,7 +140,7 @@
                                     <a href="#" class="iq-sub-card" >
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
@@ -152,7 +152,7 @@
                                     <a href="#" class="iq-sub-card" >
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
@@ -164,7 +164,7 @@
                                     <a href="#" class="iq-sub-card" >
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
@@ -176,7 +176,7 @@
                                     <a href="#" class="iq-sub-card" >
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">Đơn hàng #7979 giao không thành công</h6>
@@ -203,7 +203,7 @@
                                     <a href="#" class="iq-sub-card">
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">QT Shop</h6>
@@ -214,7 +214,7 @@
                                     <a href="#" class="iq-sub-card">
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/02.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">Tran Thuan Store</h6>
@@ -225,7 +225,7 @@
                                     <a href="#" class="iq-sub-card">
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/03.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">Hoang Vu Book</h6>
@@ -236,7 +236,7 @@
                                     <a href="#" class="iq-sub-card">
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/04.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">Quang Minh Book</h6>
@@ -247,7 +247,7 @@
                                     <a href="#" class="iq-sub-card">
                                        <div class="media align-items-center">
                                           <div class="">
-                                             <img class="avatar-40 rounded" src="images/user/05.jpg" alt="">
+                                             <img class="avatar-40 rounded" src="#" alt="">
                                           </div>
                                           <div class="media-body ml-3">
                                              <h6 class="mb-0 ">TV Team</h6>
@@ -261,7 +261,7 @@
                         </li>
                         <li class="line-height pt-3">
                            <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                              <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                              <img src="{{ asset('images/user/1.jpg') }}" class="img-fluid rounded-circle mr-3" alt="user">
                               <div class="caption">
                                  <h6 class="mb-1 line-height">Ông Trần Thuận</h6>
                                  <p class="mb-0 text-primary">Tài Khoản</p>
@@ -401,14 +401,14 @@
       <script src="{{ asset('js/custom.js') }}"></script>
       <script src="{{ asset('js/algoliasearchLite.min.js') }}"></script>
       <script src="{{ asset('js/bodymovin.js') }}"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      
       <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
       <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
       <script src="{{ asset('js/highcharts.js') }}"></script>
       <script src="{{ asset('js/highcharts-3d.js') }}"></script>
       <script src="{{ asset('js/highcharts-more.js') }}"></script>
       <script src="{{ asset('js/instantsearch.js') }}"></script>
-      <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+      
       <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
       <script src="{{ asset('js/worldHigh.js') }}"></script>
       <!-- fonts -->

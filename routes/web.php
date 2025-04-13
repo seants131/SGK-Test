@@ -5,10 +5,16 @@ use App\Http\Controllers\DanhMucController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserController;
 
+//user
+Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
+// sign_in_up
+Route::get('/sign-in', [UserAuthController::class, 'showSigninForm'])->name('user.sign-in');
+Route::get('/sign-up', [UserAuthController::class, 'showSignupForm'])->name('user.sign-up');
 
-
+//admin
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/categories', [DanhMucController::class, 'index'])->name('admin.categories');
 Route::get('/admin/books', [BookController::class, 'index'])->name('admin.books');
