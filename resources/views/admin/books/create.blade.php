@@ -26,7 +26,9 @@
                         <!-- <div class="iq-card-body"> -->
                             <form method="POST" action="{{ route('admin.books.store') }}" enctype="multipart/form-data">
                                 @csrf
-                            
+                                <a href="{{ route('admin.books.index') }}" class="close-form-button" title="Đóng">&times;</a>
+
+
                                 <!-- Hiển thị lỗi nếu có -->
                                 <!-- @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -100,8 +102,11 @@
                                     <input type="text" name="MaNXB" id="MaNXB" value="{{ old('MaNXB') }}">
                                 </div>
 
-                                <div class="form-group">
-                                    <button type="submit">Thêm Sách</button>
+                                <div class="form-group d-flex justify-content-between">
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Thêm Sách</button>
+                                    </div>
+                                    <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">← Trở về</a>
                                 </div>
                             </form>
                         <!-- </div> -->
@@ -115,6 +120,32 @@
 @endsection
 @section('styles')
     <style>
+        .close-form-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 10;
+            background-color: #dc3545;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-form-button:hover {
+            background-color: #bd2130;
+            text-decoration: none;
+        }
+        
         .form-container {
             display: flex;
             justify-content: center;
