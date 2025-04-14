@@ -28,9 +28,7 @@
                             @csrf
                             @method('PUT')
 
-                            <label for="MaSach">Mã sách:</label>
-                            <input type="text" name="MaSach" id="MaSach" value="{{ old('MaSach', $book->MaSach) }}" required readonly>
-
+                            
                             <label for="HinhAnh">Hình ảnh:</label>
                             <input type="file" name="HinhAnh" id="HinhAnh" accept="image/*">
                             

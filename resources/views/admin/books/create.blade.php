@@ -28,7 +28,7 @@
                                 @csrf
                             
                                 <!-- Hiển thị lỗi nếu có -->
-                                @if ($errors->any())
+                                <!-- @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
                                             @foreach ($errors->all() as $error)
@@ -36,12 +36,9 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                @endif
+                                @endif -->
 
-                                <div class="form-group">
-                                    <label for="MaSach">Mã sách:</label>
-                                    <input type="text" name="MaSach" id="MaSach" required value="{{ old('MaSach') }}">
-                                </div>
+                                
 
                                 <div class="form-group">
                                     <label for="HinhAnh">Hình ảnh:</label>

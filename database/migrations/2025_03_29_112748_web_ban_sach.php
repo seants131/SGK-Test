@@ -30,16 +30,20 @@ return new class extends Migration {
         });
 
         Schema::create('sach', function (Blueprint $table) {
-            $table->id();
-            $table->string('ten_sach');
-            $table->foreignId('the_loai_id')->constrained('danhmuc');
-            $table->foreignId('nxb_id')->constrained('nhaxuatban');
-            $table->foreignId('tac_gia_id')->constrained('tacgia');
-            $table->integer('nam_xuat_ban');
-            $table->bigInteger('gia')->unsigned(); // Giá tiền VNĐ
-            $table->integer('so_luong')->default(0);
-            $table->text('mo_ta')->nullable();
-            $table->tinyInteger('lop')->comment('Lớp học: 6, 7, 8, 9,...'); // Thêm cột lớp học
+            $table->bigIncrements('MaSach'); // giống với PRIMARY KEY bigint(20) trong SQL
+            $table->string('TenSach')->nullable();
+            $table->string('slug')->nullable(); // Slug URL thân thiện
+            $table->foreignId('category_id')->nullable()->constrained('danhmuc')->nullOnDelete(); // thể loại
+            $table->foreignId('nxb_id')->nullable()->constrained('nhaxuatban')->nullOnDelete(); // nhà xuất bản
+            $table->foreignId('tac_gia_id')->nullable()->constrained('tacgia')->nullOnDelete(); // tác giả
+            $table->decimal('GiaNhap', 15, 2)->nullable();
+            $table->decimal('GiaBan', 15, 2)->nullable();
+            $table->integer('SoLuong')->default(0);
+            $table->integer('NamXuatBan')->nullable();
+            $table->text('MoTa')->nullable();
+            $table->tinyInteger('TrangThai')->default(1); // 1: hiện, 0: ẩn
+            $table->integer('LuotMua')->default(0);
+            $table->text('HinhAnh')->nullable();
             $table->timestamps();
         });
 
@@ -63,8 +67,9 @@ return new class extends Migration {
 
         Schema::create('chitietdonhang', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('don_hang_id')->constrained('donhang');
-            $table->foreignId('sach_id')->constrained('sach');
+            $table->foreignId('don_hang_id')->constrained('donhang')->onDelete('cascade');
+            $table->unsignedBigInteger('sach_id'); // Sử dụng unsignedBigInteger để khớp kiểu với MaSach
+            $table->foreign('sach_id')->references('MaSach')->on('sach')->onDelete('cascade'); // Đặt khóa ngoại chính xác
             $table->integer('so_luong');
             $table->bigInteger('gia')->unsigned(); // Giá tiền VNĐ
             $table->timestamps();
@@ -73,7 +78,8 @@ return new class extends Migration {
         Schema::create('giohang', function (Blueprint $table) {
             $table->id();
             $table->foreignId('khach_hang_id')->constrained('khachhang');
-            $table->foreignId('sach_id')->constrained('sach');
+            $table->unsignedBigInteger('sach_id'); // Sử dụng unsignedBigInteger để khớp kiểu với MaSach
+            $table->foreign('sach_id')->references('MaSach')->on('sach');
             $table->integer('so_luong');
             $table->timestamps();
         });

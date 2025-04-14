@@ -56,7 +56,7 @@
                                                   </td>
                                                   <td>{{ $book->TenSach }}</td> <!-- Hiển thị tên sách -->
                                                   <td>{{ $book->danhmuc->name ?? 'Không có' }}</td>
-                                                  <td>{{ $book->GiaBan }}</td> <!-- Hiển thị giá bán -->
+                                                  <td>{{ number_format($book->GiaBan, 0, ',', '.') }} đ</td> <!-- Hiển thị giá bán, có thể đơn vi là đ hoặc vnd  tùy --> 
                                                   <td>{{ $book->SoLuong }}</td> <!-- Hiển thị số lượng -->
                                                   <td>
                                                       <a href="{{ route('admin.books.edit', $book->MaSach) }}" class="btn btn-warning">Sửa</a>
