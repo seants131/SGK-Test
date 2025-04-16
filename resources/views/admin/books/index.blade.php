@@ -35,6 +35,7 @@
                                               <th>Mã sách</th>
                                               <th>Hình ảnh</th> 
                                               <th>Tên sách</th>
+                                              <th>slug</th>
                                               <th>Danh mục</th>
                                               <th>Giá bán</th>
                                               <th>Số lượng</th>
@@ -55,8 +56,9 @@
                                                       @endif
                                                   </td>
                                                   <td>{{ $book->TenSach }}</td> <!-- Hiển thị tên sách -->
+                                                  <td>{{ $book->slug }}</td>
                                                   <td>{{ $book->danhmuc->name ?? 'Không có' }}</td>
-                                                  <td>{{ $book->GiaBan }}</td> <!-- Hiển thị giá bán -->
+                                                  <td>{{ number_format($book->GiaBan, 0, ',', '.') }} đ</td> <!-- Hiển thị giá bán, có thể đơn vi là đ hoặc vnd  tùy --> 
                                                   <td>{{ $book->SoLuong }}</td> <!-- Hiển thị số lượng -->
                                                   <td>
                                                       <a href="{{ route('admin.books.edit', $book->MaSach) }}" class="btn btn-warning">Sửa</a>
