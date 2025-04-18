@@ -20,7 +20,7 @@
                         <form action="{{ route('admin.danhmucs.update', $danhmuc->id) }}" method="POST">
                             @csrf
                             @method('PUT')
-
+                            <a href="{{ route('admin.danhmucs.index') }}" class="close-form-button" title="Đóng">&times;</a>
                             <!-- Tên danh mục -->
                             <label for="name">Tên danh mục:</label>
                             <input type="text" name="name" id="name" value="{{ old('name', $danhmuc->name) }}" required>
@@ -37,7 +37,13 @@
                                 @endforeach
                             </select>
 
-                            <button type="submit" class="btn btn-warning">Cập nhật danh mục</button>
+                            <!-- <button type="submit" class="btn btn-warning">Cập nhật danh mục</button> -->
+                            <div class="form-group d-flex justify-content-between mt-3">
+                                <div>
+                                    <button type="submit" class="btn btn-warning">Cập nhật danh mục</button>
+                                </div>
+                                    <a href="{{ route('admin.danhmucs.index') }}" class="btn btn-secondary">← Trở về</a>
+                            </div>
                         </form>
                         </div>
                      </div>
@@ -46,7 +52,43 @@
             </div>
          </div>
       </div>
-    
+@endsection
+@section('styles')
+    <style>
+       /* Container cho form */
+       .close-form-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 10;
+            background-color: #dc3545;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
 
-    
+        .close-form-button:hover {
+            background-color: #bd2130;
+            text-decoration: none;
+        }
+
+       .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /*Chiều cao bằng 100% màn hình */
+            padding: 10px; /* Giảm padding xung quanh container */
+            background-color: #f8f9fa; /* Màu nền sáng nhẹ hơn */
+        }
+    </style>
 @endsection
