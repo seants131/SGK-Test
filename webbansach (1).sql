@@ -81,6 +81,32 @@ CREATE TABLE `danhmuc` (
 -- Table structure for table `donhang`
 --
 
+INSERT INTO danhmuc (id, name, parent_id, created_at, updated_at) VALUES
+(1, 'Sách Giáo Khoa Lớp 6', NULL, NOW(), NOW()),
+(2, 'Sách Giáo Khoa Lớp 7', NULL, NOW(), NOW()),
+(3, 'Sách Giáo Khoa Lớp 8', NULL, NOW(), NOW()),
+(4, 'Sách Giáo Khoa Lớp 9', NULL, NOW(), NOW());
+INSERT INTO danhmuc (name, parent_id, created_at, updated_at) VALUES
+('Sách Lớp 6 Chân Trời Sáng Tạo', 1, NOW(), NOW()),
+('Sách Lớp 6 Kết Nối Tri Thức', 1, NOW(), NOW()),
+('Lớp 6 Cánh Diều', 1, NOW(), NOW()),
+('Sách Dùng Chung SGK Lớp 6', 1, NOW(), NOW()),
+
+('Sách Lớp 7 Chân Trời Sáng Tạo', 2, NOW(), NOW()),
+('Sách Lớp 7 Kết Nối Tri Thức', 2, NOW(), NOW()),
+('Sách Lớp 7 Cánh Diều', 2, NOW(), NOW()),
+('Sách Dùng Chung SGK Lớp 7', 2, NOW(), NOW()),
+
+('Sách Lớp 8 Chân Trời Sáng Tạo', 3, NOW(), NOW()),
+('Sách Lớp 8 Kết Nối Tri Thức', 3, NOW(), NOW()),
+('Sách Lớp 8 Cánh Diều', 3, NOW(), NOW()),
+('Sách Dùng Chung SGK Lớp 8', 3, NOW(), NOW()),
+
+('Sách Lớp 9 Chân Trời Sáng Tạo', 4, NOW(), NOW()),
+('Sách Lớp 9 Kết Nối Tri Thức', 4, NOW(), NOW()),
+('Sách Lớp 9 Cánh Diều', 4, NOW(), NOW()),
+('Sách Dùng Chung SGK Lớp 9', 4, NOW(), NOW());
+
 CREATE TABLE `donhang` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `khach_hang_id` bigint(20) UNSIGNED NOT NULL,
