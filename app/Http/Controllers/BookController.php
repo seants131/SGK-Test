@@ -15,6 +15,12 @@ class BookController extends Controller
         return view('admin.books.index', compact('books'));
     }
     
+    public function show($id)
+    {
+        $book = Sach::with('category')->findOrFail($id); // Lấy sách và danh mục liên quan
+        return view('admin.books.show', compact('book'));
+    }
+
     public function create()
     {
         $categories = DanhMuc::all(); // Lấy tất cả danh mục

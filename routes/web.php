@@ -22,7 +22,7 @@ Route::get('/admin/author', [AuthorController::class, 'index'])->name('admin.aut
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('danhmucs', DanhMucController::class);
-    Route::resource('books', BookController::class)->except(['show']);
+    Route::resource('books', BookController::class);
 });
 
 Route::get('/signup', [HomeController::class, 'dangKy'])->name('user.auth.dang_ky');
