@@ -41,25 +41,48 @@
                                             <td>{{ $danhmuc->name }}</td>
                                            
                                             <td>
-                                                <a href="{{ route('admin.danhmucs.edit', $danhmuc->id) }}" class="btn btn-warning">Sửa</a>
-                                                <form action="{{ route('admin.danhmucs.destroy', $danhmuc->id) }}" method="POST" style="display:inline;" class="delete-form">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Xóa</button>
-                                                </form>
+                                                <div class="d-flex align-items-center" style="gap: 6px;">
+                                                    <!-- Nút Sửa -->
+                                                    <a href="{{ route('admin.danhmucs.edit', $danhmuc->id) }}"
+                                                    class="action-btn" data-toggle="tooltip" title="Sửa">
+                                                        <i class="ri-pencil-line"></i>
+                                                    </a>
+
+                                                    <!-- Nút Xóa -->
+                                                    <form action="{{ route('admin.danhmucs.destroy', $danhmuc->id) }}"
+                                                        method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="action-btn" data-toggle="tooltip" title="Xóa">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
+
                                             <td>
                                                 @if($danhmuc->children->isNotEmpty())
-                                                    <ul>
+                                                    <ul class="list-unstyled mb-0">
                                                         @foreach($danhmuc->children as $child)
-                                                            <li>
-                                                                {{ $child->name }}
-                                                                <a href="{{ route('admin.danhmucs.edit', $child->id) }}" class="btn btn-warning">Sửa</a>
-                                                                <form action="{{ route('admin.danhmucs.destroy', $child->id) }}" method="POST" style="display:inline;" class="delete-form">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger">Xóa</button>
-                                                                </form>
+                                                            <li class="d-flex justify-content-between align-items-center mb-2">
+                                                                <span>{{ $child->name }}</span>
+                                                                <div class="d-flex align-items-center" style="gap: 6px;">
+                                                                    <!-- Nút sửa -->
+                                                                    <a href="{{ route('admin.danhmucs.edit', $child->id) }}"
+                                                                    class="action-btn" data-toggle="tooltip" title="Sửa">
+                                                                        <i class="ri-pencil-line"></i>
+                                                                    </a>
+
+                                                                    <!-- Nút xóa -->
+                                                                    <form action="{{ route('admin.danhmucs.destroy', $child->id) }}"
+                                                                        method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="action-btn" data-toggle="tooltip" title="Xóa">
+                                                                            <i class="ri-delete-bin-line"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
                                                             </li>
                                                         @endforeach
                                                     </ul>

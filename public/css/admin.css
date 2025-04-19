@@ -276,3 +276,26 @@ ul>li {
     display: flex;
     height: 180px;   
 }
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background-color: #20e3b2;
+    color: white;
+    border: none;
+    transition: background 0.2s ease;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: #1bc6a4;
+}
+
+.action-btn i {
+    pointer-events: none;
+}

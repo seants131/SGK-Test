@@ -61,14 +61,24 @@
                                                   <td>{{ number_format($book->GiaBan, 0, ',', '.') }} đ</td> <!-- Hiển thị giá bán, có thể đơn vi là đ hoặc vnd  tùy --> 
                                                   <td>{{ $book->SoLuong }}</td> <!-- Hiển thị số lượng -->
                                                   <td>
-                                                      <a href="{{ route('admin.books.edit', $book->MaSach) }}" class="btn btn-warning">Sửa</a>
-                                                      <form action="{{ route('admin.books.destroy', $book->MaSach) }}" method="POST"
-                                                          style="display:inline;" class="delete-form">
-                                                          @csrf
-                                                          @method('DELETE')
-                                                          <button type="submit" class="btn btn-danger">Xóa</button>
-                                                      </form>
-                                                  </td>
+                                                    <div class="d-flex align-items-center" style="gap: 6px;">
+                                                        <!-- Nút sửa -->
+                                                        <a href="{{ route('admin.books.edit', $book->MaSach) }}"
+                                                        class="action-btn" data-toggle="tooltip" title="Sửa">
+                                                            <i class="ri-pencil-line"></i>
+                                                        </a>
+
+                                                        <!-- Nút xóa -->
+                                                        <form action="{{ route('admin.books.destroy', $book->MaSach) }}"
+                                                            method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sách này không?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="action-btn" data-toggle="tooltip" title="Xóa">
+                                                                <i class="ri-delete-bin-line"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
                                               </tr>
                                           @endforeach
                                       </tbody>
