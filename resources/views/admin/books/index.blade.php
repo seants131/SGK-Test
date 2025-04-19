@@ -77,6 +77,11 @@
                                                                 <i class="ri-delete-bin-line"></i>
                                                             </button>
                                                         </form>
+
+                                                        <!-- Nút xem chi tiết -->
+                                                        <a href="{{ route('admin.books.show', $book->MaSach) }}" class="action-btn" data-toggle="tooltip" title="Xem chi tiết">
+                                                            <i class="ri-eye-line"></i>
+                                                        </a>
                                                     </div>
                                                 </td>
                                               </tr>
