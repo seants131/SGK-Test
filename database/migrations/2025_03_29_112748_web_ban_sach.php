@@ -26,6 +26,11 @@ return new class extends Migration {
         Schema::create('tacgia', function (Blueprint $table) {
             $table->id();
             $table->string('ten_tac_gia');
+            $table->text('mo_ta')->nullable();
+            $table->date('ngay_sinh')->nullable();
+            $table->string('hinh_anh')->nullable();
+            $table->tinyInteger('trang_thai')->default(1);
+            $table->string('quoc_tich')->nullable();
             $table->timestamps();
         });
 
