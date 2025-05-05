@@ -22,8 +22,7 @@ class Sach extends Model
         'TenSach',
         'slug',
         'category_id',
-        'nxb_id',
-        'tac_gia_id',
+        'TacGia',
         'GiaNhap',
         'GiaBan',
         'SoLuong',
@@ -53,18 +52,9 @@ class Sach extends Model
     }
 
     /** Relationships */
-    public function category()
+    public function DanhMuc()
     {
         return $this->belongsTo(DanhMuc::class, 'category_id');
     }
 
-    public function nxb()
-    {
-        return $this->belongsTo(NhaXuatBan::class, 'nxb_id');
-    }
-
-    public function tacgia()
-    {
-        return $this->belongsTo(TacGia::class, 'tac_gia_id');
-    }
 }

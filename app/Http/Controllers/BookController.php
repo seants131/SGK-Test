@@ -9,15 +9,44 @@ use Illuminate\Validation\Rule; //validate
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Sach::with('category')->orderBy('created_at', 'desc')->paginate(10); // Sử dụng 'category' thay vì 'DanhMuc'
-        return view('admin.books.index', compact('books'));
+        $query = Sach::with('DanhMuc');
+
+        // Tìm theo tên sách
+        if ($request->filled('ten_sach')) {
+            $query->where('TenSach', 'LIKE', '%' . $request->ten_sach . '%');
+        }
+
+        // Tìm theo tác giả
+        if ($request->filled('tac_gia')) {
+            $tacGia = trim($request->tac_gia);
+            $query->whereRaw("LOWER(TacGia) LIKE ?", ['%' . strtolower($tacGia) . '%']);
+        }
+        
+        
+        
+
+        // Tìm theo danh mục (dropdown)
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Tìm theo ngày tạo
+        if ($request->filled('ngay_tao')) {
+            $query->whereDate('created_at', $request->ngay_tao);
+        }
+
+        $books = $query->orderBy('created_at', 'desc')->paginate(10);
+        $categories = DanhMuc::all();
+
+        return view('admin.books.index', compact('books', 'categories'));
     }
+
     
     public function show($id)
     {
-        $book = Sach::with('category')->findOrFail($id); // Lấy sách và danh mục liên quan
+        $book = Sach::with('DanhMuc')->findOrFail($id); // Lấy sách và danh mục liên quan
         return view('admin.books.show', compact('book'));
     }
 
@@ -33,6 +62,7 @@ class BookController extends Controller
         $request->validate([
             'TenSach' => 'required|string|max:255|unique:Sach,TenSach',  // Kiểm tra tên sách có trùng không
             'category_id' => 'required|exists:danhmuc,id',  // Kiểm tra danh mục có tồn tại không
+            'TacGia' => 'nullable|string|max:255',
             'GiaNhap' => 'required|numeric',  // Kiểm tra giá nhập là số
             'GiaBan' => 'required|numeric',  // Kiểm tra giá bán là số
             'SoLuong' => 'required|integer',  // Kiểm tra số lượng là số nguyên
@@ -82,6 +112,7 @@ class BookController extends Controller
                 Rule::unique('Sach', 'TenSach')->ignore($id, 'MaSach') // Sử dụng Rule::unique để chỉ định khóa chính
             ],  // Kiểm tra tên sách có trùng không
         'category_id' => 'required|exists:danhmuc,id',  // Kiểm tra danh mục có tồn tại không
+        'TacGia' => 'nullable|string|max:255',
         'GiaNhap' => 'required|numeric',  // Kiểm tra giá nhập là số
         'GiaBan' => 'required|numeric',  // Kiểm tra giá bán là số
         'SoLuong' => 'required|integer',  // Kiểm tra số lượng là số nguyên

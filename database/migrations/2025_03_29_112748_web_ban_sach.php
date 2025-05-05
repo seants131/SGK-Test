@@ -34,8 +34,7 @@ return new class extends Migration {
             $table->string('TenSach')->nullable();
             $table->string('slug')->nullable(); // Slug URL thân thiện
             $table->foreignId('category_id')->nullable()->constrained('danhmuc')->nullOnDelete(); // thể loại
-            $table->foreignId('nxb_id')->nullable()->constrained('nhaxuatban')->nullOnDelete(); // nhà xuất bản
-            $table->foreignId('tac_gia_id')->nullable()->constrained('tacgia')->nullOnDelete(); // tác giả
+            $table->string('TacGia')->nullable(); // Tên tác giả nhập tay
             $table->decimal('GiaNhap', 15, 2)->nullable();
             $table->decimal('GiaBan', 15, 2)->nullable();
             $table->integer('SoLuong')->default(0);
