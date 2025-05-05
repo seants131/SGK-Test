@@ -39,6 +39,10 @@
                                         <td>{{ $book->danhmuc->name ?? 'Không có' }}</td>
                                     </tr>
                                     <tr>
+                                        <th>Tác Giả</th>
+                                        <td>{{ $book->TacGia }}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Giá nhập</th>
                                         <td>{{ number_format($book->GiaNhap, 0, ',', '.') }} đ</td>
                                     </tr>
@@ -71,6 +75,10 @@
                                     <tr>
                                         <th>Mã NXB</th>
                                         <td>{{ $book->MaNXB }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày Tạo</th>
+                                        <td>{{ $book->created_at }}</td>
                                     </tr>
                                 </table>
                             </div>

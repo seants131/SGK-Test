@@ -65,6 +65,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="TacGia">Tác giả</label>
+                                    <input type="text" name="TacGia" class="form-control" value="{{ old('TacGia') }}">
+                                </div>
+                                
+                                <div class="form-group">
                                     <label for="GiaNhap">Giá nhập:</label>
                                     <input type="number" name="GiaNhap" id="GiaNhap" required value="{{ old('GiaNhap') }}">
                                 </div>

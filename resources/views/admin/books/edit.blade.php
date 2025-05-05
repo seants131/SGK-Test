@@ -45,6 +45,9 @@
                                 @endforeach
                             </select>
 
+                            <label for="TacGia">Tác Giả:</label>
+                            <input type="text" name="TacGia" id="TacGia" value="{{ old('TacGia', $book->TacGia) }}" required>
+                             
                             <label for="GiaNhap">Giá nhập:</label>
                             <input type="number" name="GiaNhap" id="GiaNhap" value="{{ old('GiaNhap', $book->GiaNhap) }}" required>
 
