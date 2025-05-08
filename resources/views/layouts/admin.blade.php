@@ -72,7 +72,12 @@
                   <li><a href="{{ route('admin.categories') }}"><i class="ri-record-circle-line"></i>Danh Mục Sách</a></li>
                   <li><a href="{{ route('admin.orders.index') }}"><i class="ri-record-circle-line"></i>Đơn Hàng</a></li>
                   <li><a href="{{ route('admin.books.index') }}"><i class="ri-record-circle-line"></i>Sách</a></li>
-                  <li><a href="sign-in.html"><i class="ri-record-circle-line"></i>Đăng Xuất</a></li>
+                  <form action="{{ route('logout') }}" method="POST" class="d-inline-block w-100 text-center p-3">
+                     @csrf
+                     <button type="submit" class="bg-primary iq-sign-btn" style="border: none;">
+                        Đăng xuất <i class="ri-login-box-line ml-2"></i>
+                     </button>
+                  </form>
                </ul>
                </nav>
                <div id="sidebar-bottom" class="p-3 position-relative">
@@ -260,18 +265,19 @@
                            </div>
                         </li>
                         <li class="line-height pt-3">
+                        @if (Auth::check())
                            <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
                               <img src="{{ asset('images/user/1.jpg') }}" class="img-fluid rounded-circle mr-3" alt="user">
                               <div class="caption">
-                                 <h6 class="mb-1 line-height">Ông Trần Thuận</h6>
-                                 <p class="mb-0 text-primary">Tài Khoản</p>
+                              <h6 class="mb-1 line-height">{{ Auth::user()->name }}</h6> <!-- Hiển thị tên người dùng -->
+                              <p class="mb-0 text-primary">Tài Khoản</p>
                               </div>
                            </a>
                            <div class="iq-sub-dropdown iq-user-dropdown">
                               <div class="iq-card shadow-none m-0">
                                  <div class="iq-card-body p-0 ">
                                     <div class="bg-primary p-3">
-                                       <h5 class="mb-0 text-white line-height">Xin Chào Ông Trần Thuận</h5>
+                                       <h5 class="mb-0 text-white line-height">Xin Chào {{ Auth::user()->name }}</h5> <!-- Hiển thị lời chào với tên người dùng -->
                                     </div>
                                     <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
                                        <div class="media align-items-center">
@@ -314,11 +320,19 @@
                                        </div>
                                     </a>
                                     <div class="d-inline-block w-100 text-center p-3">
-                                       <a class="bg-primary iq-sign-btn" href="sign-in.html" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                                       <form action="{{ route('logout') }}" method="POST">
+                                          @csrf
+                                          <button type="submit" class="bg-primary iq-sign-btn mx-auto d-block" style="border: none;">
+                                             Đăng xuất <i class="ri-login-box-line ml-2"></i>
+                                          </button>
+                                       </form>
                                     </div>
                                  </div>
                               </div>
                            </div>
+                           @else
+                              <p>Chưa đăng nhập</p> <!-- Hiển thị nếu người dùng chưa đăng nhập -->
+                           @endif
                         </li>
                      </ul>
                   </div>
