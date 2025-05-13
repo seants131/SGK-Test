@@ -9,7 +9,7 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserController;
 
 //user
-Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
+// Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
 // sign_in_up
 Route::get('/sign-in', [UserAuthController::class, 'showSigninForm'])->name('user.sign-in');
 Route::get('/sign-up', [UserAuthController::class, 'showSignupForm'])->name('user.sign-up');
