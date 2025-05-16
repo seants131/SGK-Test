@@ -16,18 +16,20 @@ Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
 Route::get('/sign-in', [UserAuthController::class, 'showSigninForm'])->name('user.sign-in');
 Route::get('/sign-up', [UserAuthController::class, 'showSignupForm'])->name('user.sign-up');
 
+// Trang đăng ký của admin. Test chức năng đăng ký
+Route::get('/admin/register', [AdminAuthController::class, 'showRegisterForm'])->name('admin.register');
+Route::post('/admin/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
 // Trang đăng nhập của admin. Test chức năng đăng nhập
 Route::get('/admin/sign-in', [AdminAuthController::class, 'showSigninForm'])->name('admin.sign-in');
-
-// Trang đăng xuất của admin
-Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-
 // Xử lý đăng nhập của admin
 Route::post('/admin/sign-in', [AdminAuthController::class, 'signin'])->name('admin.signin');
+// Trang đăng xuất của admin
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 });
+// Auth::routes(); cái này của người dùng mà chưa bt làm.
 Route::post('/logout', function () {
     Auth::logout();
     return redirect()->route('admin.sign-in')->with('success', 'Đăng xuất thành công');
