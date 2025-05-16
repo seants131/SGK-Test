@@ -11,8 +11,8 @@
                            <div class="d-flex align-items-center">
                               <div class="rounded-circle iq-card-icon bg-primary"><i class="ri-user-line"></i></div>
                               <div class="text-left ml-3">                                 
-                                 <h2 class="mb-0"><span class="counter">7900</span></h2>
-                                 <h5 class="">Người dùng</h5>
+                                 <h2 class="mb-0"><span class="counter">{{ number_format($totalUsers) }}</span></h2>
+                                 <h5 class="">Người Dùng</h5>
                               </div>
                            </div>
                         </div>
@@ -24,8 +24,8 @@
                            <div class="d-flex align-items-center">
                               <div class="rounded-circle iq-card-icon bg-danger"><i class="ri-book-line"></i></div>
                               <div class="text-left ml-3">                                 
-                                 <h2 class="mb-0"><span class="counter">4.8</span>K</h2>
-                                 <h5 class="">Sách</h5>
+                              <h2 class="mb-0"><span class="counter">{{ number_format($totalBooks) }}</span></h2>
+                              <h5 class="">Sách</h5>
                               </div>
                            </div>
                         </div>
@@ -37,8 +37,8 @@
                            <div class="d-flex align-items-center">
                               <div class="rounded-circle iq-card-icon bg-warning"><i class="ri-shopping-cart-2-line"></i></div>
                               <div class="text-left ml-3">                                 
-                                 <h2 class="mb-0"><span class="counter">1.2</span>K</h2>
-                                 <h5 class="">Đơn Hàng</h5>
+                              <h2 class="mb-0"><span class="counter">{{ number_format($totalOrders) }}</span></h2>
+                              <h5 class="">Đơn Hàng</h5>
                               </div>
                            </div>
                         </div>
