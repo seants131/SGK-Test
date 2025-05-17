@@ -6,14 +6,34 @@ use Illuminate\Http\Request;
 use App\Models\DanhMuc;
 class DanhMucController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $danhmucs = DanhMuc::with('children')
-        ->whereNull('parent_id')
-        ->orderBy('created_at', 'desc') // Sắp xếp danh mục mới nhất lên đầu
-        ->paginate(2); // Thêm phân trang, mỗi trang hiển thị 10 danh mục
-    return view('admin.danhmucs.index', compact('danhmucs'));
+        $query = DanhMuc::with(['children'])
+            ->whereNull('parent_id');
+    
+        // Tìm theo tên danh mục
+        if ($request->filled('ten_danh_muc')) {
+            $query->where('name', 'LIKE', '%' . $request->ten_danh_muc . '%');
+        }
+    
+        // Tìm theo tên danh mục con
+        if ($request->filled('ten_danh_muc_con')) {
+            $query->whereHas('children', function ($childQuery) use ($request) {
+                $childQuery->where('name', 'LIKE', '%' . $request->ten_danh_muc_con . '%');
+            });
+        }
+    
+        // Tìm theo ngày tạo
+        if ($request->filled('ngay_tao')) {
+            $query->whereDate('created_at', $request->ngay_tao); // Không cần Carbon ở đây
+        }
+        
+        // Sắp xếp theo ngày tạo, phân trang
+        $danhmucs = $query->orderBy('created_at', 'desc')->paginate(2);
+    
+        return view('admin.danhmucs.index', compact('danhmucs'));
     }
+    
 
     public function create()
     {

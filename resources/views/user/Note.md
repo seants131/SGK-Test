@@ -1,2 +1,0 @@
-* Tôi có tạo ra sẫn mấy thư mục và cái trang. Tui có nghĩ tới việc cái layout của user có thể sẽ không đảm bảo nên là: 1. Tách chi tiết các thành phần view nhỏ hơn (header, footer, navbar)
-* Hiện tui chỉ mới tạo sẫn thôi nên ô cứ sửa lại thoải mái.

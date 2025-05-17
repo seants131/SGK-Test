@@ -4,23 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Sach extends Model
 {
     use HasFactory;
 
+    protected $table = 'sach'; // tên bảng
 
-    // Đặt tên bảng (nếu bảng không tuân theo quy tắc mặc định của Laravel)
-    protected $table = 'Sach';
-    protected $primaryKey = 'MaSach';
-    public $incrementing = false; // Khóa chính không tự tăng
-    protected $keyType = 'string';
-    // Các trường có thể được gán giá trị đại diện cho cột trong bảng
+    // Không cần khai báo MaSach nữa vì nó sẽ tự động tăng
+    public $incrementing = true; 
+
+    // Khóa chính mặc định là 'id' vì MaSach đã là khóa tự tăng
+    protected $primaryKey = 'MaSach';  // Nếu cần chỉ định rõ khóa chính
+
     protected $fillable = [
-        'MaSach',
         'TenSach',
         'slug',
         'category_id',
+        'TacGia',
         'GiaNhap',
         'GiaBan',
         'SoLuong',
@@ -29,17 +31,30 @@ class Sach extends Model
         'TrangThai',
         'LuotMua',
         'HinhAnh',
-        'created_at', 'updated_at'
     ];
 
-    // Nếu bảng có timestamp (created_at, updated_at), thì Laravel sẽ tự động quản lý
-    public $timestamps = false;
+    /**
+     * Auto generate slug from TenSach if not provided
+     */
+    protected static function booted()
+    {
+        static::creating(function ($sach) {
+            if (empty($sach->slug)) {
+                $sach->slug = Str::slug($sach->TenSach);
+            }
+        });
+
+        static::updating(function ($sach) {
+            if (empty($sach->slug)) {
+                $sach->slug = Str::slug($sach->TenSach);
+            }
+        });
+    }
+
+    /** Relationships */
     public function DanhMuc()
     {
         return $this->belongsTo(DanhMuc::class, 'category_id');
     }
-    public function chiTietHoaDon()
-    {
-        return $this->hasMany(ChiTietHoaDon::class, 'MaSach');
-    }
+
 }

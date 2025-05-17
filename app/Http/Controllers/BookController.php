@@ -9,12 +9,46 @@ use Illuminate\Validation\Rule; //validate
 
 class BookController extends Controller
 {
-    public function index()
-{
-    $books = Sach::with('DanhMuc')->orderBy('created_at', 'desc')->paginate(10); // Sắp xếp sách mới nhất lên đầu và phân trang
-    return view('admin.books.index', compact('books'));
-}
+    public function index(Request $request)
+    {
+        $query = Sach::with('DanhMuc');
 
+        // Tìm theo tên sách
+        if ($request->filled('ten_sach')) {
+            $query->where('TenSach', 'LIKE', '%' . $request->ten_sach . '%');
+        }
+
+        // Tìm theo tác giả
+        if ($request->filled('tac_gia')) {
+            $tacGia = trim($request->tac_gia);
+            $query->whereRaw("LOWER(TacGia) LIKE ?", ['%' . strtolower($tacGia) . '%']);
+        }
+        
+        
+        
+
+        // Tìm theo danh mục (dropdown)
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Tìm theo ngày tạo
+        if ($request->filled('ngay_tao')) {
+            $query->whereDate('created_at', $request->ngay_tao);
+        }
+
+        $books = $query->orderBy('created_at', 'desc')->paginate(10);
+        $categories = DanhMuc::all();
+
+        return view('admin.books.index', compact('books', 'categories'));
+    }
+
+    
+    public function show($id)
+    {
+        $book = Sach::with('DanhMuc')->findOrFail($id); // Lấy sách và danh mục liên quan
+        return view('admin.books.show', compact('book'));
+    }
 
     public function create()
     {
@@ -24,28 +58,29 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-         // Validate dữ liệu đầu vào
-    $request->validate([
-        'MaSach' => 'required|unique:Sach,MaSach',  // Kiểm tra mã sách có trùng không
-        'TenSach' => 'required|string|max:255|unique:Sach,TenSach',  // Kiểm tra tên sách có trùng không
-        'category_id' => 'required|exists:danhmuc,id',  // Kiểm tra danh mục có tồn tại không
-        'GiaNhap' => 'required|numeric',  // Kiểm tra giá nhập là số
-        'GiaBan' => 'required|numeric',  // Kiểm tra giá bán là số
-        'SoLuong' => 'required|integer',  // Kiểm tra số lượng là số nguyên
-        'NamXuatBan' => 'required|integer',  // Kiểm tra năm xuất bản là số nguyên
-        'MoTa' => 'nullable|string',  // Mô tả không bắt buộc
-        'TrangThai' => 'required|boolean',  // Trạng thái phải là true/false
-        'MaNXB' => 'nullable|string',  // Mã nhà xuất bản không bắt buộc
-        'HinhAnh' => 'nullable|image|max:2048',  // Hình ảnh không bắt buộc và có giới hạn dung lượng
-    ], [
-        // Tùy chỉnh thông báo lỗi cho trường 'TenSach'
-        'TenSach.unique' => 'Tên sách này đã tồn tại. Vui lòng chọn tên khác.',
-        'MaSach.unique' => 'Mã sách đã tồn tại.',
-    ]);
-
+        // Validate dữ liệu đầu vào
+        $request->validate([
+            'TenSach' => 'required|string|max:255|unique:Sach,TenSach',  // Kiểm tra tên sách có trùng không
+            'category_id' => 'required|exists:danhmuc,id',  // Kiểm tra danh mục có tồn tại không
+            'TacGia' => 'nullable|string|max:255',
+            'GiaNhap' => 'required|numeric',  // Kiểm tra giá nhập là số
+            'GiaBan' => 'required|numeric',  // Kiểm tra giá bán là số
+            'SoLuong' => 'required|integer',  // Kiểm tra số lượng là số nguyên
+            'NamXuatBan' => 'required|integer',  // Kiểm tra năm xuất bản là số nguyên
+            'MoTa' => 'nullable|string',  // Mô tả không bắt buộc
+            'TrangThai' => 'required|boolean',  // Trạng thái phải là true/false
+            'MaNXB' => 'nullable|string',  // Mã nhà xuất bản không bắt buộc
+            'HinhAnh' => 'nullable|image|max:2048',  // Hình ảnh không bắt buộc và có giới hạn dung lượng
+        ], [
+            // Tùy chỉnh thông báo lỗi cho trường 'TenSach'
+            'TenSach.unique' => 'Tên sách này đã tồn tại. Vui lòng chọn tên khác.',
+        ]);
+    
+        // Lấy dữ liệu từ form
         $data = $request->all();
-        $data['created_at'] = now();// Đặt thời gian tạo là hiện tại
-
+        $data['created_at'] = now(); // Đặt thời gian tạo là hiện tại
+    
+        // Kiểm tra và xử lý hình ảnh nếu có
         if ($request->hasFile('HinhAnh')) {
             $file = $request->file('HinhAnh');
             $fileName = time() . '_' . $file->getClientOriginalName();
@@ -53,10 +88,12 @@ class BookController extends Controller
             $data['HinhAnh'] = $fileName;
         }
     
+        // Tạo sách mới mà không cần thêm MaSach, vì MaSach sẽ tự động tăng
         Sach::create($data);
-
+    
         return redirect()->route('admin.books.index')->with('success', 'Sách đã được thêm thành công.');
     }
+    
 
     public function edit($id)
     {
@@ -75,6 +112,7 @@ class BookController extends Controller
                 Rule::unique('Sach', 'TenSach')->ignore($id, 'MaSach') // Sử dụng Rule::unique để chỉ định khóa chính
             ],  // Kiểm tra tên sách có trùng không
         'category_id' => 'required|exists:danhmuc,id',  // Kiểm tra danh mục có tồn tại không
+        'TacGia' => 'nullable|string|max:255',
         'GiaNhap' => 'required|numeric',  // Kiểm tra giá nhập là số
         'GiaBan' => 'required|numeric',  // Kiểm tra giá bán là số
         'SoLuong' => 'required|integer',  // Kiểm tra số lượng là số nguyên
