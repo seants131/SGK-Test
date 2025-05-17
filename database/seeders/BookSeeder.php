@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sach; // Sử dụng model Sach
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 // database/seeders/BookSeeder.php (ví dụ)
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\DB;
 class BookSeeder extends Seeder
 {
+    use WithoutModelEvents; // Thêm trait này
     public function run()
     {
         $books = [
@@ -213,6 +214,9 @@ class BookSeeder extends Seeder
             ],
         ];
 
-        DB::table('sach')->insert($books); // Giả sử bảng sách của bạn tên là 'sach'
+        // Sử dụng Eloquent model để insert dữ liệu.
+        // Sach::insert() hiệu quả cho việc insert hàng loạt và bỏ qua Eloquent events,
+        // bao gồm cả việc tự động tạo slug trong model nếu bạn dùng Model::create().
+        Sach::insert($books);
     }
 }
