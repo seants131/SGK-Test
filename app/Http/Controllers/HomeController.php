@@ -3,44 +3,77 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sach;
+use App\Models\DanhMuc;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('user.home.index');
+        // Lấy 9 sách mới nhất có hình ảnh
+        $newReleaseSlides = Sach::whereNotNull('HinhAnh')
+                                ->orderBy('created_at', 'desc')
+                                ->take(9)
+                                ->get();
+
+        // Các phần khác giữ nguyên hoặc bổ sung nếu cần
+        $suggestedBooks = Sach::orderBy('created_at', 'desc')->take(12)->get();
+        $bestSellerBook = Sach::orderBy('LuotMua', 'desc')->first();
+        $categoriesWithBookCounts = DanhMuc::withCount('books')->whereNull('parent_id')->take(6)->get();
+        $favoriteBooks = Sach::orderBy('LuotMua', 'desc')->take(4)->get();
+
+        // Truyền các biến sang view
+        return view('user.home.index', compact(
+            'newReleaseSlides',
+            'suggestedBooks',
+            'bestSellerBook',
+            'categoriesWithBookCounts',
+            'favoriteBooks'
+        ));
     }
+
     public function dangNhap()
     {
         return view('user.auth.dang_nhap');
     }
+
     public function postDangNhap()
     {
         return view('user.auth.dang_nhap');
     }
+
     public function dangXuat()
     {
         return view('user.home.dang_nhap');
     }
+
     public function dangKy()
     {
         return view('user.auth.dang_ky');
     }
+
     public function postDangKy()
     {
         return view('user.home.dang_ky');
     }
+
     public function contact()
     {
         return view('user.home.contact');
     }
-    public function bookDetail(){
+
+    public function bookDetail()
+    {
         return view('user.product.chi_tiet_sach');
     }
-    public function cart(){
+
+    public function cart()
+    {
         return view('user.cart.thanh_toan');
     }
-    public function bookPDF(){
+
+    public function bookPDF()
+    {
         return view('user.home.book-pdf');
     }
 }
