@@ -42,8 +42,8 @@
                       <a href="#extra-pages" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-pantone-line"></i><span>Extra Pages</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                       <ul id="extra-pages" class="iq-submenu collapse" data-parent="#pages">
                          <li><a href="pages-invoice.html"><i class="ri-question-answer-line"></i>Invoice</a></li>
-                         <li><a href="pages-comingsoon.html"><i class="ri-mastercard-line"></i>Login</a></li>
-                         <li><a href="pages-faq.html"><i class="ri-compasses-line"></i>Register</a></li>
+                        <li><a href="{{ route('admin.sign-in') }}"><i class="ri-mastercard-line"></i>Login</a></li>
+                        <li><a href="{{ route('admin.register') }}"><i class="ri-compasses-line"></i>Register</a></li>
                       </ul>
                    </li>
                 </ul>
