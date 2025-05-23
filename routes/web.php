@@ -10,6 +10,9 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminAuthController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserCheckoutController ;
+
+
 //user
 // Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
 // sign_in_up
@@ -66,3 +69,11 @@ Route::get('/cart', [HomeController::class, 'cart'])->name('user.cart.index');
 Route::post('/cart/add', [HomeController::class, 'addToCart'])->name('user.cart.add');  
 Route::get('/profile',[UserController::class,'index'])->name('user.profile.index');
 Route::get('/books/pdf',[HomeController::class,'bookPDF'])->name('user.book.pdf');
+
+Route::prefix('thanh-toan')->name('thanh_toan.')->group(function () {
+    Route::get('/index', [UserCheckoutController::class, 'thanhToan'])->name('thanh_toan');
+    Route::get('/dia-chi', [UserCheckoutController::class, 'diaChi'])->name('dia_chi');
+    Route::get('/gio-hang', [UserCheckoutController::class, 'gioHang'])->name('gio_hang');
+    Route::get('/phuong-thuc-thanh-toan', [UserCheckoutController::class, 'phuongThucThanhToan'])->name('pt_thanh_toan');
+    Route::get('/xac-nhan', [UserCheckoutController::class, 'xacNhan'])->name('xac_nhan');
+});
