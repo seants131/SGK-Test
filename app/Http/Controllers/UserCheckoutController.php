@@ -6,17 +6,14 @@ use Illuminate\Http\Request;
 
 class UserCheckoutController extends Controller
 {
-    public function thanhToan(){
-        return view('user.thanh_toan.thanh_toan');
-    }
-    public function diaChi()
-    {
-        return view('user.thanh_toan.dia_chi');
-    }
-
     public function gioHang()
     {
         return view('user.thanh_toan.gio_hang');
+    }
+
+    public function diaChi()
+    {
+        return view('user.thanh_toan.dia_chi');
     }
 
     public function phuongThucThanhToan()
@@ -27,5 +24,9 @@ class UserCheckoutController extends Controller
     public function xacNhan()
     {
         return view('user.thanh_toan.xac_nhan');
+    }
+    public function test()
+    {
+        return view('user.thanh_toan.test');
     }
 }

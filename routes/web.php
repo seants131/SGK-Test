@@ -71,9 +71,9 @@ Route::get('/profile',[UserController::class,'index'])->name('user.profile.index
 Route::get('/books/pdf',[HomeController::class,'bookPDF'])->name('user.book.pdf');
 
 Route::prefix('thanh-toan')->name('thanh_toan.')->group(function () {
-    Route::get('/index', [UserCheckoutController::class, 'thanhToan'])->name('thanh_toan');
-    Route::get('/dia-chi', [UserCheckoutController::class, 'diaChi'])->name('dia_chi');
+    Route::get('/test', [UserCheckoutController::class, 'test'])->name('test');
     Route::get('/gio-hang', [UserCheckoutController::class, 'gioHang'])->name('gio_hang');
+    Route::get('/dia-chi', [UserCheckoutController::class, 'diaChi'])->name('dia_chi');
     Route::get('/phuong-thuc-thanh-toan', [UserCheckoutController::class, 'phuongThucThanhToan'])->name('pt_thanh_toan');
-    Route::get('/xac-nhan', [UserCheckoutController::class, 'xacNhan'])->name('xac_nhan');
+    // Route::get('/xac-nhan', [UserCheckoutController::class, 'xacNhan'])->name('xac_nhan');
 });
