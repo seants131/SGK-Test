@@ -50,8 +50,8 @@
                            <div class="d-flex align-items-center">
                               <div class="rounded-circle iq-card-icon bg-info"><i class="ri-radar-line"></i></div>
                               <div class="text-left ml-3">                                 
-                                 <h2 class="mb-0"><span class="counter">690</span></h2>
-                                 <h5 class="">Chờ Duyệt</h5>
+                                 <h2 class="mb-0"><span class="counter">{{ number_format($pendingOrders) }}</span></h2>
+                                 <h5 class="">Chờ xử lý</h5>
                               </div>
                            </div>
                         </div>
@@ -156,63 +156,34 @@
                            </div>
                         </div>
                         <div class="iq-card-body">
+                           <div class="order-info">
                            <div class="table-responsive">
-                              <table class="table mb-0 table-borderless">
-                                 <thead>
-                                    <tr>
-                                       <th scope="col">Khách hàng</th>
-                                       <th scope="col">Ngày</th>
-                                       <th scope="col">Hóa đơn</th>
-                                       <th scope="col">Số tiền</th>
-                                       <th scope="col">Tình trạng</th>
-                                       <th scope="col">Hoạt động</th>
-
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>Ông Trần Thuận</td>
-                                       <td>18/10/2019</td>
-                                       <td>20156</td>
-                                       <td>150.000đ</td>
-                                       <td><div class="badge badge-pill badge-success">Đã thanh toán</div></td>
-                                       <td>Sao chép</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Hoàng Vũ</td>
-                                       <td>26/10/2019</td>
-                                       <td>7859</td>
-                                       <td>200.000đ</td>
-                                       <td><div class="badge badge-pill badge-success">Đã thanh toán</div></td>
-                                       <td>Gửi Email</td>
-                                    </tr>
-                                    <tr>
-                                       <td>QT shop</td>
-                                       <td>18/11/2019</td>
-                                       <td>6396</td>
-                                       <td>250.000đ</td>
-                                       <td><div class="badge badge-pill badge-danger">Chưa thanh toán</div></td>
-                                       <td>Trước hạn</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Quang Minh</td>
-                                       <td>14/12/2019</td>
-                                       <td>7854</td>
-                                       <td>500.000đ</td>
-                                       <td><div class="badge badge-pill badge-success">Đã thanh toán</div></td>
-                                       <td>Sao chép</td>
-                                    </tr>
-                                    <tr>
-                                       <td>QT Store</td>
-                                       <td>24/12/2019</td>
-                                       <td>568569</td>
-                                       <td>10000đ</td>
-                                       <td><div class="badge badge-pill badge-success">Đã thanh toán</div></td>
-                                       <td>Gửi Email</td>
-                                    </tr>
-                                 </tbody>
+                              <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                       <th>STT</th>
+                                       <th>Mã đơn</th>
+                                       <th>Khách hàng</th>
+                                       <th>Ngày đặt</th>
+                                       <th>Tổng tiền</th>
+                                       <th>Trạng thái</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 @foreach($orders as $index => $order)
+                                       <tr>
+                                          <td>{{ $index + 1 }}</td>
+                                          <td>{{ $order->id }}</td>
+                                          <td>{{ $order->khachHang->ho_ten ?? 'N/A' }}</td> {{-- Sửa theo cột tên thật --}}
+                                          <td>{{ $order->ngay_dat->format('d/m/Y') }}</td>
+                                          <td>{{ number_format($order->tong_tien, 0, ',', '.') }} đ</td>
+                                          <td>{{ $order->trang_thai }}</td>
+                                       </tr>
+                                 @endforeach
+                              </tbody>
                               </table>
                            </div>
+                        </div>
                         </div>
                      </div>
                   </div>
