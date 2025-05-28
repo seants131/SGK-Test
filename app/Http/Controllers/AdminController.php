@@ -14,6 +14,8 @@ class AdminController extends Controller
         $totalBooks = Sach::count();
         $totalOrders = DonHang::count();
         $totalUsers = KhachHang::count();
-        return view('admin.index', compact('totalBooks', 'totalOrders','totalUsers'));
+        $pendingOrders = DonHang::where('trang_thai', 'cho xu ly')->count();
+        $orders = DonHang::with('khachHang')->orderByDesc('ngay_dat')->paginate(10); // hoặc ->take(5)->get() nếu chỉ cần 5 đơn gần nhất
+        return view('admin.index', compact('totalBooks', 'totalOrders','totalUsers', 'pendingOrders','orders'));
     }
 }
