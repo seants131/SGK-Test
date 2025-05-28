@@ -53,9 +53,11 @@
             <div class="iq-sidebar-logo d-flex justify-content-between">
                <a href="admin-dashboard.html" class="header-logo">
                   <img src="" class="img-fluid rounded-normal" alt="">
-                  <div class="logo-title">
-                     <span class="text-primary text-uppercase">NhasachTV</span>
-                  </div>
+                  <a href="{{ route('admin.index') }}">
+                     <div class="logo-title">
+                        <span class="text-primary text-uppercase">NhasachTV</span>
+                     </div>
+                  </a>
                </a>
                <div class="iq-menu-bt-sidebar">
                   <div class="iq-menu-bt align-self-center">
@@ -81,15 +83,6 @@
                   </form>
                </ul>
                </nav>
-               <div id="sidebar-bottom" class="p-3 position-relative">
-                  <div class="iq-card">
-                     <div class="iq-card-body">
-                        <div class="sidebarbottom-content">
-                           <button type="submit" class="btn w-100 btn-primary mt-4 view-more">NhasachTV</button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
             </div>
          </div>
          <!-- TOP Nav Bar -->
@@ -268,7 +261,7 @@
                         <li class="line-height pt-3">
                         @if (Auth::check())
                            <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                              <img src="{{ asset('images/user/1.jpg') }}" class="img-fluid rounded-circle mr-3" alt="user">
+                              <img src="{{ asset(Auth::user()->avatar ?? 'images/user/default.jpg') }}" class="img-fluid rounded-circle mr-3" alt="user">
                               <div class="caption">
                               <h6 class="mb-1 line-height">{{ Auth::user()->name }}</h6> <!-- Hiển thị tên người dùng -->
                               <p class="mb-0 text-primary">Tài Khoản</p>
@@ -426,7 +419,15 @@
       
       <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
       <script src="{{ asset('js/worldHigh.js') }}"></script>
-      <!-- fonts -->
+      <!-- đoạn script này dùng để gán link vào h6 của tài khoản của tôi -->
+      <script>
+         document.addEventListener("DOMContentLoaded", function () {
+            const profileLink = document.querySelector('a[href="profile.html"]');
+            if (profileLink) {
+                  profileLink.href = "{{ route('admin.profile.show') }}";
+            }
+         });
+      </script>
 </body>
 
 </html>
