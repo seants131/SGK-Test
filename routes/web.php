@@ -9,6 +9,7 @@ use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminProfileController;
 use Illuminate\Support\Facades\Auth;
 //user
 Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
@@ -46,6 +47,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('books', BookController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('khachhang', KhachHangController::class);
+    Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/change-password', [AdminProfileController::class, 'changePasswordForm'])->name('profile.password.form');
+    Route::post('/profile/change-password', [AdminProfileController::class, 'changePassword'])->name('profile.password');
 });
 
 Route::get('/signup', [HomeController::class, 'dangKy'])->name('user.auth.dang_ky');
