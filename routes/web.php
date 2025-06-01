@@ -11,7 +11,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminAuthController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserCheckoutController ;
-
+use App\Mail\OrderConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 
 //user
 // Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
@@ -77,3 +78,25 @@ Route::prefix('thanh-toan')->name('thanh_toan.')->group(function () {
     Route::get('/phuong-thuc-thanh-toan', [UserCheckoutController::class, 'phuongThucThanhToan'])->name('pt_thanh_toan');
     // Route::get('/xac-nhan', [UserCheckoutController::class, 'xacNhan'])->name('xac_nhan');
 });
+
+Route::get('/send-order-mail', function () {
+    $order = [
+        'id' => 1234,
+        'date' => now()->format('d/m/Y'),
+        'items' => [
+            ['name' => 'Sách toán 11 chân trờitrời', 'qty' => 2, 'price' => 50000],
+            ['name' => 'Sách ngữ văn chân trời', 'qty' => 1, 'price' => 75000],
+        ],
+        'total' => 2 * 50000 + 1 * 75000,
+    ];
+
+    Mail::to('hellotoilaquan@gmail.com')->send(new OrderConfirmationMail($order));
+
+    return 'Đã gửi email xác nhận đơn hàng!';
+});
+
+use App\Http\Controllers\UserCartController;
+
+Route::get('/gio-hang', [UserCartController::class, 'index'])->name('cart.index');
+Route::post('/gio-hang/them', [UserCartController::class, 'add'])->name('cart.add');
+Route::post('/gio-hang/xoa', [UserCartController::class, 'remove'])->name('cart.remove');
