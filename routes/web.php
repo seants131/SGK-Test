@@ -11,6 +11,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminProfileController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserCheckoutController ;
+use App\Mail\OrderConfirmationMail;
+use Illuminate\Support\Facades\Mail;
+
 //user
 // Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
 // sign_in_up
@@ -72,3 +76,33 @@ Route::get('/cart', [HomeController::class, 'cart'])->name('user.cart.index');
 Route::post('/cart/add', [HomeController::class, 'addToCart'])->name('user.cart.add');  
 Route::get('/profile',[UserController::class,'index'])->name('user.profile.index');
 Route::get('/books/pdf',[HomeController::class,'bookPDF'])->name('user.book.pdf');
+
+Route::prefix('thanh-toan')->name('thanh_toan.')->group(function () {
+    Route::get('/test', [UserCheckoutController::class, 'test'])->name('test');
+    Route::get('/gio-hang', [UserCheckoutController::class, 'gioHang'])->name('gio_hang');
+    Route::get('/dia-chi', [UserCheckoutController::class, 'diaChi'])->name('dia_chi');
+    Route::get('/phuong-thuc-thanh-toan', [UserCheckoutController::class, 'phuongThucThanhToan'])->name('pt_thanh_toan');
+    // Route::get('/xac-nhan', [UserCheckoutController::class, 'xacNhan'])->name('xac_nhan');
+});
+
+Route::get('/send-order-mail', function () {
+    $order = [
+        'id' => 1234,
+        'date' => now()->format('d/m/Y'),
+        'items' => [
+            ['name' => 'Sách toán 11 chân trờitrời', 'qty' => 2, 'price' => 50000],
+            ['name' => 'Sách ngữ văn chân trời', 'qty' => 1, 'price' => 75000],
+        ],
+        'total' => 2 * 50000 + 1 * 75000,
+    ];
+
+    Mail::to('hellotoilaquan@gmail.com')->send(new OrderConfirmationMail($order));
+
+    return 'Đã gửi email xác nhận đơn hàng!';
+});
+
+use App\Http\Controllers\UserCartController;
+
+Route::get('/gio-hang', [UserCartController::class, 'index'])->name('cart.index');
+Route::post('/gio-hang/them', [UserCartController::class, 'add'])->name('cart.add');
+Route::post('/gio-hang/xoa', [UserCartController::class, 'remove'])->name('cart.remove');

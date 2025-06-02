@@ -1,0 +1,46 @@
+@extends('layouts.app') {{-- Hoặc dùng layout riêng của bạn --}}
+
+@section('content')
+    <h2>🛒 Giỏ hàng của bạn</h2>
+
+    @if (session('success'))
+        <div style="color: green">{{ session('success') }}</div>
+    @endif
+
+    @if (empty($cart))
+        <p>Chưa có sản phẩm nào trong giỏ hàng.</p>
+    @else
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($cart as $id => $item)
+                    <tr>
+                        <td>{{ $item['name'] }}</td>
+                        <td>{{ number_format($item['price']) }}đ</td>
+                        <td>{{ $item['quantity'] }}</td>
+                        <td>{{ number_format($item['price'] * $item['quantity']) }}đ</td>
+                        <td>
+                            <form action="{{ route('cart.remove') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $id }}">
+                                <button type="submit">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <h4>Tổng cộng: {{ number_format($total) }}đ</h4>
+    @endif
+
+    <a href="/">⬅ Quay lại mua hàng</a>
+@endsection

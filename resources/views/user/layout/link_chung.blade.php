@@ -1,22 +1,10 @@
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Typography CSS -->
-    <link rel="stylesheet" href="css/typography.css">
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-{{-- 
-    <!-- Favicon --> 
-<link rel="shortcut icon" href="assets/images/favicon.ico" />
+<!-- Favicon -->
+<link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 <!-- Typography CSS -->
-<link rel="stylesheet" href="assets/css/typography.css">
+<link rel="stylesheet" href="{{ asset('css/typography.css') }}">
 <!-- Style CSS -->
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 <!-- Responsive CSS -->
-<link rel="stylesheet" href="assets/css/responsive.css">
- --}}
+<link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
