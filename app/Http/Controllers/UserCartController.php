@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ class UserCartController extends Controller
         $cart = session()->get('cart', []);
         $total = collect($cart)->sum(fn($item) => $item['quantity'] * $item['price']);
 
-        return view('cart.index', compact('cart', 'total'));
+        return view('user.thanh_toan.gio_hang', compact('cart', 'total'));
     }
 
     public function add(Request $request)
@@ -19,6 +20,7 @@ class UserCartController extends Controller
         $name = $request->input('name');
         $price = $request->input('price');
         $quantity = $request->input('quantity', 1);
+        $image = $request->input('image'); // ảnh sản phẩm
 
         $cart = session()->get('cart', []);
 
@@ -29,6 +31,7 @@ class UserCartController extends Controller
                 'name' => $name,
                 'price' => $price,
                 'quantity' => $quantity,
+                'image' => $image,
             ];
         }
 
@@ -36,6 +39,7 @@ class UserCartController extends Controller
 
         return redirect()->route('cart.index')->with('success', 'Đã thêm vào giỏ hàng!');
     }
+
 
     public function remove(Request $request)
     {
