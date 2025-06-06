@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KhachHangController;
+use App\Http\Controllers\LienHeController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminAuthController;
@@ -51,6 +52,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('books', BookController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('khachhang', KhachHangController::class);
+    Route::resource('lienhe', LienHeController::class);
     Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
