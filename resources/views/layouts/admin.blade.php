@@ -75,6 +75,7 @@
                   <li><a href="{{ route('admin.orders.index') }}"><i class="ri-record-circle-line"></i>Đơn Hàng</a></li>
                   <li><a href="{{ route('admin.books.index') }}"><i class="ri-record-circle-line"></i>Sách</a></li>
                   <li><a href="{{ route('admin.khachhang.index') }}"><i class="ri-record-circle-line"></i>Người Dùng</a></li>
+                  <li><a href="{{ route('admin.lienhe.index') }}"><i class="ri-record-circle-line"></i>Liên Hệ</a></li>
                   <form action="{{ route('logout') }}" method="POST" class="d-inline-block w-100 text-center p-3">
                      @csrf
                      <button type="submit" class="bg-primary iq-sign-btn" style="border: none;">
@@ -126,68 +127,50 @@
                            </form>
                         </li>
                         <li class="nav-item nav-icon">
+                           @php
+                           use App\Models\DonHang;
+
+                           $donHangChoXuLy = DonHang::where('trang_thai', 'chờ xử lý')
+                                                      ->orderByDesc('created_at')
+                                                      ->take(5)
+                                                      ->get();
+
+                           $soLuongThongBao = $donHangChoXuLy->count();
+                           @endphp
                            <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
-                           <i class="ri-notification-2-line"></i>
-                           <span class="bg-primary dots"></span>
+                              <i class="ri-notification-2-line"></i>
+                              @if($soLuongThongBao > 0)
+                                 <span class="bg-primary dots"></span>
+                              @endif
                            </a>
                            <div class="iq-sub-dropdown">
                               <div class="iq-card shadow-none m-0">
                                  <div class="iq-card-body p-0">
-                                    <div class="bg-primary p-3">
-                                       <h5 class="mb-0 text-white">Thông Báo<small class="badge  badge-light float-right pt-1">4</small></h5>
+                                 <div class="bg-primary p-3">
+                                    <h5 class="mb-0 text-white">
+                                       Thông Báo
+                                       <small class="badge badge-light float-right pt-1">{{ $soLuongThongBao }}</small>
+                                    </h5>
+                                 </div>
+
+                                 @forelse($donHangChoXuLy as $donhang)
+                                 <a href="{{ route('admin.orders.show', $donhang->id) }}" class="iq-sub-card">
+                                    <div class="media align-items-center">
+                                       <i class="ri-file-list-3-line" style="font-size:24px;"></i>
+                                       <div class="media-body ml-3">
+                                       <h6 class="mb-0">Đơn hàng {{ $donhang->ma_donhang }} đang chờ xử lý</h6>
+                                       <small class="float-right font-size-12">{{ $donhang->created_at->diffForHumans() }}</small>
+                                       <p class="mb-0">{{ number_format($donhang->tong_tien, 0, ',', '.') }}đ</p>
+                                       </div>
                                     </div>
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="#" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
-                                             <small class="float-right font-size-12">Just Now</small>
-                                             <p class="mb-0">95.000đ</p>
-                                          </div>
-                                       </div>
-                                    </a>
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="#" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
-                                             <small class="float-right font-size-12">5 days ago</small>
-                                             <p class="mb-0">255.000đ</p>
-                                          </div>
-                                       </div>
-                                    </a>
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="#" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">Đơn hàng giao thành công</h6>
-                                             <small class="float-right font-size-12">2 days ago</small>
-                                             <p class="mb-0">79.000đ</p>
-                                          </div>
-                                       </div>
-                                    </a>
-                                    <a href="#" class="iq-sub-card" >
-                                       <div class="media align-items-center">
-                                          <div class="">
-                                             <img class="avatar-40 rounded" src="#" alt="">
-                                          </div>
-                                          <div class="media-body ml-3">
-                                             <h6 class="mb-0 ">Đơn hàng #7979 giao không thành công</h6>
-                                             <small class="float-right font-size-12">3 days ago</small>
-                                             <p class="mb-0">100.000đ</p>
-                                          </div>
-                                       </div>
-                                    </a>
+                                 </a>
+                                 @empty
+                                 <div class="p-3 text-center">Không có đơn hàng nào chờ xử lý</div>
+                                 @endforelse
                                  </div>
                               </div>
                            </div>
-                        </li>
+                           </li>
                         <li class="nav-item nav-icon dropdown">
                            <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
                            <i class="ri-mail-line"></i>

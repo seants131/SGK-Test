@@ -64,6 +64,15 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('lienhe', function (Blueprint $table) {
+            $table->id(); 
+            $table->string('hoten'); 
+            $table->string('email'); 
+            $table->string('chude'); 
+            $table->text('noidung'); 
+            $table->timestamps(); 
+        });
+
         Schema::create('chitietdonhang', function (Blueprint $table) {
             $table->id();
             $table->foreignId('don_hang_id')->constrained('donhang')->onDelete('cascade');
@@ -108,6 +117,7 @@ return new class extends Migration {
         Schema::dropIfExists('thanhtoan');
         Schema::dropIfExists('giohang');
         Schema::dropIfExists('chitietdonhang');
+        Schema::dropIfExists('lienhe');
         Schema::dropIfExists('donhang');
         Schema::dropIfExists('khachhang');
         Schema::dropIfExists('sach');
