@@ -35,7 +35,6 @@ return new class extends Migration {
             $table->string('slug')->nullable(); // Slug URL thân thiện
             $table->foreignId('category_id')->nullable()->constrained('danhmuc')->nullOnDelete(); // thể loại
             $table->string('TacGia')->nullable(); // Tên tác giả nhập tay
-            $table->decimal('GiaNhap', 15, 2)->nullable();
             $table->decimal('GiaBan', 15, 2)->nullable();
             $table->integer('SoLuong')->default(0);
             $table->integer('NamXuatBan')->nullable();
@@ -43,6 +42,8 @@ return new class extends Migration {
             $table->tinyInteger('TrangThai')->default(1); // 1: hiện, 0: ẩn
             $table->integer('LuotMua')->default(0);
             $table->text('HinhAnh')->nullable();
+            $table->text('NXB')->nullable(); // Nhà xuất bản
+            $table->text('Lop')->nullable(); // Lớp học
             $table->timestamps();
         });
 
@@ -61,6 +62,7 @@ return new class extends Migration {
             $table->date('ngay_dat');
             $table->enum('trang_thai', ['Cho xu ly', 'Dang giao', 'Hoan thanh', 'Huy']);
             $table->bigInteger('tong_tien')->unsigned(); // Giá tiền VNĐ
+            $table->integer('so_luong')->default(0);
             $table->timestamps();
         });
 
