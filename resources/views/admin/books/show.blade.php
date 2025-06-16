@@ -35,20 +35,32 @@
                                         <td>{{ $book->TenSach }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Danh mục</th>
-                                        <td>{{ $book->danhmuc->name ?? 'Không có' }}</td>
+                                        <th>Slug</th>
+                                        <td>{{ $book->slug }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Loại sản phẩm</th>
+                                        <td>
+                                            @if($book->LoaiSanPham == 'sach_giao_khoa')
+                                                Sách giáo khoa
+                                            @elseif($book->LoaiSanPham == 'sach_tham_khao')
+                                                Sách tham khảo
+                                            @else
+                                                Không xác định
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Lớp</th>
+                                        <td>{{ $book->Lop ? 'Lớp ' . $book->Lop : 'Không xác định' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Tác Giả</th>
                                         <td>{{ $book->TacGia }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Giá nhập</th>
-                                        <td>{{ number_format($book->GiaNhap, 0, ',', '.') }} đ</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Giá bán</th>
-                                        <td>{{ number_format($book->GiaBan, 0, ',', '.') }} đ</td>
+                                        <th>Giá bìa</th>
+                                        <td>{{ number_format($book->GiaBia, 0, ',', '.') }} đ</td>
                                     </tr>
                                     <tr>
                                         <th>Số lượng</th>
@@ -73,12 +85,20 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Mã NXB</th>
-                                        <td>{{ $book->MaNXB }}</td>
+                                        <th>Nhà xuất bản (NXB)</th>
+                                        <td>{{ $book->NXB ?? 'Không có' }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Ngày Tạo</th>
+                                        <th>Lượt mua</th>
+                                        <td>{{ $book->LuotMua }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày tạo</th>
                                         <td>{{ $book->created_at }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày cập nhật</th>
+                                        <td>{{ $book->updated_at }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -93,5 +113,4 @@
         </div>
     </div>
 </div>
-
 @endsection

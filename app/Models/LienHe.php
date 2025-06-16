@@ -9,7 +9,7 @@ class LienHe extends Model
 {
     use HasFactory;
 
-    protected $table      = 'lienhe';   // đúng tên bảng migration
+    protected $table      = 'lien_he';   // đúng tên bảng migration
     protected $primaryKey = 'id';
     public    $incrementing = true;
 

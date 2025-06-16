@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DanhMucController;
+
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
@@ -39,12 +39,12 @@ Route::post('/logout', function () {
 
 //admin
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-Route::get('/admin/categories', [DanhMucController::class, 'index'])->name('admin.categories');
+
 Route::get('/admin/books', [BookController::class, 'index'])->name('admin.books');
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders');
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('danhmucs', DanhMucController::class);
+    
     Route::resource('books', BookController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('khachhang', KhachHangController::class);

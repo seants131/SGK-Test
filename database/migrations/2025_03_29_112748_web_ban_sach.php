@@ -5,126 +5,117 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
-        Schema::create('danhmuc', function (Blueprint $table) {
+        Schema::create('nguoi_dung', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('username')->unique()->nullable();
+            $table->string('password')->nullable();
+            $table->enum('role', ['admin', 'khach'])->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('so_dien_thoai')->unique()->nullable();
             $table->timestamps();
-            $table->foreign('parent_id')->references('id')->on('danhmuc')->onDelete('cascade');
-        });
 
-        Schema::create('nhaxuatban', function (Blueprint $table) {
-            $table->id();
-            $table->string('ten_nxb');
-            $table->text('dia_chi')->nullable();
-            $table->string('so_dien_thoai', 20)->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('tacgia', function (Blueprint $table) {
-            $table->id();
-            $table->string('ten_tac_gia');
-            $table->timestamps();
+            $table->index('email');
+            $table->index('so_dien_thoai');
         });
 
         Schema::create('sach', function (Blueprint $table) {
-            $table->bigIncrements('MaSach'); // giống với PRIMARY KEY bigint(20) trong SQL
+            $table->bigIncrements('MaSach'); // Thay vì id
             $table->string('TenSach')->nullable();
-            $table->string('slug')->nullable(); // Slug URL thân thiện
-            $table->foreignId('category_id')->nullable()->constrained('danhmuc')->nullOnDelete(); // thể loại
-            $table->string('TacGia')->nullable(); // Tên tác giả nhập tay
-            $table->decimal('GiaBan', 15, 2)->nullable();
+            $table->string('slug')->nullable();
+            $table->enum('LoaiSanPham', ['sach_giao_khoa', 'sach_tham_khao'])->nullable();
+            $table->string('TacGia')->nullable();
+            $table->unsignedBigInteger('GiaBia')->nullable();
             $table->integer('SoLuong')->default(0);
             $table->integer('NamXuatBan')->nullable();
             $table->text('MoTa')->nullable();
-            $table->tinyInteger('TrangThai')->default(1); // 1: hiện, 0: ẩn
+            $table->tinyInteger('TrangThai')->default(1);
             $table->integer('LuotMua')->default(0);
             $table->text('HinhAnh')->nullable();
-            $table->text('NXB')->nullable(); // Nhà xuất bản
-            $table->text('Lop')->nullable(); // Lớp học
+            $table->enum('Lop', ['1','2','3','4','5','6','7','8','9','10','11','12'])->nullable();
+            $table->text('NXB')->nullable();
+            $table->timestamps();
+
+            $table->index('TenSach');
+            $table->index('slug');
+        });
+
+        Schema::create('phieu_nhap', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->constrained('nguoi_dung')->nullOnDelete();
+            $table->date('ngay_nhap');
+            $table->unsignedBigInteger('tong_tien')->default(0);
+            $table->integer('tong_so_luong')->default(0);
             $table->timestamps();
         });
 
-        Schema::create('khachhang', function (Blueprint $table) {
+        Schema::create('chi_tiet_nhap_sach', function (Blueprint $table) {
             $table->id();
-            $table->string('ho_ten');
-            $table->string('email')->unique();
-            $table->string('so_dien_thoai', 20)->nullable();
-            $table->text('dia_chi')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('donhang', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('khach_hang_id')->constrained('khachhang');
-            $table->date('ngay_dat');
-            $table->enum('trang_thai', ['Cho xu ly', 'Dang giao', 'Hoan thanh', 'Huy']);
-            $table->bigInteger('tong_tien')->unsigned(); // Giá tiền VNĐ
-            $table->integer('so_luong')->default(0);
-            $table->timestamps();
-        });
-
-        Schema::create('lienhe', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('hoten'); 
-            $table->string('email'); 
-            $table->string('chude'); 
-            $table->text('noidung'); 
-            $table->timestamps(); 
-        });
-
-        Schema::create('chitietdonhang', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('don_hang_id')->constrained('donhang')->onDelete('cascade');
-            $table->unsignedBigInteger('sach_id'); // Sử dụng unsignedBigInteger để khớp kiểu với MaSach
-            $table->foreign('sach_id')->references('MaSach')->on('sach')->onDelete('cascade'); // Đặt khóa ngoại chính xác
+            $table->foreignId('phieu_nhap_id')->constrained('phieu_nhap')->onDelete('cascade');
+            $table->unsignedBigInteger('sach_id');
+            $table->foreign('sach_id')->references('MaSach')->on('sach')->onDelete('cascade');
             $table->integer('so_luong');
-            $table->bigInteger('gia')->unsigned(); // Giá tiền VNĐ
+            $table->unsignedTinyInteger('chiet_khau'); // % chiết khấu
+            $table->unsignedBigInteger('thanh_tien');
             $table->timestamps();
         });
 
-        Schema::create('giohang', function (Blueprint $table) {
+        Schema::create('khuyen_mai', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('khach_hang_id')->constrained('khachhang');
-            $table->unsignedBigInteger('sach_id'); // Sử dụng unsignedBigInteger để khớp kiểu với MaSach
-            $table->foreign('sach_id')->references('MaSach')->on('sach');
-            $table->integer('so_luong');
-            $table->timestamps();
-        });
-
-        Schema::create('thanhtoan', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('don_hang_id')->constrained('donhang');
-            $table->enum('phuong_thuc', ['Tien mat', 'Chuyen khoan', 'Vi dien tu']);
-            $table->enum('trang_thai', ['Chua thanh toan', 'Da thanh toan']);
-            $table->date('ngay_thanh_toan')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('khuyenmai', function (Blueprint $table) {
-            $table->id();
-            $table->string('ma_khuyen_mai')->unique();
-            $table->bigInteger('giam_gia')->unsigned(); // Giá tiền VNĐ
+            $table->string('ten');
+            $table->unsignedTinyInteger('phan_tram_giam');
             $table->date('ngay_bat_dau');
             $table->date('ngay_ket_thuc');
+            $table->enum('trang_thai', ['kich_hoat', 'tat'])->default('kich_hoat');
+            $table->timestamps();
+        });
+
+        Schema::create('hoa_don', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->constrained('nguoi_dung')->nullOnDelete();
+            $table->date('ngay_mua');
+            $table->enum('trang_thai', ['cho_xu_ly', 'dang_giao', 'hoan_thanh', 'huy'])->default('cho_xu_ly');
+            $table->enum('hinh_thuc_thanh_toan', ['tien_mat', 'chuyen_khoan'])->default('tien_mat');
+            $table->unsignedTinyInteger('giam_gia')->default(0); // % toàn bộ hóa đơn
+            $table->unsignedBigInteger('tong_tien')->default(0);
+            $table->integer('tong_so_luong')->default(0);
+            $table->foreignId('khuyen_mai_id')->nullable()->constrained('khuyen_mai')->nullOnDelete();
+            $table->timestamps();
+        });
+
+        Schema::create('chi_tiet_hoa_don', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('hoa_don_id')->constrained('hoa_don')->onDelete('cascade');
+            $table->unsignedBigInteger('sach_id');
+            $table->foreign('sach_id')->references('MaSach')->on('sach')->onDelete('cascade');
+            $table->integer('so_luong');
+            $table->unsignedBigInteger('don_gia');
+            $table->unsignedBigInteger('thanh_tien');
+            $table->timestamps();
+        });
+
+        Schema::create('lien_he', function (Blueprint $table) {
+            $table->id();
+            $table->string('ho_ten');
+            $table->string('email');
+            $table->string('so_dien_thoai')->nullable();
+            $table->text('noi_dung');
+            $table->boolean('trang_thai')->default(true); // true = hiển thị, false = ẩn
             $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('khuyenmai');
-        Schema::dropIfExists('thanhtoan');
-        Schema::dropIfExists('giohang');
-        Schema::dropIfExists('chitietdonhang');
-        Schema::dropIfExists('lienhe');
-        Schema::dropIfExists('donhang');
-        Schema::dropIfExists('khachhang');
+        Schema::dropIfExists('lien_he');
+        Schema::dropIfExists('chi_tiet_hoa_don');
+        Schema::dropIfExists('hoa_don');
+        Schema::dropIfExists('khuyen_mai');
+        Schema::dropIfExists('chi_tiet_nhap_sach');
+        Schema::dropIfExists('phieu_nhap');
         Schema::dropIfExists('sach');
-        Schema::dropIfExists('tacgia');
-        Schema::dropIfExists('nhaxuatban');
-        Schema::dropIfExists('danhmuc');
+        Schema::dropIfExists('nguoi_dung');
     }
 };

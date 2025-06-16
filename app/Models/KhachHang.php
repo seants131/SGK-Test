@@ -10,7 +10,7 @@ class KhachHang extends Model
     use HasFactory;
 
     // Định nghĩa bảng sử dụng
-    protected $table = 'khachhang';
+    protected $table = 'nguoi_dung';
 
     // Nếu cần, bạn có thể chỉ định các trường có thể gán giá trị
     protected $fillable = [

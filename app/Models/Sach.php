@@ -21,16 +21,17 @@ class Sach extends Model
     protected $fillable = [
         'TenSach',
         'slug',
-        'category_id',
+        'LoaiSanPham',
         'TacGia',
-        'GiaNhap',
-        'GiaBan',
+        'GiaBia',
         'SoLuong',
         'NamXuatBan',
         'MoTa',
         'TrangThai',
         'LuotMua',
         'HinhAnh',
+        'Lop',
+        'NXB',
     ];
 
     /**
@@ -51,10 +52,5 @@ class Sach extends Model
         });
     }
 
-    /** Relationships */
-    public function DanhMuc()
-    {
-        return $this->belongsTo(DanhMuc::class, 'category_id');
-    }
 
 }

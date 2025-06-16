@@ -71,7 +71,7 @@
                <nav class="iq-sidebar-menu">
                <ul id="iq-sidebar-toggle" class="iq-menu">
                   <li><a href="{{ route('admin.index') }}"><i class="las la-home iq-arrow-left"></i>Bảng Điều Khiển</a></li>
-                  <li><a href="{{ route('admin.categories') }}"><i class="ri-record-circle-line"></i>Danh Mục Sách</a></li>
+                  
                   <li><a href="{{ route('admin.orders.index') }}"><i class="ri-record-circle-line"></i>Đơn Hàng</a></li>
                   <li><a href="{{ route('admin.books.index') }}"><i class="ri-record-circle-line"></i>Sách</a></li>
                   <li><a href="{{ route('admin.khachhang.index') }}"><i class="ri-record-circle-line"></i>Người Dùng</a></li>
@@ -411,6 +411,7 @@
             }
          });
       </script>
+      @yield('scripts')
 </body>
 
 </html>
