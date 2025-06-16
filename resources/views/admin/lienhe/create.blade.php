@@ -26,9 +26,9 @@
             <a href="{{ route('admin.lienhe.index') }}" class="close-form-button" title="Đóng">&times;</a>
 
             <div class="form-group">
-              <label for="hoten">Họ tên:</label>
-              <input type="text" name="hoten" id="hoten"
-                     class="form-control" value="{{ old('hoten') }}" required>
+              <label for="ho_ten">Họ tên:</label>
+              <input type="text" name="ho_ten" id="ho_ten"
+                     class="form-control" value="{{ old('ho_ten') }}" required>
             </div>
 
             <div class="form-group">
@@ -38,22 +38,22 @@
             </div>
 
             <div class="form-group">
-              <label for="chude">Chủ đề:</label>
-              <input type="text" name="chude" id="chude"
-                     class="form-control" value="{{ old('chude') }}" required>
+              <label for="so_dien_thoai">Số điện thoại:</label>
+              <input type="text" name="so_dien_thoai" id="so_dien_thoai"
+                     class="form-control" value="{{ old('so_dien_thoai') }}">
             </div>
 
             <div class="form-group">
-              <label for="noidung">Nội dung:</label>
-              <textarea name="noidung" id="noidung"
-                        class="form-control" required>{{ old('noidung') }}</textarea>
+              <label for="noi_dung">Nội dung:</label>
+              <textarea name="noi_dung" id="noi_dung"
+                        class="form-control" required>{{ old('noi_dung') }}</textarea>
             </div>
 
             <div class="form-group d-flex justify-content-between">
-                <div>
-                    <button type="submit" class="btn btn-success">Thêm Sách</button>
-                </div>
-                <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">← Trở về</a>
+              <div>
+              <button type="submit" class="btn btn-success">Thêm liên hệ</button>
+              </div>
+              <a href="{{ route('admin.lienhe.index') }}" class="btn btn-secondary">← Trở về</a>
             </div>
           </form>
         </div>
@@ -65,93 +65,93 @@
 
 @section('styles')
 <style>
-        .close-form-button {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            z-index: 10;
-            background-color: #dc3545;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            line-height: 1;
-            border: none;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
+    .close-form-button {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        z-index: 10;
+        background-color: #dc3545;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
 
-        .close-form-button:hover {
-            background-color: #bd2130;
-            text-decoration: none;
-        }
-        
-        .form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            background-color: #f8f9fa;
-        }
+    .close-form-button:hover {
+        background-color: #bd2130;
+        text-decoration: none;
+    }
 
-        form {
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 1250px;
-            box-sizing: border-box;
-        }
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background-color: #f8f9fa;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    form {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 1250px;
+        box-sizing: border-box;
+    }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-        textarea {
-            height: 120px;
-            resize: vertical;
-        }
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
+    textarea {
+        height: 120px;
+        resize: vertical;
+    }
 
-        button:hover {
-            background-color: rgb(21, 206, 86);
-        }
+    button {
+        background-color: #28a745;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
 
-        h1.text-center {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-    </style>
+    button:hover {
+        background-color: rgb(21, 206, 86);
+    }
+
+    h1.text-center {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+</style>
 @endsection

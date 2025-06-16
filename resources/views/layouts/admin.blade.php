@@ -106,12 +106,12 @@
                   <div class="navbar-breadcrumb">
                      <h5 class="mb-0">Trang Chủ</h5>
                   </div>
-                  <div class="iq-search-bar">
+                  <!-- <div class="iq-search-bar">
                      <form action="#" class="searchbox">
                         <input type="text" class="text search-input" placeholder="Tìm kiếm sản phẩm...">
                         <a class="search-link" href="#"><i class="ri-search-line"></i></a>
                      </form>
-                  </div>
+                  </div> -->
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"  aria-label="Toggle navigation">
                   <i class="ri-menu-3-line"></i>
                   </button>

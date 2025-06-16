@@ -9,14 +9,20 @@ class LienHe extends Model
 {
     use HasFactory;
 
-    protected $table      = 'lien_he';   // đúng tên bảng migration
+    protected $table = 'lien_he';   // đúng tên bảng migration
     protected $primaryKey = 'id';
-    public    $incrementing = true;
+    public $incrementing = true;
 
     protected $fillable = [
-        'hoten',
+        'ho_ten',
         'email',
-        'chude',
-        'noidung',
+        'so_dien_thoai',
+        'noi_dung',
+        'trang_thai',
+    ];
+
+    // Optional: nếu muốn dùng trạng thái rõ ràng
+    protected $casts = [
+        'trang_thai' => 'boolean',
     ];
 }
