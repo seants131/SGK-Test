@@ -130,7 +130,7 @@
                            @php
                            use App\Models\DonHang;
 
-                           $donHangChoXuLy = DonHang::where('trang_thai', 'chờ xử lý')
+                           $donHangChoXuLy = DonHang::where('trang_thai', 'cho_xu_ly')
                                                       ->orderByDesc('created_at')
                                                       ->take(5)
                                                       ->get();

@@ -32,8 +32,13 @@
                      <a href="{{ route('admin.khachhang.index') }}" class="close-form-button" title="Đóng">&times;</a>
 
                      <div class="form-group">
-                        <label for="ho_ten">Họ tên</label>
-                        <input type="text" name="ho_ten" id="ho_ten" class="form-control" value="{{ old('ho_ten') }}" required>
+                        <label for="name">Họ tên</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" required>
                      </div>
 
                      <div class="form-group">
@@ -43,12 +48,17 @@
 
                      <div class="form-group">
                         <label for="so_dien_thoai">Số điện thoại</label>
-                        <input type="text" name="so_dien_thoai" id="so_dien_thoai" class="form-control" value="{{ old('so_dien_thoai') }}">
+                        <input type="text" name="so_dien_thoai" id="so_dien_thoai" class="form-control" value="{{ old('so_dien_thoai') }}" required>
                      </div>
 
                      <div class="form-group">
-                        <label for="dia_chi">Địa chỉ</label>
-                        <textarea name="dia_chi" id="dia_chi" class="form-control">{{ old('dia_chi') }}</textarea>
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="password_confirmation">Xác nhận mật khẩu</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
                      </div>
 
                      <div class="form-group d-flex justify-content-between mt-3">

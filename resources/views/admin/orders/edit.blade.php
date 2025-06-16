@@ -13,7 +13,7 @@
                             <h4 class="card-title">Chỉnh sửa đơn hàng</h4>
                         </div>
                     </div>
-                    <!-- Hiển thị lỗi nếu có -->
+
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -24,41 +24,74 @@
                     </div>
                     @endif
                     
-                    <form method="POST" action="{{ route('admin.orders.update', $order->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.orders.update', $order->id) }}">
                         @csrf
                         @method('PUT')
                         <a href="{{ route('admin.orders.index') }}" class="close-form-button" title="Đóng">&times;</a>
 
                         <div class="form-group">
-                            <label for="khach_hang_id">Khách hàng:</label>
-                            <select name="khach_hang_id" id="khach_hang_id" required>
+                            <label for="user_id">Khách hàng:</label>
+                            <select name="user_id" id="user_id" required>
                                 <option value="">-- Chọn khách hàng --</option>
                                 @foreach ($customers as $customer)
-                                    <option value="{{ $customer->id }}" {{ $order->khach_hang_id == $customer->id ? 'selected' : '' }}>
-                                        {{ $customer->ho_ten }}
+                                    <option value="{{ $customer->id }}" {{ $order->user_id == $customer->id ? 'selected' : '' }}>
+                                        {{ $customer->name }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="ngay_dat">Ngày và giờ đặt:</label>
-                            <input type="datetime-local" name="ngay_dat" id="ngay_dat" required value="{{ old('ngay_dat', \Carbon\Carbon::parse($order->ngay_dat)->format('Y-m-d\TH:i')) }}">
+                            <label for="ngay_mua">Ngày mua:</label>
+                            <input type="datetime-local" name="ngay_mua" id="ngay_mua" required
+                                   value="{{ old('ngay_mua', \Carbon\Carbon::parse($order->ngay_mua)->format('Y-m-d\TH:i')) }}">
                         </div>
 
                         <div class="form-group">
                             <label for="trang_thai">Trạng thái:</label>
-                            <input type="text" id="trang_thai" class="form-control" value="{{ $order->trang_thai }}" readonly>
+                            <select name="trang_thai" id="trang_thai" required>
+                                <option value="cho_xu_ly" {{ $order->trang_thai == 'cho_xu_ly' ? 'selected' : '' }}>Chờ xử lý</option>
+                                <option value="dang_giao" {{ $order->trang_thai == 'dang_giao' ? 'selected' : '' }}>Đang giao</option>
+                                <option value="hoan_thanh" {{ $order->trang_thai == 'hoan_thanh' ? 'selected' : '' }}>Hoàn thành</option>
+                                <option value="huy" {{ $order->trang_thai == 'huy' ? 'selected' : '' }}>Hủy</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="tong_tien">Tổng tiền:</label>
-                            <input type="number" name="tong_tien" id="tong_tien" required value="{{ old('tong_tien', $order->tong_tien) }}">
+                            <label for="hinh_thuc_thanh_toan">Hình thức thanh toán:</label>
+                            <select name="hinh_thuc_thanh_toan" id="hinh_thuc_thanh_toan" required>
+                                <option value="tien_mat" {{ $order->hinh_thuc_thanh_toan == 'tien_mat' ? 'selected' : '' }}>Tiền mặt</option>
+                                <option value="chuyen_khoan" {{ $order->hinh_thuc_thanh_toan == 'chuyen_khoan' ? 'selected' : '' }}>Chuyển khoản</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="giam_gia">Giảm giá (%):</label>
+                            <input type="number" name="giam_gia" id="giam_gia" min="0" max="100"
+                                   value="{{ old('giam_gia', $order->giam_gia) }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tong_so_luong">Tổng số lượng:</label>
+                            <input type="number" name="tong_so_luong" id="tong_so_luong" required min="0"
+                                   value="{{ old('tong_so_luong', $order->tong_so_luong) }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tong_tien">Tổng tiền (VND):</label>
+                            <input type="number" name="tong_tien" id="tong_tien" required min="0"
+                                   value="{{ old('tong_tien', $order->tong_tien) }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="khuyen_mai_id">Khuyến mãi (nếu có):</label>
+                            <input type="number" name="khuyen_mai_id" id="khuyen_mai_id" min="1"
+                                   value="{{ old('khuyen_mai_id', $order->khuyen_mai_id) }}">
                         </div>
 
                         <div class="form-group d-flex justify-content-between">
                             <div>
-                                <button type="submit" class="btn btn-success">Cập nhật Đơn Hàng</button>
+                            <button type="submit" class="btn btn-success">Cập nhật Đơn Hàng</button>
                             </div>
                             <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">← Trở về</a>
                         </div>
@@ -68,7 +101,6 @@
         </div>
     </div>
 </div>
-<!-- Wrapper END -->
 @endsection
 
 @section('styles')

@@ -21,8 +21,11 @@ class KhachHangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ho_ten' => 'required|string|max:255',
-            'email' => 'required|email|unique:khachhang,email',
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|unique:nguoi_dung,username',
+            'email' => 'required|email|unique:nguoi_dung,email',
+            'password' => 'required|string|min:6|confirmed',
+            'so_dien_thoai' => 'required|string|unique:nguoi_dung,so_dien_thoai',
         ]);
 
         KhachHang::create($request->all());
@@ -38,11 +41,19 @@ class KhachHangController extends Controller
     public function update(Request $request, KhachHang $khachhang)
     {
         $request->validate([
-            'ho_ten' => 'required|string|max:255',
-            'email' => 'required|email|unique:khachhang,email,' . $khachhang->id,
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|unique:nguoi_dung,username,' . $khachhang->id,
+            'email' => 'required|email|unique:nguoi_dung,email,' . $khachhang->id,
+            'so_dien_thoai' => 'required|string|unique:nguoi_dung,so_dien_thoai,' . $khachhang->id,
         ]);
 
-        $khachhang->update($request->all());
+        $data = $request->only(['name', 'username', 'email', 'so_dien_thoai']);
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $khachhang->update($data);
 
         return redirect()->route('admin.khachhang.index')->with('success', 'Cập nhật thành công!');
     }

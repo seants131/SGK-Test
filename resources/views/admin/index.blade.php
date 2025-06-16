@@ -158,30 +158,68 @@
                         <div class="iq-card-body">
                            <div class="order-info">
                            <div class="table-responsive">
-                              <table class="table table-striped">
-                              <thead>
-                                 <tr>
-                                       <th>STT</th>
-                                       <th>Mã đơn</th>
-                                       <th>Khách hàng</th>
-                                       <th>Ngày đặt</th>
-                                       <th>Tổng tiền</th>
-                                       <th>Trạng thái</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 @foreach($orders as $index => $order)
-                                       <tr>
-                                          <td>{{ $index + 1 }}</td>
-                                          <td>{{ $order->id }}</td>
-                                          <td>{{ $order->khachHang->ho_ten ?? 'N/A' }}</td> {{-- Sửa theo cột tên thật --}}
-                                          <td>{{ $order->ngay_dat->format('d/m/Y') }}</td>
-                                          <td>{{ number_format($order->tong_tien, 0, ',', '.') }} đ</td>
-                                          <td>{{ $order->trang_thai }}</td>
-                                       </tr>
-                                 @endforeach
-                              </tbody>
-                              </table>
+                               <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mã đơn</th>
+                                            <th>Khách hàng</th>
+                                            <th>Ngày mua</th>
+                                            <th>Hình thức thanh toán</th>
+                                            <th>Giảm giá</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Số lượng</th>
+                                            <th>Khuyến mãi</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($orders as $index => $order)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->khachHang->name ?? 'N/A' }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($order->ngay_mua)->format('d/m/Y') }}</td>
+                                            <td>{{ ucfirst(str_replace('_', ' ', $order->hinh_thuc_thanh_toan)) }}</td>
+                                            <td>{{ $order->giam_gia }}%</td>
+                                            <td>{{ number_format($order->tong_tien, 0, ',', '.') }} đ</td>
+                                            <td>{{ $order->tong_so_luong }}</td>
+                                            <td>{{ $order->khuyenMai->ten_khuyen_mai ?? 'Không có' }}</td>
+                                            <td>
+                                                @if ($order->trang_thai == 'cho_xu_ly')
+                                                    <span class="badge badge-warning">Chờ xử lý</span>
+                                                @elseif ($order->trang_thai == 'dang_giao')
+                                                    <span class="badge badge-info">Đang giao</span>
+                                                @elseif ($order->trang_thai == 'hoan_thanh')
+                                                    <span class="badge badge-success">Hoàn thành</span>
+                                                @elseif ($order->trang_thai == 'huy')
+                                                    <span class="badge badge-danger">Hủy</span>
+                                                @else
+                                                    <span class="badge badge-secondary">{{ $order->trang_thai }}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center" style="gap: 6px;">
+                                                    <a href="{{ route('admin.orders.edit', $order->id) }}"
+                                                       class="action-btn" data-toggle="tooltip" title="Sửa">
+                                                        <i class="ri-pencil-line"></i>
+                                                    </a>
+
+                                                    <form action="{{ route('admin.orders.destroy', $order->id) }}"
+                                                          method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="action-btn" data-toggle="tooltip" title="Xóa">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                            </div>
                         </div>
                         </div>
