@@ -2,21 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LienHe extends Model
 {
-    use HasFactory;
-
-    protected $table      = 'lienhe';   // đúng tên bảng migration
-    protected $primaryKey = 'id';
-    public    $incrementing = true;
+    protected $table = 'lien_he';
 
     protected $fillable = [
-        'hoten',
+        'ho_ten',
         'email',
-        'chude',
-        'noidung',
+        'so_dien_thoai',
+        'noi_dung',
+        'trang_thai',
     ];
 }

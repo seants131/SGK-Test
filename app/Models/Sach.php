@@ -2,59 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Sach extends Model
 {
-    use HasFactory;
-
-    protected $table = 'sach'; // tên bảng
-
-    // Không cần khai báo MaSach nữa vì nó sẽ tự động tăng
-    public $incrementing = true; 
-
-    // Khóa chính mặc định là 'id' vì MaSach đã là khóa tự tăng
-    protected $primaryKey = 'MaSach';  // Nếu cần chỉ định rõ khóa chính
+    protected $table = 'sach';
+    protected $primaryKey = 'MaSach';
 
     protected $fillable = [
         'TenSach',
         'slug',
-        'category_id',
+        'LoaiSanPham',
         'TacGia',
-        'GiaNhap',
-        'GiaBan',
+        'GiaBia',
         'SoLuong',
         'NamXuatBan',
         'MoTa',
         'TrangThai',
         'LuotMua',
         'HinhAnh',
+        'Lop',
+        'NXB',
     ];
 
-    /**
-     * Auto generate slug from TenSach if not provided
-     */
-    protected static function booted()
+    public function chiTietHoaDon()
     {
-        static::creating(function ($sach) {
-            if (empty($sach->slug)) {
-                $sach->slug = Str::slug($sach->TenSach);
-            }
-        });
-
-        static::updating(function ($sach) {
-            if (empty($sach->slug)) {
-                $sach->slug = Str::slug($sach->TenSach);
-            }
-        });
+        return $this->hasMany(ChiTietHoaDon::class, 'sach_id', 'MaSach');
     }
 
-    /** Relationships */
-    public function DanhMuc()
+    public function chiTietNhapSach()
     {
-        return $this->belongsTo(DanhMuc::class, 'category_id');
+        return $this->hasMany(ChiTietNhapSach::class, 'sach_id', 'MaSach');
     }
-
 }

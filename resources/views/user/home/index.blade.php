@@ -1,4 +1,4 @@
-   <!doctype html>
+<!doctype html>
 <html lang="en">
    <head>
       <!-- Required meta tags -->
@@ -24,7 +24,8 @@
                               @if(isset($newReleaseSlides) && $newReleaseSlides->count() > 0)
                                  @foreach($newReleaseSlides as $slideBook)
                                     <li class="item">
-                                       <a href="{{ route('user.books.detail') }}"> {{-- Consider making this link to the specific book: route('user.books.detail', $slideBook->slug) --}}
+                                       {{-- 1. Slider sách mới --}}
+                                       <a href="{{ route('user.books.detail', $slideBook->slug) }}">
                                           <img src="{{ $slideBook->HinhAnh ? asset('uploads/books/' . $slideBook->HinhAnh) : asset('images/default-book-placeholder.jpg') }}" class="img-fluid w-100 rounded" alt="{{ $slideBook->TenSach }}">
                                        </a>
                                     </li>
@@ -45,8 +46,9 @@
                            <div class="iq-header-title">
                               <h4 class="card-title mb-0">Gợi ý cho bạn</h4>
                            </div>
-                           <div class="iq-card-header-toolbar d-flex align-items-center">                              
-                              <a href="{{ route('user.books.index') }}" class="btn btn-sm btn-primary view-more">Xem Thêm</a>
+                           <div class="iq-card-header-toolbar d-flex align-items-center">   
+                              {{-- Dự định tạo 1 trang hiển thị danh sách sản phẩm (sau này)                           --}}
+                              <a href="#" class="btn btn-sm btn-primary view-more">Xem Thêm</a>
                            </div>
                         </div> 
                         <div class="iq-card-body">  
@@ -58,34 +60,27 @@
                                        <div class="iq-card-body p-0">
                                           <div class="d-flex align-items-center">
                                              <div class="col-6 p-0 position-relative image-overlap-shadow">
-                                                <a href="{{ route('user.books.detail') }}"> {{-- Consider: route('user.books.detail', $book->slug) --}}
-                                                   <img class="img-fluid rounded w-100" src="{{ $book->HinhAnh ? asset('uploads/books/' . $book->HinhAnh) : asset('images/default-book-placeholder.jpg') }}" alt="{{ $book->TenSach }}">
+                                                <a href="{{ route('user.books.detail', $book->slug) }}">
+                                                    <img class="img-fluid rounded w-100"
+                                                         src="{{ $book->HinhAnh ? asset('uploads/books/' . $book->HinhAnh) : asset('images/default-book-placeholder.jpg') }}"
+                                                         alt="{{ $book->TenSach }}">
                                                 </a>
                                                 <div class="view-book">
-                                                   <a href="{{ route('user.books.detail') }}" class="btn btn-sm btn-white">Mua Ngay</a> {{-- Consider: route('user.books.detail', $book->slug) --}}
+                                                    <a href="{{ route('user.books.detail', $book->slug) }}" class="btn btn-sm btn-white">Mua Ngay</a>
                                                 </div>
                                              </div>
                                              <div class="col-6">
                                                 <div class="mb-2">
-                                                   <h6 class="mb-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ $book->TenSach }}">{{ Str::limit($book->TenSach, 30) }}</h6>
+                                                   <h6 class="mb-1" title="{{ $book->TenSach }}">{{ Str::limit($book->TenSach, 30) }}</h6>
                                                    <p class="font-size-13 line-height mb-1">{{ $book->TacGia ?: 'N/A' }}</p>
-                                                   <div class="d-block line-height">
-                                                      <span class="font-size-11 text-warning">
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                         <i class="fa fa-star"></i>
-                                                      </span>                                             
-                                                   </div>
                                                 </div>
                                                 <div class="price d-flex align-items-center">
-                                                   <h6><b>{{ number_format($book->GiaBan, 0, ',', '.') }} đ</b></h6>
+                                                   <h6><b>{{ number_format($book->GiaBia, 0, ',', '.') }} đ</b></h6>
                                                 </div>
                                                 <div class="iq-product-action">
                                                    <a href="javascript:void();" title="Thêm vào giỏ hàng"><i class="ri-shopping-cart-2-fill text-primary"></i></a>
                                                    <a href="javascript:void();" class="ml-2" title="Thêm vào yêu thích"><i class="ri-heart-fill text-danger"></i></a>
-                                                </div>                                      
+                                                </div>
                                              </div>
                                           </div>
                                        </div>
@@ -122,7 +117,8 @@
                         <div class="iq-card-body">
                            <div class="row align-items-center">
                               <div class="col-sm-5 pr-0">
-                                 <a href="{{ route('user.books.detail') }}"> {{-- Consider: route('user.books.detail', $bestSellerBook->slug) --}}
+                                 {{-- 2. Best Seller --}}
+                                 <a href="{{ route('user.books.detail', $bestSellerBook->slug) }}">
                                     <img class="img-fluid rounded w-100" src="{{ $bestSellerBook->HinhAnh ? asset('uploads/books/' . $bestSellerBook->HinhAnh) : asset('images/default-book-placeholder.jpg') }}" alt="{{ $bestSellerBook->TenSach }}">
                                  </a>
                               </div>
@@ -139,7 +135,7 @@
                                     </span>
                                  </div>
                                  <span class="text-dark mb-3 d-block">{{ Str::limit($bestSellerBook->MoTa, 100) ?: 'Không có mô tả.' }}</span>
-                                 <a href="{{ route('user.books.detail') }}" class="btn btn-primary learn-more">Xem thêm</a> {{-- Consider: route('user.books.detail', $bestSellerBook->slug) --}}
+                                 <a href="{{ route('user.books.detail', $bestSellerBook->slug) }}" class="btn btn-primary learn-more">Xem thêm</a> {{-- Consider: route('user.books.detail', $bestSellerBook->slug) --}}
                               </div>
                            </div>
                         </div>
@@ -195,7 +191,8 @@
                               <h4 class="card-title mb-0">Sách yêu thích</h4>
                            </div>
                            <div class="iq-card-header-toolbar d-flex align-items-center">
-                              <a href="{{ route('user.books.index') }}" class="btn btn-sm btn-primary view-more">Xem thêm</a>
+                              {{-- Dự định tạo 1 trang hiển thị danh sách sản phẩm (sau này) --}}
+                              <a href="#" class="btn btn-sm btn-primary view-more">Xem thêm</a>
                            </div>
                         </div>                         
                         <div class="iq-card-body favorites-contens">
@@ -205,7 +202,8 @@
                                  <li class="col-md-4">
                                     <div class="d-flex align-items-center">
                                        <div class="col-5 p-0 position-relative">
-                                          <a href="{{ route('user.books.detail') }}"> {{-- Consider: route('user.books.detail', $favBook->slug) --}}
+                                          {{-- 3. Sách yêu thích --}}
+                                          <a href="{{ route('user.books.detail', $favBook->slug) }}">
                                              <img src="{{ $favBook->HinhAnh ? asset('uploads/books/' . $favBook->HinhAnh) : asset('images/default-book-placeholder.jpg') }}" class="img-fluid rounded w-100" alt="{{ $favBook->TenSach }}">
                                           </a>                                
                                        </div>

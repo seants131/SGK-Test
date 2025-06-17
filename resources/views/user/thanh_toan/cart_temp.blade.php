@@ -1,6 +1,4 @@
-@extends('layouts.app') {{-- Hoặc dùng layout riêng của bạn --}}
-
-@section('content')
+{{-- @section('content') --}}
     <h2>🛒 Giỏ hàng của bạn</h2>
 
     @if (session('success'))
@@ -14,7 +12,7 @@
             <thead>
                 <tr>
                     <th>Tên sản phẩm</th>
-                    <th>Đơn giá</th>
+                    <th>Đơn giá</th>    
                     <th>Số lượng</th>
                     <th>Thành tiền</th>
                     <th>Xóa</th>
@@ -43,4 +41,4 @@
     @endif
 
     <a href="/">⬅ Quay lại mua hàng</a>
-@endsection
+{{-- @endsection --}}

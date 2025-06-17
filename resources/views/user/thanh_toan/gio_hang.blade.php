@@ -35,7 +35,8 @@
                                     <div class="iq-card-body">
                                         <ul class="list-inline p-0 m-0">
                                             <li class="checkout-product">
-                                                <div class="row align-items-center">
+                                                {{-- danh sách sản phẩm trong giỏ hàng--}} 
+                                                <div class="row align-items-center">  
                                                     <div class="col-sm-2">
                                                         <span class="checkout-product-img">
                                                             <a href="javascript:void();"><img class="img-fluid rounded"

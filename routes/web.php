@@ -64,9 +64,6 @@ Route::get('/signup', [HomeController::class, 'dangKy'])->name('user.auth.dang_k
 Route::get('/login', [HomeController::class, 'dangNhap'])->name('user.auth.dang_nhap');
 
 Route::get('/', [HomeController::class, 'index'])->name('user.home.index');
-Route::get('/books', [HomeController::class, 'books'])->name('user.books.index');
-// Route::get('/books/{id}', [HomeController::class, 'bookDetail'])->name('user.books.detail');
-Route::get('/books/detail', [HomeController::class, 'bookDetail'])->name('user.books.detail');
 Route::get('/categories', [HomeController::class, 'categories'])->name('user.categories.index');
 Route::get('/categories/{id}', [HomeController::class, 'categoryDetail'])->name('user.categories.detail');
 Route::get('/authors', [HomeController::class, 'authors'])->name('user.authors.index');
@@ -108,3 +105,4 @@ use App\Http\Controllers\UserCartController;
 Route::get('/gio-hang', [UserCartController::class, 'index'])->name('cart.index');
 Route::post('/gio-hang/them', [UserCartController::class, 'add'])->name('cart.add');
 Route::post('/gio-hang/xoa', [UserCartController::class, 'remove'])->name('cart.remove');
+Route::get('/sach/{slug}', [HomeController::class, 'bookDetail'])->name('user.books.detail');
