@@ -17,13 +17,15 @@
           @endif
 
           <form method="POST" action="{{ route('admin.lienhe.update', $contact->id) }}">
-            @csrf @method('PUT')
+            @csrf 
+            @method('PUT')
+
             <a href="{{ route('admin.lienhe.index') }}" class="close-form-button" title="Đóng">&times;</a>
 
             <div class="form-group">
-              <label for="hoten">Họ tên:</label>
-              <input type="text" name="hoten" id="hoten"
-                     class="form-control" value="{{ old('hoten', $contact->hoten) }}" required>
+              <label for="ho_ten">Họ tên:</label>
+              <input type="text" name="ho_ten" id="ho_ten"
+                     class="form-control" value="{{ old('ho_ten', $contact->ho_ten) }}" required>
             </div>
 
             <div class="form-group">
@@ -33,22 +35,22 @@
             </div>
 
             <div class="form-group">
-              <label for="chude">Chủ đề:</label>
-              <input type="text" name="chude" id="chude"
-                     class="form-control" value="{{ old('chude', $contact->chude) }}" required>
+              <label for="so_dien_thoai">Số điện thoại:</label>
+              <input type="text" name="so_dien_thoai" id="so_dien_thoai"
+                     class="form-control" value="{{ old('so_dien_thoai', $contact->so_dien_thoai) }}">
             </div>
 
             <div class="form-group">
-              <label for="noidung">Nội dung:</label>
-              <textarea name="noidung" id="noidung"
-                        class="form-control" required>{{ old('noidung', $contact->noidung) }}</textarea>
+              <label for="noi_dung">Nội dung:</label>
+              <textarea name="noi_dung" id="noi_dung"
+                        class="form-control" required>{{ old('noi_dung', $contact->noi_dung) }}</textarea>
             </div>
 
             <div class="form-group d-flex justify-content-between mt-3">
-                <div>
-                    <button type="submit" class="btn btn-warning">Cập nhật sách</button>
-                </div>
-                <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">← Trở về</a>
+              <div>
+                <button type="submit" class="btn btn-warning">Cập nhật liên hệ</button>
+              </div>
+                <a href="{{ route('admin.lienhe.index') }}" class="btn btn-secondary">← Trở về</a>
             </div>
           </form>
         </div>
@@ -57,103 +59,97 @@
   </div>
 </div>
 @endsection
+
 @section('styles')
-    <style>
-       /* Container cho form */
-       .close-form-button {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            z-index: 10;
-            background-color: #dc3545;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            line-height: 1;
-            border: none;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
+<style>
+    .close-form-button {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        z-index: 10;
+        background-color: #dc3545;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
 
-        .close-form-button:hover {
-            background-color: #bd2130;
-            text-decoration: none;
-        }
+    .close-form-button:hover {
+        background-color: #bd2130;
+        text-decoration: none;
+    }
 
-       .form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%; /*Chiều cao bằng 100% màn hình */
-            padding: 10px; /* Giảm padding xung quanh container */
-            background-color: #f8f9fa; /* Màu nền sáng nhẹ hơn */
-        }
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding: 10px;
+        background-color: #f8f9fa;
+    }
 
-        form {
-            background-color: #ffffff; /* Màu nền của form */
-            padding: 15px; /* Giảm padding bên trong form */
-            border-radius: 8px; /* Đường bo góc mềm mại */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
-            width: 100%;
-            max-width: 1250px;/* Giới hạn chiều rộng form nhỏ hơn */
-            box-sizing: border-box;
-        }
+    form {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 1250px;
+        box-sizing: border-box;
+    }
 
-        /* Nhóm các phần tử form */
-        .form-group {
-            margin-bottom: 15px;
-        }
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-        /* Định dạng cho label */
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-        /* Định dạng cho các input, select, và textarea */
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+    input, select, textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
-        /* Định dạng cho textarea */
-        textarea {
-            height: 120px;
-            resize: vertical;
-        }
+    textarea {
+        height: 120px;
+        resize: vertical;
+    }
 
-        /* Định dạng cho nút bấm */
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    button:hover {
+        background-color: #0056b3;
+    }
 
-        /* Căn giữa tiêu đề */
-        h1.text-center {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-    </style>
+    h1.text-center {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+</style>
 @endsection

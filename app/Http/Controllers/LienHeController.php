@@ -13,8 +13,8 @@ class LienHeController extends Controller
         $query = LienHe::query();
 
         // Tìm theo họ tên
-        if ($request->filled('hoten')) {
-            $query->where('hoten', 'LIKE', '%' . $request->hoten . '%');
+        if ($request->filled('ho_ten')) {
+            $query->where('ho_ten', 'LIKE', '%' . $request->ho_ten . '%');
         }
 
         // Tìm theo email
@@ -22,9 +22,9 @@ class LienHeController extends Controller
             $query->where('email', 'LIKE', '%' . $request->email . '%');
         }
 
-        // Tìm theo chủ đề
-        if ($request->filled('chude')) {
-            $query->where('chude', 'LIKE', '%' . $request->chude . '%');
+        // Tìm theo số điện thoại
+        if ($request->filled('so_dien_thoai')) {
+            $query->where('so_dien_thoai', 'LIKE', '%' . $request->so_dien_thoai . '%');
         }
 
         // Tìm theo ngày tạo
@@ -47,13 +47,15 @@ class LienHeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'hoten'   => 'required|string|max:255',
-            'email'   => 'required|email|max:255',
-            'chude'   => 'required|string|max:255',
-            'noidung' => 'required|string',
+            'ho_ten'         => 'required|string|max:255',
+            'email'          => 'required|email|max:255',
+            'so_dien_thoai'  => 'nullable|string|max:20',
+            'noi_dung'       => 'required|string',
         ]);
 
-        LienHe::create($request->all());
+        LienHe::create($request->only([
+            'ho_ten', 'email', 'so_dien_thoai', 'noi_dung'
+        ]));
 
         return redirect()->route('admin.lienhe.index')
                          ->with('success', 'Liên hệ đã được thêm thành công.');
@@ -70,14 +72,16 @@ class LienHeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'hoten'   => 'required|string|max:255',
-            'email'   => 'required|email|max:255',
-            'chude'   => 'required|string|max:255',
-            'noidung' => 'required|string',
+            'ho_ten'         => 'required|string|max:255',
+            'email'          => 'required|email|max:255',
+            'so_dien_thoai'  => 'nullable|string|max:20',
+            'noi_dung'       => 'required|string',
         ]);
 
         $contact = LienHe::findOrFail($id);
-        $contact->update($request->all());
+        $contact->update($request->only([
+            'ho_ten', 'email', 'so_dien_thoai', 'noi_dung'
+        ]));
 
         return redirect()->route('admin.lienhe.index')
                          ->with('success', 'Liên hệ đã được cập nhật thành công.');

@@ -71,7 +71,7 @@
                <nav class="iq-sidebar-menu">
                <ul id="iq-sidebar-toggle" class="iq-menu">
                   <li><a href="{{ route('admin.index') }}"><i class="las la-home iq-arrow-left"></i>Bảng Điều Khiển</a></li>
-                  <li><a href="{{ route('admin.categories') }}"><i class="ri-record-circle-line"></i>Danh Mục Sách</a></li>
+                  
                   <li><a href="{{ route('admin.orders.index') }}"><i class="ri-record-circle-line"></i>Đơn Hàng</a></li>
                   <li><a href="{{ route('admin.books.index') }}"><i class="ri-record-circle-line"></i>Sách</a></li>
                   <li><a href="{{ route('admin.khachhang.index') }}"><i class="ri-record-circle-line"></i>Người Dùng</a></li>
@@ -106,12 +106,12 @@
                   <div class="navbar-breadcrumb">
                      <h5 class="mb-0">Trang Chủ</h5>
                   </div>
-                  <div class="iq-search-bar">
+                  <!-- <div class="iq-search-bar">
                      <form action="#" class="searchbox">
                         <input type="text" class="text search-input" placeholder="Tìm kiếm sản phẩm...">
                         <a class="search-link" href="#"><i class="ri-search-line"></i></a>
                      </form>
-                  </div>
+                  </div> -->
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"  aria-label="Toggle navigation">
                   <i class="ri-menu-3-line"></i>
                   </button>
@@ -130,7 +130,7 @@
                            @php
                            use App\Models\DonHang;
 
-                           $donHangChoXuLy = DonHang::where('trang_thai', 'chờ xử lý')
+                           $donHangChoXuLy = DonHang::where('trang_thai', 'cho_xu_ly')
                                                       ->orderByDesc('created_at')
                                                       ->take(5)
                                                       ->get();
@@ -411,6 +411,7 @@
             }
          });
       </script>
+      @yield('scripts')
 </body>
 
 </html>

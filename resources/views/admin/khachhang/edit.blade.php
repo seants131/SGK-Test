@@ -27,23 +27,27 @@
                      <a href="{{ route('admin.khachhang.index') }}" class="close-form-button" title="Đóng">&times;</a>
 
                      <div class="form-group">
-                        <label for="ho_ten">Họ tên</label>
-                        <input type="text" name="ho_ten" id="ho_ten" class="form-control" value="{{ old('ho_ten', $khachhang->ho_ten) }}" required>
+                        <label for="name">Họ tên</label>
+                        <input type="text" name="name" id="name" class="form-control" 
+                               value="{{ old('name', $khachhang->name) }}" required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" name="username" id="username" class="form-control" 
+                               value="{{ old('username', $khachhang->username) }}" required>
                      </div>
 
                      <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $khachhang->email) }}" required>
+                        <input type="email" name="email" id="email" class="form-control" 
+                               value="{{ old('email', $khachhang->email) }}" required>
                      </div>
 
                      <div class="form-group">
                         <label for="so_dien_thoai">Số điện thoại</label>
-                        <input type="text" name="so_dien_thoai" id="so_dien_thoai" class="form-control" value="{{ old('so_dien_thoai', $khachhang->so_dien_thoai) }}">
-                     </div>
-
-                     <div class="form-group">
-                        <label for="dia_chi">Địa chỉ</label>
-                        <textarea name="dia_chi" id="dia_chi" class="form-control">{{ old('dia_chi', $khachhang->dia_chi) }}</textarea>
+                        <input type="text" name="so_dien_thoai" id="so_dien_thoai" class="form-control" 
+                               value="{{ old('so_dien_thoai', $khachhang->so_dien_thoai) }}">
                      </div>
 
                      <div class="form-group d-flex justify-content-between mt-3">
