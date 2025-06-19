@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\LienHeController;
+use App\Http\Controllers\PhieuNhapController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminAuthController;
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Mail;
 //user
 // Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
 // sign_in_up
+Route::get('/login', function () {
+    return redirect()->route('admin.sign-in'); // hoặc đổi sang user login nếu cần
+})->name('login');
 Route::get('/sign-in', [UserAuthController::class, 'showSigninForm'])->name('user.sign-in');
 Route::get('/sign-up', [UserAuthController::class, 'showSignupForm'])->name('user.sign-up');
 
@@ -26,7 +30,13 @@ Route::get('/sign-up', [UserAuthController::class, 'showSignupForm'])->name('use
 Route::get('/admin/register', [AdminAuthController::class, 'showRegisterForm'])->name('admin.register');
 Route::post('/admin/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
 // Trang đăng nhập của admin. Test chức năng đăng nhập
+// Định nghĩa route gốc
 Route::get('/admin/sign-in', [AdminAuthController::class, 'showSigninForm'])->name('admin.sign-in');
+
+// Gán alias "login" để Laravel auth middleware có thể redirect về đúng route
+Route::get('/admin/login', [AdminAuthController::class, 'showSigninForm'])->name('admin.sign-in');
+
+
 // Xử lý đăng nhập của admin
 Route::post('/admin/sign-in', [AdminAuthController::class, 'signin'])->name('admin.signin');
 // Trang đăng xuất của admin
@@ -47,12 +57,13 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/books', [BookController::class, 'index'])->name('admin.books');
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders');
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     
     Route::resource('books', BookController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('khachhang', KhachHangController::class);
     Route::resource('lienhe', LienHeController::class);
+    Route::resource('phieunhap',PhieuNhapController::class);
     Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
@@ -61,7 +72,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::get('/signup', [HomeController::class, 'dangKy'])->name('user.auth.dang_ky');
-Route::get('/login', [HomeController::class, 'dangNhap'])->name('user.auth.dang_nhap');
+// tạm thời ghi chú lại
+// Route::get('/login', [HomeController::class, 'dangNhap'])->name('user.auth.dang_nhap');
 
 Route::get('/', [HomeController::class, 'index'])->name('user.home.index');
 Route::get('/categories', [HomeController::class, 'categories'])->name('user.categories.index');

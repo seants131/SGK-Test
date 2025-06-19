@@ -71,10 +71,10 @@
                      <input type="number" name="GiaBia" id="GiaBia" value="{{ old('GiaBia', $book->GiaBia ?? '') }}" required>
                   </div>
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <label for="SoLuong">Số lượng:</label>
                      <input type="number" name="SoLuong" id="SoLuong" required value="{{ old('SoLuong') }}">
-                  </div>
+                  </div> -->
 
                   <div class="form-group">
                     <label for="LuotMua">Lượt mua:</label>

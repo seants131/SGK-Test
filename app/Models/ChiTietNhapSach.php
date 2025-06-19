@@ -18,7 +18,7 @@ class ChiTietNhapSach extends Model
 
     public function phieuNhap()
     {
-        return $this->belongsTo(PhieuNhap::class);
+        return $this->belongsTo(PhieuNhap::class, 'phieu_nhap_id');
     }
 
     public function sach()

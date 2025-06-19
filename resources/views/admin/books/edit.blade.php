@@ -74,10 +74,11 @@
                             <input type="number" step="0.01" name="GiaBia" id="GiaBia" class="form-control" value="{{ old('GiaBia', $book->GiaBia) }}" required>
                         </div>
 
-                        <div class="form-group">
+                        <!-- Ẩn SoLuong vì quản lý qua phiếu nhập -->
+                        <!-- <div class="form-group">
                             <label for="SoLuong">Số lượng:</label>
                             <input type="number" name="SoLuong" id="SoLuong" class="form-control" value="{{ old('SoLuong', $book->SoLuong) }}" required>
-                        </div>
+                        </div> -->
                         
                         <div class="form-group">
                             <label for="LuotMua">Lượt mua:</label>
