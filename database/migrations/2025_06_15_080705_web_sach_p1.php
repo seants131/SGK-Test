@@ -21,6 +21,15 @@ return new class extends Migration {
             $table->index('so_dien_thoai');
         });
 
+        Schema::create('nha_xuat_ban', function (Blueprint $table) {
+            $table->id();
+            $table->string('ten')->unique();
+            $table->string('dia_chi')->nullable();
+            $table->string('so_dien_thoai')->nullable();
+            $table->string('email')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('sach', function (Blueprint $table) {
             $table->bigIncrements('MaSach'); // Thay vì id
             $table->string('TenSach')->nullable();
@@ -35,7 +44,8 @@ return new class extends Migration {
             $table->integer('LuotMua')->default(0);
             $table->text('HinhAnh')->nullable();
             $table->enum('Lop', ['1','2','3','4','5','6','7','8','9','10','11','12'])->nullable();
-            $table->text('NXB')->nullable();
+            $table->unsignedTinyInteger('chiet_khau')->default(0); // Mới thêm
+            $table->foreignId('nha_xuat_ban_id')->nullable()->constrained('nha_xuat_ban')->nullOnDelete(); // Mới thêm
             $table->timestamps();
 
             $table->index('TenSach');
@@ -57,7 +67,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('sach_id');
             $table->foreign('sach_id')->references('MaSach')->on('sach')->onDelete('cascade');
             $table->integer('so_luong');
-            $table->unsignedTinyInteger('chiet_khau'); // % chiết khấu
+            // Chiết khấu đã được đưa vào bảng sach
             $table->unsignedBigInteger('thanh_tien');
             $table->timestamps();
         });
@@ -116,6 +126,7 @@ return new class extends Migration {
         Schema::dropIfExists('chi_tiet_nhap_sach');
         Schema::dropIfExists('phieu_nhap');
         Schema::dropIfExists('sach');
+        Schema::dropIfExists('nha_xuat_ban');
         Schema::dropIfExists('nguoi_dung');
     }
 };

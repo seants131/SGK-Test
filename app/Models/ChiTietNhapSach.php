@@ -12,7 +12,6 @@ class ChiTietNhapSach extends Model
         'phieu_nhap_id',
         'sach_id',
         'so_luong',
-        'chiet_khau',
         'thanh_tien',
     ];
 
