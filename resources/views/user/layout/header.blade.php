@@ -229,12 +229,15 @@
                       </div>
                    </div>
                 </li>
-                <li class="nav-item nav-icon dropdown">
-                   <a href="#" class="search-toggle iq-waves-effect text-gray rounded">
+                {{-- <li class="nav-item nav-icon dropdown"> --}}
+                <li class="nav-item nav-icon">
+                   <a href="{{ route('cart.index') }}" class="search-toggle iq-waves-effect text-gray rounded">
                    <i class="ri-shopping-cart-2-line"></i>
-                   <span class="badge badge-danger count-cart rounded-circle">2</span>
+                     {{-- dòng dưới giúp hiện thị số lượng sản phẩm trong giỏ hàng --}}
+                   {{-- <span class="badge badge-danger count-cart rounded-circle">2</span> --}}
                    </a>
-                   <div class="iq-sub-dropdown">
+                   {{-- dòng dưới giúp hiển thị một vài sách trong giỏ hàng --}}
+                   {{-- <div class="iq-sub-dropdown">
                       <div class="iq-card shadow-none m-0">
                          <div class="iq-card-body p-0 toggle-cart-info">
                             <div class="bg-primary p-3">
@@ -270,7 +273,7 @@
                             </div>
                          </div>
                       </div>
-                   </div>
+                   </div> --}}
                 </li>
                 <li class="line-height pt-3">
                    <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">

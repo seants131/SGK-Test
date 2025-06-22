@@ -5,7 +5,7 @@
    <!-- Required meta tags -->
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <title>NHASACHTV - Pay Back Time</title>
+   <title>NHASACHTV - {{$book->TenSach}} </title>
    <!-- Favicon -->
    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
    <!-- Bootstrap CSS -->
@@ -469,9 +469,12 @@
                                     <span class="text-dark mb-4 pb-4 iq-border-bottom d-block">{{ $book->MoTa }}</span>
                                     <div class="text-primary mb-4">Tác giả: <span class="text-body">{{ $book->TacGia }}</span></div>
                                     <div class="mb-4 d-flex align-items-center">
-                                       <a href="{{ route('user.cart.add', $book->MaSach) }}" class="btn btn-primary view-more mr-2">Thêm vào giỏ hàng</a>
-                                       {{-- <a href="{{ route('user.cart.buyNow', $book->MaSach) }}" class="btn btn-primary view-more mr-2">Mua ngay</a> --}}
-                                       <a href="#" class="btn btn-primary view-more mr-2">Mua ngay</a>
+                                        <form action="{{ route('cart.add') }}" method="POST" class="mr-2">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $book->MaSach }}">
+                                            <button type="submit" class="btn btn-primary view-more">Thêm vào giỏ hàng</button>
+                                        </form>
+                                        <a href="#" class="btn btn-primary view-more mr-2">Mua ngay</a>
                                     </div>
                                     <div class="mb-3">
                                        <a href="#" class="text-body text-center"><span

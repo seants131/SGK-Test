@@ -18,6 +18,6 @@ class KhuyenMai extends Model
 
     public function hoaDon()
     {
-        return $this->hasMany(HoaDon::class, 'khuyen_mai_id');
+        return $this->hasMany(DonHang::class, 'khuyen_mai_id');
     }
 }
