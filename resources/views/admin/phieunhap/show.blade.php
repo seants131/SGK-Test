@@ -16,8 +16,7 @@
                     <div class="iq-card-body">
 
                         {{-- Thông tin chung --}}
-                          <div class="card-header font-weight-bold text-center h5">Thông tin chung</div>
-
+                        <div class="card-header font-weight-bold text-center h5">Thông tin chung</div>
                         <div class="table-responsive mb-4">
                             <table class="table table-bordered">
                                 <tbody>
@@ -27,7 +26,7 @@
                                     </tr>
                                     <tr>
                                         <th>Người nhập</th>
-                                        <td>{{ $phieunhap->khachHang->ho_ten ?? 'N/A' }}</td>
+                                        <td>{{ $phieunhap->khachHang->name ?? 'N/A' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Tổng số lượng</th>
@@ -57,6 +56,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Tên sách</th>
+                                        <th>Nhà xuất bản</th>
                                         <th>Số lượng</th>
                                         <th>Giá bìa</th>
                                         <th>Chiết khấu (%)</th>
@@ -68,14 +68,15 @@
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $ct->sach->TenSach ?? 'Đã xóa' }}</td>
+                                            <td>{{ $ct->sach->nhaXuatBan->ten ?? 'Không xác định' }}</td>
                                             <td>{{ $ct->so_luong }}</td>
                                             <td>{{ number_format($ct->sach->GiaBia ?? 0, 0, ',', '.') }} đ</td>
-                                            <td>{{ $ct->chiet_khau }}%</td>
+                                            <td>{{ $ct->chiet_khau ?? $ct->sach->chiet_khau ?? 0 }}%</td>
                                             <td>{{ number_format($ct->thanh_tien, 0, ',', '.') }} đ</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" class="text-center">Không có sách nào.</td>
+                                            <td colspan="7" class="text-center">Không có sách nào.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

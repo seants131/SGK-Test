@@ -4,43 +4,44 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sach;
+use App\Models\NhaXuatBan;
 use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Sach::query();
+        $query = Sach::with('nhaXuatBan');
 
         if ($request->filled('ten_sach')) {
             $query->where('TenSach', 'LIKE', '%' . $request->ten_sach . '%');
         }
 
         if ($request->filled('tac_gia')) {
-            $tacGia = trim($request->tac_gia);
-            $query->whereRaw("LOWER(TacGia) LIKE ?", ['%' . strtolower($tacGia) . '%']);
+            $query->whereRaw("LOWER(TacGia) LIKE ?", ['%' . strtolower(trim($request->tac_gia)) . '%']);
         }
 
         if ($request->filled('ngay_tao')) {
             $query->whereDate('created_at', $request->ngay_tao);
         }
 
-        $books = $query->orderBy('created_at', 'desc')->paginate(10);
-        $lopOptions = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+        $books = $query->orderByDesc('created_at')->paginate(10);
+        $lopOptions = range(1, 12);
 
         return view('admin.books.index', compact('books', 'lopOptions'));
     }
 
     public function show($id)
     {
-        $book = Sach::findOrFail($id);
+        $book = Sach::with('nhaXuatBan')->findOrFail($id);
         return view('admin.books.show', compact('book'));
     }
 
     public function create()
     {
-        $lopOptions = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-        return view('admin.books.create', compact('lopOptions'));
+        $lopOptions = range(1, 12);
+        $nhaXuatBans = NhaXuatBan::all();
+        return view('admin.books.create', compact('lopOptions', 'nhaXuatBans'));
     }
 
     public function store(Request $request)
@@ -48,23 +49,24 @@ class BookController extends Controller
         $request->validate([
             'TenSach' => 'required|string|max:255|unique:sach,TenSach',
             'LoaiSanPham' => 'required|in:sach_giao_khoa,sach_tham_khao',
-            'Lop' => 'required|in:1,2,3,4,5,6,7,8,9,10,11,12',
+            'Lop' => 'required|in:' . implode(',', range(1, 12)),
             'TacGia' => 'nullable|string|max:255',
             'GiaBia' => 'required|numeric',
-            // ❌ Không còn validate SoLuong ở đây
+            'ChietKhau' => 'nullable|numeric|min:0|max:100',
             'LuotMua' => 'nullable|integer|min:0',
             'NamXuatBan' => 'required|integer',
             'MoTa' => 'nullable|string',
             'TrangThai' => 'required|boolean',
-            'MaNXB' => 'nullable|string',
+            'nha_xuat_ban_id' => 'required|exists:nha_xuat_ban,id',
             'HinhAnh' => 'nullable|image|max:2048',
         ], [
-            'TenSach.unique' => 'Tên sách này đã tồn tại.',
+            'TenSach.unique' => 'Tên sách đã tồn tại.',
+            'nha_xuat_ban_id.required' => 'Vui lòng chọn nhà xuất bản.',
+            'nha_xuat_ban_id.exists' => 'Nhà xuất bản không hợp lệ.',
         ]);
 
-        $data = $request->except('SoLuong'); // Không nhận số lượng từ form
-        $data['SoLuong'] = 0; // Mặc định là 0 khi tạo mới
-        $data['created_at'] = now();
+        $data = $request->except('SoLuong');
+        $data['SoLuong'] = 0;
 
         if ($request->hasFile('HinhAnh')) {
             $file = $request->file('HinhAnh');
@@ -81,8 +83,10 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Sach::findOrFail($id);
-        $lopOptions = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-        return view('admin.books.edit', compact('book', 'lopOptions'));
+        $lopOptions = range(1, 12);
+        $nhaXuatBans = NhaXuatBan::all();
+
+        return view('admin.books.edit', compact('book', 'lopOptions', 'nhaXuatBans'));
     }
 
     public function update(Request $request, $id)
@@ -92,25 +96,27 @@ class BookController extends Controller
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('sach', 'TenSach')->ignore($id, 'MaSach')
+                Rule::unique('sach', 'TenSach')->ignore($id, 'MaSach'),
             ],
             'LoaiSanPham' => 'required|in:sach_giao_khoa,sach_tham_khao',
-            'Lop' => 'required|in:1,2,3,4,5,6,7,8,9,10,11,12',
+            'Lop' => 'required|in:' . implode(',', range(1, 12)),
             'TacGia' => 'nullable|string|max:255',
             'GiaBia' => 'required|numeric',
-            // ❌ Không validate SoLuong
+            'ChietKhau' => 'nullable|numeric|min:0|max:100',
             'LuotMua' => 'nullable|integer|min:0',
             'NamXuatBan' => 'required|integer',
             'MoTa' => 'nullable|string',
             'TrangThai' => 'required|boolean',
-            'MaNXB' => 'nullable|string',
+            'nha_xuat_ban_id' => 'required|exists:nha_xuat_ban,id',
             'HinhAnh' => 'nullable|image|max:2048',
         ], [
-            'TenSach.unique' => 'Tên sách này đã tồn tại.',
+            'TenSach.unique' => 'Tên sách đã tồn tại.',
+            'nha_xuat_ban_id.required' => 'Vui lòng chọn nhà xuất bản.',
+            'nha_xuat_ban_id.exists' => 'Nhà xuất bản không hợp lệ.',
         ]);
 
         $book = Sach::findOrFail($id);
-        $data = $request->except('SoLuong'); // Không sửa số lượng thủ công
+        $data = $request->except('SoLuong');
 
         if ($request->hasFile('HinhAnh')) {
             if ($book->HinhAnh && file_exists(public_path('uploads/books/' . $book->HinhAnh))) {
@@ -143,13 +149,13 @@ class BookController extends Controller
             if ($e->getCode() === "23000") {
                 return redirect()->route('admin.books.index')->with(
                     'error',
-                    "Không thể xóa sách này vì nó đang được sử dụng trong các hóa đơn mua hàng hoặc phiếu nhập."
+                    "Không thể xóa sách này vì đang được sử dụng trong hóa đơn hoặc phiếu nhập."
                 );
             }
 
             return redirect()->route('admin.books.index')->with(
                 'error',
-                'Đã xảy ra lỗi khi xóa sách. Vui lòng thử lại hoặc liên hệ với quản trị viên.'
+                'Đã xảy ra lỗi khi xóa sách. Vui lòng thử lại.'
             );
         }
     }

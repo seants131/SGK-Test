@@ -6,36 +6,37 @@ use Illuminate\Http\Request;
 use App\Models\PhieuNhap;
 use App\Models\ChiTietNhapSach;
 use App\Models\Sach;
+use App\Models\NhaXuatBan;
 use App\Models\KhachHang;
 use Illuminate\Support\Facades\Auth;
 
 class PhieuNhapController extends Controller
 {
    public function index(Request $request)
-{
-    $query = PhieuNhap::with('khachHang'); // <-- thêm eager loading ở đây
+    {
+        $query = PhieuNhap::with('khachHang'); // Eager loading người nhập
 
-    if ($request->filled('ho_ten')) {
-        $query->whereHas('khachHang', function ($q) use ($request) {
-            $q->where('name', 'LIKE', '%' . $request->ho_ten . '%'); // sửa ho_ten -> name vì cột trong DB là 'name'
-        });
+        if ($request->filled('ho_ten')) {
+            $query->whereHas('khachHang', function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->ho_ten . '%');
+            });
+        }
+
+        if ($request->filled('ngay_nhap')) {
+            $query->whereDate('ngay_nhap', $request->ngay_nhap);
+        }
+
+        // 👉 Ưu tiên sắp xếp theo thời gian tạo mới nhất thay vì ngày nhập
+        $phieunhaps = $query->orderByDesc('created_at')->paginate(10);
+
+        return view('admin.phieunhap.index', compact('phieunhaps'));
     }
-
-    if ($request->filled('ngay_nhap')) {
-        $query->whereDate('ngay_nhap', $request->ngay_nhap);
-    }
-
-    $phieunhaps = $query->orderBy('ngay_nhap', 'desc')->paginate(10);
-
-    return view('admin.phieunhap.index', compact('phieunhaps'));
-}
-
-
 
     public function create()
     {
         $sachs = Sach::all();
-        return view('admin.phieunhap.create', compact('sachs'));
+        $nhaXuatBans = NhaXuatBan::all();
+        return view('admin.phieunhap.create', compact('sachs', 'nhaXuatBans'));
     }
 
    public function store(Request $request)
@@ -53,7 +54,7 @@ class PhieuNhapController extends Controller
         $request->validate([
             'ngay_nhap' => 'required|date',
             'sach_id.*' => 'required|exists:sach,MaSach',
-            'so_luong.*' => 'required|integer|min:1',
+            'so_luong.*' => 'required|integer|min:0',
         ]);
 
         try {
@@ -79,7 +80,6 @@ class PhieuNhapController extends Controller
                     'phieu_nhap_id' => $phieuNhap->id,
                     'sach_id' => $sachId,
                     'so_luong' => $soLuong,
-                    'chiet_khau' => $chietKhau,
                     'thanh_tien' => $thanhTien
                 ]);
 
@@ -102,19 +102,22 @@ class PhieuNhapController extends Controller
         return view('admin.phieunhap.show', compact('phieunhap'));
     }
 
-    public function edit($id)
+   public function edit($id)
     {
         $phieunhap = PhieuNhap::with('chiTietNhapSach.sach')->findOrFail($id);
-        $sachs = Sach::all();
-        return view('admin.phieunhap.edit', compact('phieunhap', 'sachs'));
+        $sachs = Sach::all(); // Tất cả sách
+        $nhaXuatBans = NhaXuatBan::all(); // ✅ Thêm dòng này
+
+        return view('admin.phieunhap.edit', compact('phieunhap', 'sachs', 'nhaXuatBans'));
     }
+
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'ngay_nhap' => 'required|date',
             'sach_id.*' => 'required|exists:sach,MaSach',
-            'so_luong.*' => 'required|integer|min:1',
+            'so_luong.*' => 'required|integer|min:0',
         ]);
 
         $phieuNhap = PhieuNhap::findOrFail($id);
@@ -143,7 +146,6 @@ class PhieuNhapController extends Controller
                 'phieu_nhap_id' => $phieuNhap->id,
                 'sach_id' => $sachId,
                 'so_luong' => $soLuong,
-                'chiet_khau' => $chietKhau,
                 'thanh_tien' => $thanhTien
             ]);
 

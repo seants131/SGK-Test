@@ -12,23 +12,22 @@
                   </div>
                </div>
 
+               {{-- Hiển thị lỗi session --}}
                @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-                @endif
+               <div class="alert alert-danger">{{ session('error') }}</div>
+               @endif
 
-                {{-- ✅ Hiển thị lỗi validate --}}
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-             
+               {{-- Hiển thị lỗi validate --}}
+               @if ($errors->any())
+               <div class="alert alert-danger">
+                  <ul>
+                     @foreach ($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                     @endforeach
+                  </ul>
+               </div>
+               @endif
+
                <form action="{{ route('admin.phieunhap.store') }}" method="POST">
                   @csrf
                   <a href="{{ route('admin.phieunhap.index') }}" class="close-form-button" title="Đóng">&times;</a>
@@ -44,6 +43,7 @@
                   <table class="table table-bordered" id="table-sach">
                      <thead class="thead-light">
                         <tr>
+                           <th>Nhà xuất bản</th>
                            <th>Sách</th>
                            <th>Số lượng</th>
                            <th>Giá bìa</th>
@@ -57,16 +57,19 @@
                      <tbody>
                         <tr>
                            <td>
-                              <select name="sach_id[]" class="form-control sach-select" required>
-                                 <option value="">-- Chọn sách --</option>
-                                 @foreach ($sachs as $sach)
-                                    <option value="{{ $sach->MaSach }}" data-giabia="{{ $sach->GiaBia }}">
-                                       {{ $sach->TenSach }}
-                                    </option>
+                              <select class="form-control nxb-select" required>
+                                 <option value="">-- Chọn NXB --</option>
+                                 @foreach ($nhaXuatBans as $nxb)
+                                 <option value="{{ $nxb->id }}">{{ $nxb->ten }}</option>
                                  @endforeach
                               </select>
                            </td>
-                           <td><input type="number" name="so_luong[]" class="form-control so_luong" min="1" value="1" required></td>
+                           <td>
+                              <select name="sach_id[]" class="form-control sach-select" required disabled>
+                                 <option value="">-- Chọn sách --</option>
+                              </select>
+                           </td>
+                           <td><input type="number" name="so_luong[]" class="form-control so_luong" min="0" value="0" required></td>
                            <td><input type="number" name="gia_nhap[]" class="form-control gia_nhap" readonly></td>
                            <td><input type="number" name="chiet_khau[]" class="form-control chiet_khau" min="0" max="100" value="0"></td>
                            <td><input type="text" class="form-control thanh_tien" readonly value="0"></td>
@@ -85,6 +88,8 @@
 
                @section('scripts')
                <script>
+                  const allBooks = @json($sachs);
+
                   function calculateRow(row) {
                      const soLuong = parseFloat(row.querySelector('.so_luong').value) || 0;
                      const giaBia = parseFloat(row.querySelector('.gia_nhap').value) || 0;
@@ -94,13 +99,34 @@
                   }
 
                   function attachEventHandlers(row) {
-                     const select = row.querySelector('.sach-select');
+                     const nxbSelect = row.querySelector('.nxb-select');
+                     const sachSelect = row.querySelector('.sach-select');
                      const giaInput = row.querySelector('.gia_nhap');
+                     const ckInput = row.querySelector('.chiet_khau');
 
-                     select.addEventListener('change', function () {
+                     nxbSelect.addEventListener('change', function () {
+                        const nxbId = this.value;
+                        if (!nxbId) {
+                           sachSelect.innerHTML = '<option value="">-- Chọn sách --</option>';
+                           sachSelect.disabled = true;
+                           return;
+                        }
+
+                        const filteredBooks = allBooks.filter(book => book.nha_xuat_ban_id == nxbId);
+                        const options = filteredBooks.map(book =>
+                           `<option value="${book.MaSach}" data-giabia="${book.GiaBia}" data-chietkhau="${book.chiet_khau}">
+                              ${book.TenSach}
+                            </option>`
+                        ).join('');
+
+                        sachSelect.innerHTML = '<option value="">-- Chọn sách --</option>' + options;
+                        sachSelect.disabled = false;
+                     });
+
+                     sachSelect.addEventListener('change', function () {
                         const selected = this.options[this.selectedIndex];
-                        const giaBia = selected.getAttribute('data-giabia') || 0;
-                        giaInput.value = giaBia;
+                        giaInput.value = selected.getAttribute('data-giabia') || 0;
+                        ckInput.value = selected.getAttribute('data-chietkhau') || 0;
                         calculateRow(row);
                      });
 
@@ -113,11 +139,18 @@
                      const table = document.querySelector('#table-sach tbody');
                      const row = table.rows[0].cloneNode(true);
 
-                     // Reset value
-                     row.querySelectorAll('input').forEach(input => input.value = (input.classList.contains('so_luong') ? 1 : 0));
+                     // Reset input fields
+                     row.querySelectorAll('input').forEach(input => {
+                        input.value = (input.classList.contains('so_luong') ? 1 : 0);
+                     });
                      row.querySelector('.thanh_tien').value = '0';
-                     row.querySelector('.sach-select').selectedIndex = 0;
                      row.querySelector('.gia_nhap').value = '';
+                     row.querySelector('.chiet_khau').value = '0';
+
+                     row.querySelector('.nxb-select').selectedIndex = 0;
+                     const sachSelect = row.querySelector('.sach-select');
+                     sachSelect.innerHTML = '<option value="">-- Chọn sách --</option>';
+                     sachSelect.disabled = true;
 
                      table.appendChild(row);
                      attachEventHandlers(row);
@@ -126,7 +159,6 @@
                   function removeRow(button) {
                      const row = button.closest('tr');
                      const table = row.parentNode;
-
                      if (table.rows.length > 1) {
                         row.remove();
                      } else {
@@ -134,16 +166,15 @@
                      }
                   }
 
-                  // Gắn sự kiện ban đầu
                   document.addEventListener('DOMContentLoaded', () => {
                      document.querySelectorAll('#table-sach tbody tr').forEach(row => {
                         attachEventHandlers(row);
                      });
                   });
                </script>
-@endsection
+               @endsection
 
-@section('styles')
+               @section('styles')
                <style>
                   .close-form-button {
                      position: absolute;

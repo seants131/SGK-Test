@@ -26,7 +26,6 @@
 
                <div class="iq-card-body">
                   <div class="order-info">
-                     <!-- FORM TÌM KIẾM -->
                      <div class="w-100 p-3 bg-light rounded mb-3 border">
                         <form action="{{ route('admin.phieunhap.index') }}" method="GET">
                            <div class="d-flex justify-content-center align-items-center mb-3">
@@ -63,7 +62,7 @@
                            <tbody>
                               @foreach ($phieunhaps as $index => $phieu)
                                  <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $phieunhaps->firstItem() + $index }}</td>
                                     <td>{{ \Carbon\Carbon::parse($phieu->ngay_nhap)->format('d/m/Y') }}</td>
                                     <td>{{ $phieu->khachHang->name ?? 'N/A' }}</td>
                                     <td>{{ number_format($phieu->tong_so_luong) }}</td>
@@ -87,7 +86,6 @@
                            </tbody>
                         </table>
 
-                        <!-- Modal xác nhận xóa -->
                         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
                            <div class="modal-dialog" role="document">
                               <form method="POST" id="deleteForm">

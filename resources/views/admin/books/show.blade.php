@@ -41,9 +41,9 @@
                                     <tr>
                                         <th>Loại sản phẩm</th>
                                         <td>
-                                            @if($book->LoaiSanPham == 'sach_giao_khoa')
+                                            @if($book->LoaiSanPham === 'sach_giao_khoa')
                                                 Sách giáo khoa
-                                            @elseif($book->LoaiSanPham == 'sach_tham_khao')
+                                            @elseif($book->LoaiSanPham === 'sach_tham_khao')
                                                 Sách tham khảo
                                             @else
                                                 Không xác định
@@ -55,7 +55,7 @@
                                         <td>{{ $book->Lop ? 'Lớp ' . $book->Lop : 'Không xác định' }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Tác Giả</th>
+                                        <th>Tác giả</th>
                                         <td>{{ $book->TacGia }}</td>
                                     </tr>
                                     <tr>
@@ -63,8 +63,16 @@
                                         <td>{{ number_format($book->GiaBia, 0, ',', '.') }} đ</td>
                                     </tr>
                                     <tr>
+                                        <th>Chiết khấu</th>
+                                        <td>{{ $book->ChietKhau ?? 0 }}%</td>
+                                    </tr>
+                                    <tr>
                                         <th>Số lượng</th>
                                         <td>{{ $book->SoLuong }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Lượt mua</th>
+                                        <td>{{ $book->LuotMua }}</td>
                                     </tr>
                                     <tr>
                                         <th>Năm xuất bản</th>
@@ -86,19 +94,15 @@
                                     </tr>
                                     <tr>
                                         <th>Nhà xuất bản (NXB)</th>
-                                        <td>{{ $book->NXB ?? 'Không có' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Lượt mua</th>
-                                        <td>{{ $book->LuotMua }}</td>
+                                        <td>{{ $book->nhaXuatBan->ten ?? 'Không có' }}</td>
                                     </tr>
                                     <tr>
                                         <th>Ngày tạo</th>
-                                        <td>{{ $book->created_at }}</td>
+                                        <td>{{ $book->created_at->format('d/m/Y H:i') }}</td>
                                     </tr>
                                     <tr>
                                         <th>Ngày cập nhật</th>
-                                        <td>{{ $book->updated_at }}</td>
+                                        <td>{{ $book->updated_at->format('d/m/Y H:i') }}</td>
                                     </tr>
                                 </table>
                             </div>
