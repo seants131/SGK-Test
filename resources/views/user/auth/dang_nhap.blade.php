@@ -33,28 +33,23 @@
                           <div class="sign-in-from bg-primary rounded">
                               <h3 class="mb-0 text-center text-white">Đăng nhập</h3>
                               <p class="text-center text-white">Hãy nhập thông tin đăng nhập</p>
-                              <form class="mt-4 form-text">
-                                  <div class="form-group">
-                                      <label for="exampleInputEmail1">Email</label>
-                                      <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Enter email">
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="exampleInputPassword1">Mật khẩu</label>
-                                      <a href="#" class="float-right text-dark">Quên mật khẩu?</a>
-                                      <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
-                                  </div>
-                                  {{-- Cái này là dòng checkbox nhớ tài khoản đăng nhập --}}
-                                  {{-- <div class="d-inline-block w-100">
-                                      <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                          <label class="custom-control-label" for="customCheck1">Remember Me</label>
-                                      </div>
-                                  </div> --}}
-                                  <div class="sign-info text-center">
-                                      <button type="submit" class="btn btn-white d-block w-100 mb-2">Đăng nhập</button>
-                                      <span class="text-dark dark-color d-inline-block line-height-2">Không có tài khoảnkhoản? <a href="sign-up.html" class="text-white">Đăng ký</a></span>
-                                  </div>
-                              </form>
+                              <form class="mt-4 form-text" method="POST" action="{{ route('user.sign-in') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="username">Tên đăng nhập</label>
+                                    <input type="text" class="form-control mb-0" id="username" name="username" placeholder="Tên đăng nhập" value="{{ old('username') }}">
+                                    @error('username') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control mb-0" id="password" name="password" placeholder="Password">
+                                    @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="sign-info text-center">
+                                    <button type="submit" class="btn btn-white d-block w-100 mb-2">Đăng nhập</button>
+                                    <span class="text-dark dark-color d-inline-block line-height-2">Không có tài khoản? <a href="{{ route('user.sign-up') }}" class="text-white">Đăng ký</a></span>
+                                </div>
+                            </form>
                           </div>
                       </div>
                     </div>

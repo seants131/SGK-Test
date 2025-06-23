@@ -33,30 +33,37 @@
                           <div class="sign-in-from bg-primary rounded">
                               <h3 class="mb-0 text-center text-white">Đăng ký</h3>
                               <p class="text-center text-white">Hãy nhập email và mật khẩu</p>
-                              <form class="mt-4 form-text">
-                                  <div class="form-group">
-                                      <label for="exampleInputEmail1">Họ và tên</label>
-                                      <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="Họ và tên">
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="exampleInputEmail2">Email</label>
-                                      <input type="email" class="form-control mb-0" id="exampleInputEmail2" placeholder="Email">
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="exampleInputPassword1">Mật khẩu</label>
-                                      <input type="password" class="form-control mb-0" id="exampleInputPassword1" placeholder="Password">
-                                  </div>
-                                  {{-- <div class="d-inline-block w-100">
-                                      <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                          <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                          <label class="custom-control-label" for="customCheck1">Tôi đồng ý với <a href="#" class="text-light">các điều kiện</a></label>
-                                      </div>
-                                  </div> --}}
-                                  <div class="sign-info text-center">
-                                      <button type="submit" class="btn btn-white d-block w-100 mb-2">Đăng ký</button>
-                                      <span class="text-dark d-inline-block line-height-2">Đã có tài khoản? <a href="sign-in.html" class="text-white">Đăng nhập</a></span>
-                                  </div>
-                              </form>
+                              <form class="mt-4 form-text" method="POST" action="{{ route('user.sign-up') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name">Họ và tên</label>
+                                    <input type="text" class="form-control mb-0" id="name" name="name" placeholder="Họ và tên" value="{{ old('name') }}">
+                                    @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Tên đăng nhập</label>
+                                    <input type="text" class="form-control mb-0" id="username" name="username" placeholder="Tên đăng nhập" value="{{ old('username') }}">
+                                    @error('username') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control mb-0" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                                    @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control mb-0" id="password" name="password" placeholder="Password">
+                                    @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="password_confirmation">Nhập lại mật khẩu</label>
+                                    <input type="password" class="form-control mb-0" id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu">
+                                </div>
+                                <div class="sign-info text-center">
+                                    <button type="submit" class="btn btn-white d-block w-100 mb-2">Đăng ký</button>
+                                    <span class="text-dark d-inline-block line-height-2">Đã có tài khoản? <a href="{{ route('user.sign-in') }}" class="text-white">Đăng nhập</a></span>
+                                </div>
+                            </form>
                           </div>
                       </div>
                     </div>
