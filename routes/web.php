@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserCheckoutController ;
 use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
-
+use App\Http\Controllers\CartController;
 //user
 // Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
 // sign_in_up
@@ -112,9 +112,14 @@ Route::get('/send-order-mail', function () {
     return 'Đã gửi email xác nhận đơn hàng!';
 });
 
-use App\Http\Controllers\UserCartController;
+// use App\Http\Controllers\UserCartController;
 
-Route::get('/gio-hang', [UserCartController::class, 'index'])->name('cart.index');
-Route::post('/gio-hang/them', [UserCartController::class, 'add'])->name('cart.add');
-Route::post('/gio-hang/xoa', [UserCartController::class, 'remove'])->name('cart.remove');
+// Route::get('/gio-hang', [UserCartController::class, 'index'])->name('cart.index');
+// Route::post('/gio-hang/them', [UserCartController::class, 'add'])->name('cart.add');
+// Route::post('/gio-hang/xoa', [UserCartController::class, 'remove'])->name('cart.remove');
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+
 Route::get('/sach/{slug}', [HomeController::class, 'bookDetail'])->name('user.books.detail');

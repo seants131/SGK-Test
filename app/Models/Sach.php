@@ -22,7 +22,8 @@ class Sach extends Model
         'LuotMua',
         'HinhAnh',
         'Lop',
-        'NXB',
+        'chiet_khau',
+        'nha_xuat_ban_id',
     ];
 
     public function chiTietHoaDon()
@@ -33,5 +34,10 @@ class Sach extends Model
     public function chiTietNhapSach()
     {
         return $this->hasMany(ChiTietNhapSach::class, 'sach_id', 'MaSach');
+    }
+
+    public function nhaXuatBan()
+    {
+        return $this->belongsTo(NhaXuatBan::class, 'nha_xuat_ban_id');
     }
 }

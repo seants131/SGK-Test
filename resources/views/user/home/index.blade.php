@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="en">
    <head>
       <!-- Required meta tags -->
@@ -11,7 +11,7 @@
       <!-- Wrapper Start -->
       <div class="wrapper">
          {{-- header của trang --}}
-         @include('user.layout.header', ['trang' => 'Trangchủ'])
+         @include('user.layout.header', ['trang' => 'Trang chủ'])
          {{-- end header --}}
          <!-- Page Content  -->
          <div id="content-page" class="content-page">
@@ -66,7 +66,7 @@
                                                          alt="{{ $book->TenSach }}">
                                                 </a>
                                                 <div class="view-book">
-                                                    <a href="{{ route('user.books.detail', $book->slug) }}" class="btn btn-sm btn-white">Mua Ngay</a>
+                                                    <a href="{{ route('user.books.detail', $book->slug) }}" class="btn btn-sm btn-white">Xem</a>
                                                 </div>
                                              </div>
                                              <div class="col-6">
