@@ -82,6 +82,8 @@
                                  <th>Lớp</th> {{-- Đã thay thế cho Danh mục --}}
                                  <th>Tác giả</th>
                                  <th>Giá bìa</th>
+                                 <th>Chiết khấu (%)</th> {{-- thêm mới --}}
+                                 <th>Nhà Xuất Bản</th> {{-- thêm mới --}}
                                  <th>Số lượng</th>
                                  <th>Lượt Mua</th>
                                  <th>Ngày tạo</th>
@@ -105,6 +107,8 @@
                                     <td>{{ $book->Lop ?? 'Không có' }}</td> {{-- Trường Lớp --}}
                                     <td>{{ $book->TacGia }}</td>
                                     <td>{{ number_format($book->GiaBia, 0, ',', '.') }} đ</td>
+                                    <td>{{ $book->chiet_khau ?? 0 }}%</td> {{-- chiết khấu --}}
+                                    <td>{{ $book->nhaxuatban->ten ?? 'Không rõ' }}</td> {{-- nhà xuất bản --}}
                                     <td>{{ $book->SoLuong }}</td>
                                     <td>{{ $book->LuotMua }}</td>
                                     <td>{{ $book->created_at }}</td>

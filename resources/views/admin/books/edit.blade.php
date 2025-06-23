@@ -48,18 +48,17 @@
                             <label for="LoaiSanPham">Loại sản phẩm:</label>
                             <select name="LoaiSanPham" id="LoaiSanPham" class="form-control" required>
                                 <option value="">-- Chọn loại sản phẩm --</option>
-                                <option value="sach_giao_khoa" {{ old('LoaiSanPham', $book->LoaiSanPham ?? '') == 'sach_giao_khoa' ? 'selected' : '' }}>Sách giáo khoa</option>
-                                <option value="sach_tham_khao" {{ old('LoaiSanPham', $book->LoaiSanPham ?? '') == 'sach_tham_khao' ? 'selected' : '' }}>Sách tham khảo</option>
+                                <option value="sach_giao_khoa" {{ old('LoaiSanPham', $book->LoaiSanPham) == 'sach_giao_khoa' ? 'selected' : '' }}>Sách giáo khoa</option>
+                                <option value="sach_tham_khao" {{ old('LoaiSanPham', $book->LoaiSanPham) == 'sach_tham_khao' ? 'selected' : '' }}>Sách tham khảo</option>
                             </select>
                         </div>
 
-                         <!-- Thay thế Danh Mục bằng Lớp -->
                         <div class="form-group">
                             <label for="Lop">Lớp:</label>
                             <select name="Lop" id="Lop" required>
                                 <option value="">Chọn lớp</option>
                                 @for ($i = 1; $i <= 12; $i++)
-                                    <option value="{{ $i }}" {{ old('Lop', $book->Lop ?? '') == $i ? 'selected' : '' }}>Lớp {{ $i }}</option>
+                                    <option value="{{ $i }}" {{ old('Lop', $book->Lop) == $i ? 'selected' : '' }}>Lớp {{ $i }}</option>
                                 @endfor
                             </select>
                         </div>
@@ -75,13 +74,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="SoLuong">Số lượng:</label>
-                            <input type="number" name="SoLuong" id="SoLuong" class="form-control" value="{{ old('SoLuong', $book->SoLuong) }}" required>
-                        </div>
-                        
-                        <div class="form-group">
                             <label for="LuotMua">Lượt mua:</label>
-                            <input type="number" name="LuotMua" id="LuotMua"class="form-control" value="{{ old('LuotMua', $book->LuotMua ?? 0) }}" min="0" required>
+                            <input type="number" name="LuotMua" id="LuotMua" class="form-control" value="{{ old('LuotMua', $book->LuotMua ?? 0) }}" min="0" required>
                         </div>
 
                         <div class="form-group">
@@ -97,24 +91,30 @@
                         <div class="form-group">
                             <label for="TrangThai">Trạng thái:</label>
                             <select name="TrangThai" id="TrangThai" class="form-control" required>
-                                <option value="1" {{ $book->TrangThai == 1 ? 'selected' : '' }}>Còn hàng</option>
-                                <option value="0" {{ $book->TrangThai == 0 ? 'selected' : '' }}>Hết hàng</option>
+                                <option value="1" {{ old('TrangThai', $book->TrangThai) == 1 ? 'selected' : '' }}>Còn hàng</option>
+                                <option value="0" {{ old('TrangThai', $book->TrangThai) == 0 ? 'selected' : '' }}>Hết hàng</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="NXB">Mã NXB:</label>
-                            <input type="text" name="NXB" id="NXB" class="form-control" value="{{ old('NXB', $book->NXB) }}">
+                            <label for="nha_xuat_ban_id">Nhà xuất bản:</label>
+                            <select name="nha_xuat_ban_id" id="nha_xuat_ban_id" class="form-control" required>
+                                <option value="">-- Chọn NXB --</option>
+                                @foreach($nhaXuatBans as $nxb)
+                                    <option value="{{ $nxb->id }}" {{ old('nha_xuat_ban_id', $book->nha_xuat_ban_id) == $nxb->id ? 'selected' : '' }}>
+                                        {{ $nxb->ten }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group d-flex justify-content-between mt-4">
-                        <div>
+                            <div>
                             <button type="submit" class="btn btn-warning">Cập nhật sách</button>
-                        </div>
+                            </div>
                             <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">← Trở về</a>
                         </div>
                     </form>
-                    </div>
                 </div>
             </div>
         </div>

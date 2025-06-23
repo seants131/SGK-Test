@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\KhachHang;
 class PhieuNhap extends Model
 {
     protected $table = 'phieu_nhap';
@@ -15,9 +15,9 @@ class PhieuNhap extends Model
         'tong_so_luong',
     ];
 
-    public function nguoiDung()
+    public function khachHang()
     {
-        return $this->belongsTo(NguoiDung::class, 'user_id');
+        return $this->belongsTo(KhachHang::class, 'user_id');
     }
 
     public function chiTietNhapSach()

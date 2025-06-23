@@ -76,6 +76,7 @@
                   <li><a href="{{ route('admin.books.index') }}"><i class="ri-record-circle-line"></i>Sách</a></li>
                   <li><a href="{{ route('admin.khachhang.index') }}"><i class="ri-record-circle-line"></i>Người Dùng</a></li>
                   <li><a href="{{ route('admin.lienhe.index') }}"><i class="ri-record-circle-line"></i>Liên Hệ</a></li>
+                  <li><a href="{{ route('admin.phieunhap.index') }}"><i class="ri-record-circle-line"></i>Phiếu Nhập</a></li>
                   <form action="{{ route('logout') }}" method="POST" class="d-inline-block w-100 text-center p-3">
                      @csrf
                      <button type="submit" class="bg-primary iq-sign-btn" style="border: none;">
