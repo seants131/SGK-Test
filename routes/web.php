@@ -23,8 +23,14 @@ use App\Http\Controllers\CartController;
 Route::get('/login', function () {
     return redirect()->route('admin.sign-in'); // hoặc đổi sang user login nếu cần
 })->name('login');
-Route::get('/sign-in', [UserAuthController::class, 'showSigninForm'])->name('user.sign-in');
+
+// Đăng ký
 Route::get('/sign-up', [UserAuthController::class, 'showSignupForm'])->name('user.sign-up');
+Route::post('/sign-up', [UserAuthController::class, 'signup'])->name('user.sign-up');
+
+// Đăng nhập
+Route::get('/sign-in', [UserAuthController::class, 'showSigninForm'])->name('user.sign-in');
+Route::post('/sign-in', [UserAuthController::class, 'signin'])->name('user.sign-in');
 
 // Trang đăng ký của admin. Test chức năng đăng ký
 Route::get('/admin/register', [AdminAuthController::class, 'showRegisterForm'])->name('admin.register');
@@ -123,3 +129,9 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 
 Route::get('/sach/{slug}', [HomeController::class, 'bookDetail'])->name('user.books.detail');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
+    Route::get('/orders', [UserController::class, 'orders'])->name('user.orders.index');
+    Route::get('/orders/{id}', [UserController::class, 'orderDetail'])->name('user.orders.detail');
+});

@@ -276,65 +276,62 @@
                    </div> --}}
                 </li>
                 <li class="line-height pt-3">
-                   <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                      <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
-                      <div class="caption">
-                         <h6 class="mb-1 line-height">Nguyễn Văn A</h6>
-                         <p class="mb-0 text-primary">Tài Khoản</p>
-                      </div>
-                   </a>
-                   <div class="iq-sub-dropdown iq-user-dropdown">
-                      <div class="iq-card shadow-none m-0">
-                         <div class="iq-card-body p-0 ">
-                            <div class="bg-primary p-3">
-                               <h5 class="mb-0 text-white line-height">Xin Chào Nguyễn Văn A</h5>
+                    @if(Auth::check())
+                        <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                            <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                            <div class="caption">
+                                <h6 class="mb-1 line-height">{{ Auth::user()->name }}</h6>
+                                <p class="mb-0 text-primary">
+                                    {{ Auth::user()->role === 'admin' ? 'Quản trị viên' : 'Tài Khoản' }}
+                                </p>
                             </div>
-                            <a href="profile-edit.html" class="iq-sub-card iq-bg-primary-hover">
-                               <div class="media align-items-center">
-                                  <div class="rounded iq-card-icon iq-bg-primary">
-                                     <i class="ri-file-user-line"></i>
-                                  </div>
-                                  <div class="media-body ml-3">
-                                     <h6 class="mb-0 ">Tài khoản của tôi</h6>
-                                  </div>
-                               </div>
-                            </a>
-                            <a href="profile-edit.html" class="iq-sub-card iq-bg-primary-hover">
-                               <div class="media align-items-center">
-                                  <div class="rounded iq-card-icon iq-bg-primary">
-                                     <i class="ri-profile-line"></i>
-                                  </div>
-                                  <div class="media-body ml-3">
-                                     <h6 class="mb-0 ">Sổ địa chỉ</h6>
-                                  </div>
-                               </div>
-                            </a>
-                            <a href="#" class="iq-sub-card iq-bg-primary-hover">
-                               <div class="media align-items-center">
-                                  <div class="rounded iq-card-icon iq-bg-primary">
-                                     <i class="ri-account-box-line"></i>
-                                  </div>
-                                  <div class="media-body ml-3">
-                                     <h6 class="mb-0 ">Đơn hàng của tôi</h6>
-                                  </div>
-                               </div>
-                            </a>
-                            <a href="#" class="iq-sub-card iq-bg-primary-hover">
-                               <div class="media align-items-center">
-                                  <div class="rounded iq-card-icon iq-bg-primary">
-                                     <i class="ri-heart-line"></i>
-                                  </div>
-                                  <div class="media-body ml-3">
-                                     <h6 class="mb-0 ">Yêu Thích</h6>
-                                  </div>
-                               </div>
-                            </a>
-                            <div class="d-inline-block w-100 text-center p-3">
-                               <a class="bg-primary iq-sign-btn" href="sign-in.html" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                        </a>
+                        <div class="iq-sub-dropdown iq-user-dropdown">
+                            <div class="iq-card shadow-none m-0">
+                                <div class="iq-card-body p-0 ">
+                                    <div class="bg-primary p-3">
+                                        <h5 class="mb-0 text-white line-height">Xin Chào {{ Auth::user()->name }}</h5>
+                                    </div>
+                                    <a href="{{ route('user.profile.index') }}" class="iq-sub-card iq-bg-primary-hover">
+                                        <div class="media align-items-center">
+                                            <div class="rounded iq-card-icon iq-bg-primary">
+                                                <i class="ri-file-user-line"></i>
+                                            </div>
+                                            <div class="media-body ml-3">
+                                                <h6 class="mb-0 ">Tài khoản của tôi</h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ route('user.orders.index') }}" class="iq-sub-card iq-bg-primary-hover">
+                                        <div class="media align-items-center">
+                                            <div class="rounded iq-card-icon iq-bg-primary">
+                                                <i class="ri-account-box-line"></i>
+                                            </div>
+                                            <div class="media-body ml-3">
+                                                <h6 class="mb-0 ">Đơn hàng của tôi</h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="d-inline-block w-100 text-center p-3">
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="bg-primary iq-sign-btn" style="border:none;">
+                                                Đăng xuất <i class="ri-login-box-line ml-2"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                         </div>
-                      </div>
-                   </div>
+                        </div>
+                    @else
+                        <a href="{{ route('user.sign-in') }}" class="iq-waves-effect d-flex align-items-center">
+                            <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user">
+                            <div class="caption">
+                                <h6 class="mb-1 line-height">Khách</h6>
+                                <p class="mb-0 text-primary">Đăng nhập/Đăng ký</p>
+                            </div>
+                        </a>
+                    @endif
                 </li>
              </ul>
           </div>

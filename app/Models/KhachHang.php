@@ -38,5 +38,8 @@ class KhachHang extends Authenticatable // Kế thừa để dùng auth nếu c�
     {
         return $query->where('role', 'khach');
     }
-
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
 }
