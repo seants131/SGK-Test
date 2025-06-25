@@ -43,4 +43,42 @@ class CartController extends Controller
         session(['cart' => $cart]);
         return redirect()->back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
     }
+
+    public function updateAjax(Request $request)
+    {
+        $cart = session()->get('cart', []);
+        $id = $request->input('id');
+        $action = $request->input('action');
+
+        if (isset($cart[$id])) {
+            if ($action === 'increase') {
+                $cart[$id]['quantity'] += 1;
+            } elseif ($action === 'decrease' && $cart[$id]['quantity'] > 1) {
+                $cart[$id]['quantity'] -= 1;
+            }
+            session()->put('cart', $cart);
+            $item = $cart[$id];
+            $total = collect($cart)->sum(function($i) { return $i['price'] * $i['quantity']; });
+            return response()->json([
+                'success' => true,
+                'quantity' => $item['quantity'],
+                'item_total' => number_format($item['price'] * $item['quantity'], 0, ',', '.'),
+                'cart_total' => number_format($total, 0, ',', '.')
+            ]);
+        }
+        return response()->json(['success' => false]);
+    }
+
+    public function removeAjax(Request $request)
+    {
+        $cart = session('cart', []);
+        $id = $request->input('id');
+        unset($cart[$id]);
+        session(['cart' => $cart]);
+        $total = collect($cart)->sum(function($i) { return $i['price'] * $i['quantity']; });
+        return response()->json([
+            'success' => true,
+            'cart_total' => number_format($total, 0, ',', '.')
+        ]);
+    }
 }

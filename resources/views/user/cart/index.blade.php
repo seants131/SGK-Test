@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Giỏ hàng</title>
     @include('user.layout.link_chung')
 </head>
+
 <body>
     <div class="wrapper">
         @include('user.layout.header', ['trang' => 'Giỏ hàng'])
@@ -22,56 +24,76 @@
                                         </div>
                                     </div>
                                     <div class="iq-card-body">
-                                        @if(count($cart) > 0)
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Ảnh</th>
-                                                    <th>Tên sách</th>
-                                                    <th>Giá</th>
-                                                    <th>Số lượng</th>
-                                                    <th>Thành tiền</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php $total = 0; @endphp
-                                                @foreach($cart as $item)
-                                                @php $total += $item['price'] * $item['quantity']; @endphp
-                                                <tr>
-                                                    <td>
-                                                        <img src="{{ asset('uploads/books/' . $item['image']) }}" width="60" class="img-fluid rounded">
-                                                    </td>
-                                                    <td>{{ $item['name'] }}</td>
-                                                    <td>{{ number_format($item['price'], 0, ',', '.') }} đ</td>
-                                                    <td>{{ $item['quantity'] }}</td>
-                                                    <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} đ</td>
-                                                    <td>
-                                                        <form action="{{ route('cart.remove') }}" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="id" value="{{ $item['id'] }}">
-                                                            <button type="submit" class="btn btn-danger btn-sm" title="Xóa">
-                                                                <i class="ri-delete-bin-7-fill"></i>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td colspan="4" class="text-right font-weight-bold">Tổng tiền:</td>
-                                                    <td colspan="2" class="font-weight-bold text-danger">{{ number_format($total, 0, ',', '.') }} đ</td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                        <div class="d-flex justify-content-between mt-3">
-                                            <a href="{{ route('user.home.index') }}" class="btn btn-secondary">Tiếp tục mua hàng</a>
-                                            <a href="#" class="btn btn-success">Thanh toán</a>
-                                        </div>
+                                        @if (count($cart) > 0)
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ảnh</th>
+                                                        <th>Tên sách</th>
+                                                        <th>Giá</th>
+                                                        <th>Số lượng</th>
+                                                        <th>Thành tiền</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php $total = 0; @endphp
+                                                    @foreach ($cart as $item)
+                                                        @php $total += $item['price'] * $item['quantity']; @endphp
+                                                        <tr>
+                                                            <td>
+                                                                <img src="{{ asset('uploads/books/' . $item['image']) }}"
+                                                                    width="60" class="img-fluid rounded">
+                                                            </td>
+                                                            <td>{{ $item['name'] }}</td>
+                                                            <td>{{ number_format($item['price'], 0, ',', '.') }} đ</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-sm btn-light px-2 btn-qty"
+                                                                        data-id="{{ $item['id'] }}"
+                                                                        data-action="decrease"
+                                                                        {{ $item['quantity'] <= 1 ? 'disabled' : '' }}>-
+                                                                    </button>
+                                                                    <input type="text"
+                                                                        value="{{ $item['quantity'] }}"
+                                                                        class="form-control text-center mx-1 qty-input"
+                                                                        style="width: 50px;" readonly
+                                                                        data-id="{{ $item['id'] }}">
+                                                                    <button class="btn btn-sm btn-light px-2 btn-qty"
+                                                                        data-id="{{ $item['id'] }}"
+                                                                        data-action="increase">+
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                            <td>{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}
+                                                                đ</td>
+                                                            <td>
+                                                                <button class="btn btn-danger btn-sm btn-remove"
+                                                                    data-id="{{ $item['id'] }}" title="Xóa">
+                                                                    <i class="ri-delete-bin-7-fill"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="4" class="text-right font-weight-bold">Tổng
+                                                            tiền:</td>
+                                                        <td colspan="2" class="font-weight-bold text-danger">
+                                                            {{ number_format($total, 0, ',', '.') }} đ</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                            <div class="d-flex justify-content-between mt-3">
+                                                <a href="{{ route('user.home.index') }}" class="btn btn-secondary">Tiếp
+                                                    tục mua hàng</a>
+                                                {{-- <a href="#" class="btn btn-success">Thanh toán</a> --}}
+                                            </div>
                                         @else
-                                        <p>Giỏ hàng trống.</p>
-                                        <a href="{{ route('user.home.index') }}" class="btn btn-primary">Về trang chủ</a>
+                                            <p>Giỏ hàng trống.</p>
+                                            <a href="{{ route('user.home.index') }}" class="btn btn-primary">Về trang
+                                                chủ</a>
                                         @endif
                                     </div>
                                 </div>
@@ -88,15 +110,18 @@
                                         <p><b>Chi tiết</b></p>
                                         <div class="d-flex justify-content-between mb-1">
                                             <span>Tổng</span>
-                                            <span>{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }} đ</span>
+                                            <span>{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }}
+                                                đ</span>
                                         </div>
                                         {{-- Có thể bổ sung giảm giá, VAT, vận chuyển nếu muốn --}}
                                         <hr>
                                         <div class="d-flex justify-content-between">
                                             <span class="text-dark"><strong>Tổng thanh toán</strong></span>
-                                            <span class="text-dark"><strong>{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }} đ</strong></span>
+                                            <span class="text-dark"><strong>{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }}
+                                                    đ</strong></span>
                                         </div>
-                                        <a id="place-order" href="#" class="btn btn-primary d-block mt-3 next">Đặt hàng</a>
+                                        <a id="place-order" href="{{ route('checkout.address') }}" class="btn btn-primary d-block mt-3 next">Đặt
+                                            hàng</a>
                                     </div>
                                 </div>
                                 <div class="iq-card">
@@ -130,24 +155,87 @@
             </div>
         </div>
     </div>
-    <footer class="iq-footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a href="#">Chính sách bảo mật</a></li>
-                        <li class="list-inline-item"><a href="#">Điều khoản sử dụng</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 text-right">
-                    Copyright 2020 <a href="#">TVteam</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @include('user.layout.footer')
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.appear.js') }}"></script>
+    <script src="{{ asset('js/countdown.min.js') }}"></script>
+    <script src="{{ asset('js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('js/wow.min.js') }}"></script>
+    <script src="{{ asset('js/apexcharts.js') }}"></script>
+    <script src="{{ asset('js/slick.min.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/smooth-scrollbar.js') }}"></script>
+    <script src="{{ asset('js/lottie.js') }}"></script>
+    <script src="{{ asset('js/core.js') }}"></script>
+    <script src="{{ asset('js/charts.js') }}"></script>
+    <script src="{{ asset('js/animated.js') }}"></script>
+    <script src="{{ asset('js/kelly.js') }}"></script>
+    <script src="{{ asset('js/maps.js') }}"></script>
+    <script src="{{ asset('js/worldLow.js') }}"></script>
+    <script src="{{ asset('js/raphael-min.js') }}"></script>
+    <script src="{{ asset('js/morris.js') }}"></script>
+    <script src="{{ asset('js/morris.min.js') }}"></script>
+    <script src="{{ asset('js/flatpickr.js') }}"></script>
+    <script src="{{ asset('js/style-customizer.js') }}"></script>
+    <script src="{{ asset('js/chart-custom.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    {{-- ajax cho giỏ hàng --}}
+    <script>
+        $(document).ready(function() {
+            // Tăng/giảm số lượng
+            $('.btn-qty').click(function() {
+                var id = $(this).data('id');
+                var action = $(this).data('action');
+                var $row = $(this).closest('tr');
+                $.ajax({
+                    url: '{{ route('cart.update.ajax') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: id,
+                        action: action
+                    },
+                    success: function(res) {
+                        if (res.success) {
+                            $row.find('.qty-input').val(res.quantity);
+                            $row.find('td').eq(4).html(res.item_total + ' đ');
+                            $('#cart-total, .cart-total').html(res.cart_total + ' đ');
+                            // Disable nút giảm nếu quantity <= 1
+                            $row.find('.btn-qty[data-action="decrease"]').prop('disabled', res
+                                .quantity <= 1);
+                        }
+                    }
+                });
+            });
+
+            // Xóa sản phẩm
+            $('.btn-remove').click(function() {
+                var id = $(this).data('id');
+                var $row = $(this).closest('tr');
+                $.ajax({
+                    url: '{{ route('cart.remove.ajax') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: id
+                    },
+                    success: function(res) {
+                        if (res.success) {
+                            $row.remove();
+                            $('#cart-total, .cart-total').html(res.cart_total + ' đ');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
 </body>
+
 </html>

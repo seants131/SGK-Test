@@ -199,6 +199,7 @@
     <script src="{{ asset('js/style-customizer.js') }}"></script>
     <script src="{{ asset('js/chart-custom.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    
 </body>
 
 </html>

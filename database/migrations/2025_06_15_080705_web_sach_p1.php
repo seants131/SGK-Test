@@ -16,11 +16,19 @@ return new class extends Migration {
             $table->enum('role', ['admin', 'khach'])->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('so_dien_thoai')->unique()->nullable();
+
+            // ✅ Thêm địa chỉ mặc định của khách hàng (có thể để null nếu chưa có)
+            $table->string('dia_chi')->nullable();              // Địa chỉ cụ thể
+            $table->string('xa_phuong')->nullable();            // Phường/xã
+            $table->string('quan_huyen')->nullable();           // Quận/huyện
+            $table->string('tinh_thanh_pho')->nullable();       // Tỉnh/thành phố
+
             $table->timestamps();
 
             $table->index('email');
             $table->index('so_dien_thoai');
         });
+
 
         // Bảng nhà xuất bản
         Schema::create('nha_xuat_ban', function (Blueprint $table) {
@@ -46,7 +54,7 @@ return new class extends Migration {
             $table->tinyInteger('TrangThai')->default(1);
             $table->integer('LuotMua')->default(0);
             $table->text('HinhAnh')->nullable();
-            $table->enum('Lop', ['1','2','3','4','5','6','7','8','9','10','11','12'])->nullable();
+            $table->enum('Lop', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'])->nullable();
             $table->unsignedTinyInteger('chiet_khau')->default(0);
 
             $table->unsignedBigInteger('nha_xuat_ban_id')->nullable();
@@ -96,29 +104,43 @@ return new class extends Migration {
         Schema::create('hoa_don', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('nguoi_dung')->nullOnDelete();
+
             $table->date('ngay_mua');
             $table->enum('trang_thai', ['cho_xu_ly', 'dang_giao', 'hoan_thanh', 'huy'])->default('cho_xu_ly');
             $table->enum('hinh_thuc_thanh_toan', ['tien_mat', 'chuyen_khoan'])->default('tien_mat');
-            $table->unsignedTinyInteger('giam_gia')->default(0);
+
+            $table->unsignedTinyInteger('giam_gia')->default(0);       // Mặc định 0%
             $table->unsignedBigInteger('tong_tien')->default(0);
-            $table->integer('tong_so_luong')->default(0);
+            $table->unsignedInteger('tong_so_luong')->default(0);
+
             $table->foreignId('khuyen_mai_id')->nullable()->constrained('khuyen_mai')->nullOnDelete();
+
+            // ✅ Thêm địa chỉ giao hàng cụ thể cho từng đơn hàng
+            $table->string('dia_chi')->nullable();
+            $table->string('xa_phuong')->nullable();
+            $table->string('quan_huyen')->nullable();
+            $table->string('tinh_thanh_pho')->nullable();
+            $table->string('so_dien_thoai')->nullable();    // Người nhận có thể khác người đặt
+            $table->string('email')->nullable();
+
             $table->timestamps();
         });
+
 
         // Bảng chi tiết hóa đơn
         Schema::create('chi_tiet_hoa_don', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hoa_don_id')->constrained('hoa_don')->onDelete('cascade');
-
             $table->unsignedBigInteger('sach_id');
             $table->foreign('sach_id')->references('MaSach')->on('sach')->onDelete('cascade');
 
-            $table->integer('so_luong');
+            $table->unsignedInteger('so_luong');
             $table->unsignedBigInteger('don_gia');
             $table->unsignedBigInteger('thanh_tien');
+
             $table->timestamps();
         });
+
 
         // Bảng liên hệ
         Schema::create('lien_he', function (Blueprint $table) {

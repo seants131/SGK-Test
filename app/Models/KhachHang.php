@@ -3,17 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Nếu dùng để đăng nhập
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class KhachHang extends Authenticatable // Kế thừa để dùng auth nếu cần
+class KhachHang extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // Tên bảng tương ứng
     protected $table = 'nguoi_dung';
 
-    // Các trường có thể gán hàng loạt
     protected $fillable = [
         'name',
         'username',
@@ -21,23 +19,27 @@ class KhachHang extends Authenticatable // Kế thừa để dùng auth nếu c�
         'email',
         'so_dien_thoai',
         'role',
+
+        // Địa chỉ mặc định
+        'dia_chi_mac_dinh',
+        'phuong_xa_mac_dinh',
+        'quan_huyen_mac_dinh',
+        'tinh_thanh_pho_mac_dinh',
     ];
 
-    // Nếu bạn muốn ẩn mật khẩu khi trả về JSON
     protected $hidden = [
         'password',
     ];
 
-    // Nếu có cần casting (nếu có enum hoặc trường kiểu JSON)
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    // Scope: chỉ lấy khách hàng (nếu muốn phân biệt)
     public function scopeKhach($query)
     {
         return $query->where('role', 'khach');
     }
+
     public function getAuthIdentifierName()
     {
         return 'username';
