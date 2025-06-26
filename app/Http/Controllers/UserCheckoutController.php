@@ -41,14 +41,36 @@ class UserCheckoutController extends Controller
             'state' => 'required|string',
         ]);
 
+        if (Auth::check()) {
+            // Đã đăng nhập: cập nhật vào database
+            $user = Auth::user();
+            // Ensure $user is an Eloquent model instance
+            if ($user instanceof \Illuminate\Database\Eloquent\Model) {
+                $user->ho_va_ten = $validated['fname'];
+                $user->email = $validated['email'];
+                $user->so_dien_thoai = $validated['mno'];
+                $user->dia_chi_mac_dinh = $validated['houseno'];
+                $user->tinh_thanh_pho_mac_dinh = $validated['city'];
+                $user->phuong_xa_mac_dinh = $validated['state'];
+                // Nếu có quận/huyện thì bổ sung:
+                // $user->quan_huyen_mac_dinh = $validated['district'];
+                $user->save();
+            }
+        }
+
+        // Lưu vào session cho cả khách vãng lai và đã đăng nhập
         session(['shipping_address' => $validated]);
         return redirect()->route('checkout.payment')->with('success', 'Đã lưu địa chỉ thành công.');
     }
 
     public function goToPayment()
     {
-        // Hiển thị trang thanh toán
-        return view('user.payment'); // Tùy chỉnh lại view 
+        $cart = session('cart', []);
+        $cart_total = 0;
+        foreach ($cart as $item) {
+            $cart_total += $item['price'] * $item['quantity'];
+        }
+        return view('user.checkout.payment', compact('cart_total'));
     }
     // public function showAddressForm()
     // {
