@@ -76,14 +76,6 @@
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td colspan="4" class="text-right font-weight-bold">Tổng
-                                                            tiền:</td>
-                                                        <td colspan="2" class="font-weight-bold text-danger">
-                                                            {{ number_format($total, 0, ',', '.') }} đ</td>
-                                                    </tr>
-                                                </tfoot>
                                             </table>
                                             <div class="d-flex justify-content-between mt-3">
                                                 <a href="{{ route('user.home.index') }}" class="btn btn-secondary">Tiếp
@@ -110,21 +102,19 @@
                                         <p><b>Chi tiết</b></p>
                                         <div class="d-flex justify-content-between mb-1">
                                             <span>Tổng</span>
-                                            <span>{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }}
-                                                đ</span>
+                                            <span id="cart-total">{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }} đ</span>
                                         </div>
                                         {{-- Có thể bổ sung giảm giá, VAT, vận chuyển nếu muốn --}}
                                         <hr>
                                         <div class="d-flex justify-content-between">
                                             <span class="text-dark"><strong>Tổng thanh toán</strong></span>
-                                            <span class="text-dark"><strong>{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }}
-                                                    đ</strong></span>
+                                            <span class="text-dark"><strong id="cart-total-final">{{ isset($total) ? number_format($total, 0, ',', '.') : '0' }} đ</strong></span>
                                         </div>
                                         <a id="place-order" href="{{ route('checkout.address') }}" class="btn btn-primary d-block mt-3 next">Đặt
                                             hàng</a>
                                     </div>
                                 </div>
-                                <div class="iq-card">
+                                {{-- <div class="iq-card">
                                     <div class="card-body iq-card-body p-0 iq-checkout-policy">
                                         <ul class="p-0 m-0">
                                             <li class="d-flex align-items-center">
@@ -147,7 +137,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -204,10 +194,9 @@
                         if (res.success) {
                             $row.find('.qty-input').val(res.quantity);
                             $row.find('td').eq(4).html(res.item_total + ' đ');
-                            $('#cart-total, .cart-total').html(res.cart_total + ' đ');
-                            // Disable nút giảm nếu quantity <= 1
-                            $row.find('.btn-qty[data-action="decrease"]').prop('disabled', res
-                                .quantity <= 1);
+                            $('#cart-total').html(res.cart_total + ' đ');
+                            $('#cart-total-final').html(res.cart_total + ' đ');
+                            $row.find('.btn-qty[data-action="decrease"]').prop('disabled', res.quantity <= 1);
                         }
                     }
                 });
@@ -227,7 +216,8 @@
                     success: function(res) {
                         if (res.success) {
                             $row.remove();
-                            $('#cart-total, .cart-total').html(res.cart_total + ' đ');
+                            $('#cart-total').html(res.cart_total + ' đ');
+                            $('#cart-total-final').html(res.cart_total + ' đ');
                         }
                     }
                 });
