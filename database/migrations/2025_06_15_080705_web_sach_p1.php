@@ -19,7 +19,7 @@ return new class extends Migration {
 
             // ✅ Thêm địa chỉ mặc định của khách hàng (có thể để null nếu chưa có)
             $table->string('dia_chi')->nullable();              // Địa chỉ cụ thể
-            $table->string('xa_phuong')->nullable();            // Phường/xã
+            $table->string('phuong_xa')->nullable();            // Phường/xã
             $table->string('quan_huyen')->nullable();           // Quận/huyện
             $table->string('tinh_thanh_pho')->nullable();       // Tỉnh/thành phố
 
@@ -108,6 +108,12 @@ return new class extends Migration {
             $table->date('ngay_mua');
             $table->enum('trang_thai', ['cho_xu_ly', 'dang_giao', 'hoan_thanh', 'huy'])->default('cho_xu_ly');
             $table->enum('hinh_thuc_thanh_toan', ['tien_mat', 'chuyen_khoan'])->default('tien_mat');
+
+            // Thêm các trường địa chỉ giao hàng
+            $table->string('dia_chi')->nullable();
+            $table->string('phuong_xa')->nullable();
+            $table->string('quan_huyen')->nullable();
+            $table->string('tinh_thanh_pho')->nullable();
 
             $table->unsignedTinyInteger('giam_gia')->default(0);       // Mặc định 0%
             $table->unsignedBigInteger('tong_tien')->default(0);

@@ -21,10 +21,10 @@ class KhachHang extends Authenticatable
         'role',
 
         // Địa chỉ mặc định
-        'dia_chi_mac_dinh',
-        'phuong_xa_mac_dinh',
-        'quan_huyen_mac_dinh',
-        'tinh_thanh_pho_mac_dinh',
+        'dia_chi',
+        'phuong_xa',
+        'quan_huyen',
+        'tinh_thanh_pho',
     ];
 
     protected $hidden = [

@@ -54,6 +54,9 @@
                                 @if (session('success'))
                                     <div class="alert alert-success">{{ session('success') }}</div>
                                 @endif
+                                @if (session('error'))
+                                    <div class="alert alert-danger">{{ session('error') }}</div>
+                                @endif
 
                                 <form action="{{ route('checkout.submit') }}" method="POST">
                                     @csrf
@@ -108,6 +111,17 @@
                                                 <input type="text" class="form-control" name="city"
                                                     value="{{ old('city', $address['city'] ?? '') }}" required>
                                                 @error('city')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Quận/Huyện: *</label>
+                                                <input type="text" class="form-control" name="district"
+                                                    value="{{ old('district', $address['district'] ?? '') }}" required>
+                                                @error('district')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>

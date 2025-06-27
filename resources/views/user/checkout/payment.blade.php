@@ -47,24 +47,27 @@
                                 </div>
                             </div>
                             <div class="iq-card-body">
+                                @if (session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
                                 <form action="{{ route('checkout.placeOrder') }}" method="POST">
                                     @csrf
                                     <div class="form-group">
                                         <div>
-                                            <input type="radio" id="credit" name="payment_method" value="credit" required>
+                                            <input type="radio" id="credit" name="hinh_thuc_thanh_toan" value="chuyen_khoan" required>
                                             <label for="credit">Thẻ Tín dụng / Ghi nợ / ATM</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="momo" name="payment_method" value="momo_zalopay">
+                                            <input type="radio" id="momo" name="hinh_thuc_thanh_toan" value="momo_zalopay">
                                             <label for="momo">Momo/ZaloPay</label>
                                         </div>
-                                        <div>   
-                                            <input type="radio" id="installment" name="payment_method" value="installment">
+                                        <div>
+                                            <input type="radio" id="installment" name="hinh_thuc_thanh_toan" value="installment">
                                             <label for="installment">Trả góp</label>
                                         </div>
                                         <div>
-                                            <input type="radio" id="cod" name="payment_method" value="cod">
-                                            <label for="cod ">Thanh toán khi giao hàng (COD)</label>
+                                            <input type="radio" id="cod" name="hinh_thuc_thanh_toan" value="tien_mat">
+                                            <label for="tien_mat">Thanh toán khi giao hàng (COD)</label>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-3">Tiếp tục</button>
@@ -76,6 +79,22 @@
                         <div class="iq-card">
                             <div class="iq-card-body">
                                 <h4 class="mb-2">Chi tiết đơn hàng</h4>
+                                @php
+                                    $address = session('shipping_address');
+                                @endphp
+
+                                @if($address)
+                                    <div class="mb-2" style="background: #f8f9fa; border-radius: 6px; padding: 12px;">
+                                        <strong>Địa chỉ giao hàng:</strong><br>
+                                        {{ $address['fname'] ?? '' }}<br>
+                                        {{ $address['houseno'] ?? '' }},
+                                        {{ $address['phuong'] ?? $address['state'] ?? '' }},
+                                        {{ $address['quan'] ?? $address['district'] ?? '' }},
+                                        {{ $address['city'] ?? '' }}<br>
+                                        SĐT: {{ $address['mno'] ?? '' }}<br>
+                                        Email: {{ $address['email'] ?? '' }}
+                                    </div>
+                                @endif
                                 <div class="d-flex justify-content-between">
                                     <span>Giá sản phẩm</span>
                                     <span><strong>{{ isset($cart_total) ? number_format($cart_total, 0, ',', '.') : '0' }}đ</strong>
