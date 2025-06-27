@@ -18,15 +18,6 @@ class DonHang extends Model
         'tong_tien',
         'tong_so_luong',
         'khuyen_mai_id',
-
-        // Địa chỉ nhận hàng cho từng đơn
-        'ten_nguoi_nhan',
-        'email_nguoi_nhan',
-        'so_dien_thoai_nguoi_nhan',
-        'dia_chi',
-        'phuong_xa',
-        'quan_huyen',
-        'tinh_thanh_pho',
     ];
 
     protected $casts = [

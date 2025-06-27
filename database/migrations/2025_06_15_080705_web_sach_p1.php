@@ -115,14 +115,6 @@ return new class extends Migration {
 
             $table->foreignId('khuyen_mai_id')->nullable()->constrained('khuyen_mai')->nullOnDelete();
 
-            // ✅ Thêm địa chỉ giao hàng cụ thể cho từng đơn hàng
-            $table->string('dia_chi')->nullable();
-            $table->string('xa_phuong')->nullable();
-            $table->string('quan_huyen')->nullable();
-            $table->string('tinh_thanh_pho')->nullable();
-            $table->string('so_dien_thoai')->nullable();    // Người nhận có thể khác người đặt
-            $table->string('email')->nullable();
-
             $table->timestamps();
         });
 

@@ -141,4 +141,5 @@ Route::middleware(['web'])->group(function () {
     Route::get('/checkout/address', [UserCheckoutController::class, 'showAddressForm'])->name('checkout.address');
     Route::post('/checkout/submit', [UserCheckoutController::class, 'submitAddress'])->name('checkout.submit');
     Route::get('/checkout/payment', [UserCheckoutController::class, 'goToPayment'])->name('checkout.payment'); // Tùy vào flow bạn
+    Route::post('/checkout/place-order', [UserCheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
 });

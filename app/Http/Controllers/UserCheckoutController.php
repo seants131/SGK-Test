@@ -8,6 +8,8 @@ use App\Models\KhachHang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;    
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlacedMail;
 
 class UserCheckoutController extends Controller
 {
@@ -146,8 +148,6 @@ class UserCheckoutController extends Controller
                 'tong_tien' => $tong_tien,
                 'tong_so_luong' => $tong_so_luong,
                 'khuyen_mai_id' => null,
-
-                // Thêm địa chỉ giao hàng riêng cho đơn hàng
                 'ho_ten' => $request->ho_ten,
                 'so_dien_thoai' => $request->so_dien_thoai,
                 'email' => $request->email,
@@ -168,13 +168,17 @@ class UserCheckoutController extends Controller
                 ]);
             }
 
+            // Gửi email xác nhận đơn hàng
+            Mail::to($request->email)->send(new OrderPlacedMail($donHang, $cart));
+
             session()->forget('cart');
             DB::commit();
 
-            return redirect()->route('cart.index')->with('success', 'Đặt hàng thành công!');
+            return redirect()->route('cart.index')->with('success', 'Đặt hàng thành công! Vui lòng kiểm tra email.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Lỗi khi đặt hàng: ' . $e->getMessage());
         }
+        
     }
 }

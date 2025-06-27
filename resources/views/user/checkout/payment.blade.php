@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="iq-card-body">
-                                <form action="#" method="POST">
+                                <form action="{{ route('checkout.placeOrder') }}" method="POST">
                                     @csrf
                                     <div class="form-group">
                                         <div>
@@ -58,13 +58,13 @@
                                             <input type="radio" id="momo" name="payment_method" value="momo_zalopay">
                                             <label for="momo">Momo/ZaloPay</label>
                                         </div>
-                                        <div>
+                                        <div>   
                                             <input type="radio" id="installment" name="payment_method" value="installment">
                                             <label for="installment">Trả góp</label>
                                         </div>
                                         <div>
                                             <input type="radio" id="cod" name="payment_method" value="cod">
-                                            <label for="cod">Thanh toán khi giao hàng (COD)</label>
+                                            <label for="cod ">Thanh toán khi giao hàng (COD)</label>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-3">Tiếp tục</button>
