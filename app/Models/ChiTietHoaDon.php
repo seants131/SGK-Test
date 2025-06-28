@@ -18,7 +18,7 @@ class ChiTietHoaDon extends Model
 
     public function hoaDon()
     {
-        return $this->belongsTo(HoaDon::class, 'hoa_don_id');
+        return $this->belongsTo(DonHang::class, 'hoa_don_id');
     }
 
     public function sach()

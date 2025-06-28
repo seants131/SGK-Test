@@ -74,6 +74,8 @@ cp .env.example .env
 php artisan key:generate
 php artisan config:clear
 php artisan migrate
-php artisan db:seed
+php artisan db:seed NguoiDungSeeder
+php artisan db:seed NhaXuatBanSeeder
+php artisan db:seed SachSeeder
 php artisan serve 
 
