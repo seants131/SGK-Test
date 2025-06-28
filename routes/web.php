@@ -1,76 +1,84 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\LienHeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PhieuNhapController;
 use App\Http\Controllers\UserAuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminAuthController;
-use App\Http\Controllers\AdminProfileController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserCheckoutController;
+use App\Http\Controllers\UserController;
 use App\Mail\OrderConfirmationMail;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\CartController;
-//user
-// Route::get('/', [HomeController::class, 'index'])->name('user.welcome');
-// sign_in_up
+
+// Redirect login route
 Route::get('/login', function () {
-    return redirect()->route('admin.sign-in'); // hoặc đổi sang user login nếu cần
+    return redirect()->route('admin.sign-in'); 
 })->name('login');
 
-// Đăng ký
+/*
+|--------------------------------------------------------------------------
+| User Authentication
+|--------------------------------------------------------------------------
+*/
+
+// User sign up
 Route::get('/sign-up', [UserAuthController::class, 'showSignupForm'])->name('user.sign-up');
-Route::post('/sign-up', [UserAuthController::class, 'signup'])->name('user.sign-up');
+Route::post('/sign-up', [UserAuthController::class, 'signup'])->name('user.sign-up.submit');
 
-// Đăng nhập
+// User sign in
 Route::get('/sign-in', [UserAuthController::class, 'showSigninForm'])->name('user.sign-in');
-Route::post('/sign-in', [UserAuthController::class, 'signin'])->name('user.sign-in');
+Route::post('/sign-in', [UserAuthController::class, 'signin'])->name('user.sign-in.submit');
 
-// Trang đăng ký của admin. Test chức năng đăng ký
+/*
+|--------------------------------------------------------------------------
+| Admin Authentication
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/admin/register', [AdminAuthController::class, 'showRegisterForm'])->name('admin.register');
 Route::post('/admin/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
-// Trang đăng nhập của admin. Test chức năng đăng nhập
-// Định nghĩa route gốc
+
 Route::get('/admin/sign-in', [AdminAuthController::class, 'showSigninForm'])->name('admin.sign-in');
+Route::get('/admin/login', [AdminAuthController::class, 'showSigninForm'])->name('admin.login');
 
-// Gán alias "login" để Laravel auth middleware có thể redirect về đúng route
-Route::get('/admin/login', [AdminAuthController::class, 'showSigninForm'])->name('admin.sign-in');
-
-
-// Xử lý đăng nhập của admin
 Route::post('/admin/sign-in', [AdminAuthController::class, 'signin'])->name('admin.signin');
-// Trang đăng xuất của admin
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-});
-// Auth::routes(); cái này của người dùng mà chưa bt làm.
+/*
+|--------------------------------------------------------------------------
+| Logout Route (Shared)
+|--------------------------------------------------------------------------
+*/
+
 Route::post('/logout', function () {
     Auth::logout();
     return redirect()->route('admin.sign-in')->with('success', 'Đăng xuất thành công');
 })->name('logout');
 
-//admin
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/admin/books', [BookController::class, 'index'])->name('admin.books');
-Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders');
-
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 
     Route::resource('books', BookController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('khachhang', KhachHangController::class);
     Route::resource('lienhe', LienHeController::class);
     Route::resource('phieunhap', PhieuNhapController::class);
+
     Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
@@ -78,22 +86,59 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('/profile/change-password', [AdminProfileController::class, 'changePassword'])->name('profile.password');
 });
 
-Route::get('/signup', [HomeController::class, 'dangKy'])->name('user.auth.dang_ky');
-// tạm thời ghi chú lại
-// Route::get('/login', [HomeController::class, 'dangNhap'])->name('user.auth.dang_nhap');
+/*
+|--------------------------------------------------------------------------
+| User-facing Pages
+|--------------------------------------------------------------------------
+*/
 
+// Home
 Route::get('/', [HomeController::class, 'index'])->name('user.home.index');
+
+// Categories
 Route::get('/categories', [HomeController::class, 'categories'])->name('user.categories.index');
 Route::get('/categories/{id}', [HomeController::class, 'categoryDetail'])->name('user.categories.detail');
+
+// Authors
 Route::get('/authors', [HomeController::class, 'authors'])->name('user.authors.index');
 Route::get('/authors/{id}', [HomeController::class, 'authorDetail'])->name('user.authors.detail');
+
+// Contact
 Route::get('/contact', [HomeController::class, 'contact'])->name('user.contact.index');
 Route::post('/contact', [HomeController::class, 'sendContact'])->name('user.contact.send');
+
+// About
 Route::get('/about', [HomeController::class, 'about'])->name('user.about.index');
+
+// Cart in HomeController
 Route::get('/cart', [HomeController::class, 'cart'])->name('user.cart.index');
 Route::post('/cart/add', [HomeController::class, 'addToCart'])->name('user.cart.add');
+
+// User Profile
 Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
+
+// Book PDF
 Route::get('/books/pdf', [HomeController::class, 'bookPDF'])->name('user.book.pdf');
+
+// Book detail
+Route::get('/sach/{slug}', [HomeController::class, 'bookDetail'])->name('user.books.detail');
+
+/*
+|--------------------------------------------------------------------------
+| User Cart (separate CartController)
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update-ajax', [CartController::class, 'updateAjax'])->name('cart.update.ajax');
+Route::post('/cart/remove-ajax', [CartController::class, 'removeAjax'])->name('cart.remove.ajax');
+
+/*
+|--------------------------------------------------------------------------
+| Checkout
+|--------------------------------------------------------------------------
+*/
 
 Route::prefix('thanh-toan')->name('thanh_toan.')->group(function () {
     Route::get('/test', [UserCheckoutController::class, 'test'])->name('test');
@@ -103,12 +148,46 @@ Route::prefix('thanh-toan')->name('thanh_toan.')->group(function () {
     // Route::get('/xac-nhan', [UserCheckoutController::class, 'xacNhan'])->name('xac_nhan');
 });
 
+Route::middleware(['web'])->group(function () {
+    Route::get('/checkout/address', [UserCheckoutController::class, 'showAddressForm'])->name('checkout.address');
+    Route::post('/checkout/submit', [UserCheckoutController::class, 'submitAddress'])->name('checkout.submit');
+    Route::get('/checkout/payment', [UserCheckoutController::class, 'goToPayment'])->name('checkout.payment');
+    Route::post('/checkout/place-order', [UserCheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
+});
+
+/*
+|--------------------------------------------------------------------------
+| User Account Area (auth protected)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
+    Route::get('/orders', [UserController::class, 'orders'])->name('user.orders.index');
+    Route::get('/orders/{id}', [UserController::class, 'orderDetail'])->name('user.orders.detail');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Signup test route
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/signup', [HomeController::class, 'dangKy'])->name('user.auth.dang_ky');
+// Route::get('/login', [HomeController::class, 'dangNhap'])->name('user.auth.dang_nhap');
+
+/*
+|--------------------------------------------------------------------------
+| Test Mail
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/send-order-mail', function () {
     $order = [
         'id' => 1234,
         'date' => now()->format('d/m/Y'),
         'items' => [
-            ['name' => 'Sách toán 11 chân trờitrời', 'qty' => 2, 'price' => 50000],
+            ['name' => 'Sách toán 11 chân trời', 'qty' => 2, 'price' => 50000],
             ['name' => 'Sách ngữ văn chân trời', 'qty' => 1, 'price' => 75000],
         ],
         'total' => 2 * 50000 + 1 * 75000,
@@ -117,29 +196,4 @@ Route::get('/send-order-mail', function () {
     Mail::to('hellotoilaquan@gmail.com')->send(new OrderConfirmationMail($order));
 
     return 'Đã gửi email xác nhận đơn hàng!';
-});
-
-// use App\Http\Controllers\UserCartController;
-
-// Route::get('/gio-hang', [UserCartController::class, 'index'])->name('cart.index');
-// Route::post('/gio-hang/them', [UserCartController::class, 'add'])->name('cart.add');
-// Route::post('/gio-hang/xoa', [UserCartController::class, 'remove'])->name('cart.remove');
-
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/update-ajax', [CartController::class, 'updateAjax'])->name('cart.update.ajax');
-Route::post('/cart/remove-ajax', [CartController::class, 'removeAjax'])->name('cart.remove.ajax');
-
-Route::get('/sach/{slug}', [HomeController::class, 'bookDetail'])->name('user.books.detail');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
-    Route::get('/orders', [UserController::class, 'orders'])->name('user.orders.index');
-    Route::get('/orders/{id}', [UserController::class, 'orderDetail'])->name('user.orders.detail');
-});
-Route::middleware(['web'])->group(function () {
-    Route::get('/checkout/address', [UserCheckoutController::class, 'showAddressForm'])->name('checkout.address');
-    Route::post('/checkout/submit', [UserCheckoutController::class, 'submitAddress'])->name('checkout.submit');
-    Route::get('/checkout/payment', [UserCheckoutController::class, 'goToPayment'])->name('checkout.payment'); // Tùy vào flow bạn
-    Route::post('/checkout/place-order', [UserCheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
 });
